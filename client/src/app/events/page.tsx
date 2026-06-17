@@ -17,8 +17,8 @@ export default function EventsPage() {
         </div>
       </div>
       <p className="mt-4 text-lg text-gray-600">
-        Events calender here, possibly with info modals upon selecting a
-        specific events
+        Events calendar here, possibly with info modals upon selecting a
+        specific event
       </p>
     </section>
   );

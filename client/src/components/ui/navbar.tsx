@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu , Sprout } from "lucide-react";
+import { Menu, Sprout } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
