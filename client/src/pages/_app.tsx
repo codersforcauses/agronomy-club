@@ -1,3 +1,4 @@
+import Footer from "@/components/ui/Footer";
 import "@/styles/globals.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -10,7 +11,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <Component {...pageProps} />
+      
+      <>
+        <Component {...pageProps} />
+        <Footer />
+      </>
     </QueryClientProvider>
   );
 }
