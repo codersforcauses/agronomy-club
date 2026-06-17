@@ -70,7 +70,7 @@
 
 @layer base {
   body {
-    @apply bg-cream-50 text-soil-800 antialiased;
+    @apply bg-surface text-soil-800 antialiased;
     background-image:
       radial-gradient(
         circle at top left,
