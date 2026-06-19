@@ -33,6 +33,8 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    color-scheme: light;
   }
 
   .dark {
@@ -68,6 +70,35 @@
 
 @layer base {
   body {
-    @apply bg-background text-foreground;
+    @apply bg-surface text-soil-800 antialiased;
+    background-image:
+      radial-gradient(
+        circle at top left,
+        rgba(173, 214, 143, 0.18),
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(191, 109, 44, 0.12),
+        transparent 60%
+      );
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold text-soil-900;
+  }
+
+  a {
+    @apply text-brand-600 transition-colors duration-150 ease-out;
+  }
+
+  a:hover {
+    @apply text-brand-700;
   }
 }

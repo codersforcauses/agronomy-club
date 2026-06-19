@@ -20,7 +20,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -28,6 +28,24 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        brand: {
+          50: "#f5f9f2",
+          100: "#e5f1df",
+          200: "#c7dfbb",
+          300: "#a4ca92",
+          400: "#7db464",
+          500: "#5a9a3d",
+          600: "#3f7d27",
+          700: "#2f601d",
+          800: "#234919",
+          900: "#183313",
+        },
+        soil: {
+          700: "#4a301d",
+          800: "#321f13",
+          900: "#1d110a",
+        },
+        surface: "#fcfbf7",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -56,6 +74,9 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      boxShadow: {
+        card: "0 10px 25px -15px rgba(63, 125, 39, 0.45)",
       },
       borderRadius: {
         lg: "var(--radius)",
