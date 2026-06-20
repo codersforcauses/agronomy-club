@@ -105,10 +105,10 @@ NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ```bash
 cd server
 poetry install
-poetry shell
-python manage.py migrate
-python manage.py createsuperuser  # optional
-python manage.py runserver
+poetry env activate
+poetry run manage.py migrate
+poetry run manage.py createsuperuser  # optional
+poetry run manage.py runserver
 ```
 
 #### 6. Set Up the Frontend (Next.js)
@@ -132,19 +132,19 @@ npm run dev
 cd server
 
 # Run development server
-python manage.py runserver
+poetry run manage.py runserver
 
 # Create migrations
-python manage.py makemigrations
+poetry run manage.py makemigrations
 
 # Apply migrations
-python manage.py migrate
+poetry run manage.py migrate
 
 # Create superuser
-python manage.py createsuperuser
+poetry run manage.py createsuperuser
 
 # Run tests
-python manage.py test
+poetry run manage.py test
 
 # Reset database (nuclear option)
 ./nuke.sh
@@ -185,8 +185,8 @@ npm run format
 If the models are updated, be sure to create a migration:
 
 ```bash
-python manage.py makemigrations # create migration
-python manage.py migrate # apply migrations
+poetry run manage.py makemigrations # create migration
+poetry run manage.py migrate # apply migrations
 ```
 
 ### Nuke the DB
