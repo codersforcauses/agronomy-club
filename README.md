@@ -63,18 +63,20 @@ curl -sSL https://install.python-poetry.org | python3 -
 pip install poetry
 ```
 
-#### 3. Start the Database
-
-```bash
-cd server && docker compose up -d
-```
-
-#### 4. Set Up Environment Variables
+#### 3. Set Up Environment Variables
 
 Before proceeding, create your environment files by copying the examples:
 ```bash
 cp ./client/.env.example ./client/.env && cp ./server/.env.example ./server/.env
 ```
+
+#### 4. Start the Database
+
+```bash
+cd server && docker compose up -d
+```
+
+Note: Your terminal may not support the '&&' metacharacter e.g Powershell, so you can just do the commands individually
 
 **Backend (`.env` in `server/`)**
 ```env
@@ -105,7 +107,11 @@ NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ```bash
 cd server
 poetry install
-poetry shell
+
+#Get into a poetry venv
+eval $(poetry env activate) #Bash/Zsh/Csh
+Invoke-Expression (poetry env activate) #Powershell
+
 python manage.py migrate
 python manage.py createsuperuser  # optional
 python manage.py runserver
