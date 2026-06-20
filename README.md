@@ -63,18 +63,20 @@ curl -sSL https://install.python-poetry.org | python3 -
 pip install poetry
 ```
 
-#### 3. Start the Database
-
-```bash
-cd server && docker compose up -d
-```
-
-#### 4. Set Up Environment Variables
+#### 3. Set Up Environment Variables
 
 Before proceeding, create your environment files by copying the examples:
 ```bash
 cp ./client/.env.example ./client/.env && cp ./server/.env.example ./server/.env
 ```
+
+#### 4. Start the Database
+
+```bash
+cd server && docker compose up -d
+```
+
+Note: Your terminal may not support the '&&' metacharacter e.g Powershell, so you can just do the commands individually
 
 **Backend (`.env` in `server/`)**
 ```env
@@ -105,10 +107,14 @@ NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ```bash
 cd server
 poetry install
-poetry env activate
-poetry run manage.py migrate
-poetry run manage.py createsuperuser  # optional
-poetry run manage.py runserver
+
+#Get into a poetry venv
+eval $(poetry env activate) #Bash/Zsh/Csh
+Invoke-Expression (poetry env activate) #Powershell
+
+python manage.py migrate
+python manage.py createsuperuser  # optional
+python manage.py runserver
 ```
 
 #### 6. Set Up the Frontend (Next.js)
@@ -132,19 +138,19 @@ npm run dev
 cd server
 
 # Run development server
-poetry run manage.py runserver
+python manage.py runserver
 
 # Create migrations
-poetry run manage.py makemigrations
+python manage.py makemigrations
 
 # Apply migrations
-poetry run manage.py migrate
+python manage.py migrate
 
 # Create superuser
-poetry run manage.py createsuperuser
+python manage.py createsuperuser
 
 # Run tests
-poetry run manage.py test
+python manage.py test
 
 # Reset database (nuclear option)
 ./nuke.sh
@@ -185,8 +191,8 @@ npm run format
 If the models are updated, be sure to create a migration:
 
 ```bash
-poetry run manage.py makemigrations # create migration
-poetry run manage.py migrate # apply migrations
+python manage.py makemigrations # create migration
+python manage.py migrate # apply migrations
 ```
 
 ### Nuke the DB
