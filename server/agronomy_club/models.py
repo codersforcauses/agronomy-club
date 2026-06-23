@@ -32,3 +32,13 @@ class Chapters(models.Model):
     desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255)
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
+
+
+class Event(models.Model):
+    """ Model for events information such as title, description, location, date, thumbnail and chapter."""
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    location = models.CharField(max_length=255)
+    date = models.DateTimeField()
+    thumbnail = models.ImageField(upload_to="event_thumbnails/", null=True, blank=True)
+    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="events")
