@@ -7,10 +7,11 @@ from colorfield.fields import ColorField
 
 
 class Chapters(models.Model):
-    id = models.AutoField(primary_key=True, auto_created=True, editable=False, unique=True)
+    id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     name = models.CharField(max_length=255)
     abbrev = models.CharField(max_length=255)
-    logo = models.URLField()
+    # Store chapter logos in media/chapter_logos/ directory. Need to also include default logo for when chapter does not provide one.
+    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png')
     location = models.CharField(max_length=255)
     desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255)
