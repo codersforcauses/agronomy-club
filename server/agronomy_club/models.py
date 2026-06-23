@@ -5,6 +5,26 @@ from colorfield.fields import ColorField  # noqa
 # Documentation can be found here: https://github.com/fabiocaccamo/django-colorfield#readme
 
 
+
+@staticmethod
+def generate_random_hex():
+    import random
+
+    return "#{:06x}".format(random.randint(0, 0xFFFFFF))  # Generate random hex colour code
+
+
+# Should only be ran once when new chapter is created with no provided color.
+# Can also be delegated to the form if needed instead of the model, but this is more convenient for now.
+@staticmethod
+def random_color():
+    while True:
+        new_color = generate_random_hex()
+
+        # If color does not exist yet in database then return it, otherwise generate a new one
+        if not Chapters.objects.filter(colour=new_color).exists():
+            return new_color   
+
+
 class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     name = models.CharField(max_length=255)
@@ -14,21 +34,4 @@ class Chapters(models.Model):
     location = models.CharField(max_length=255)
     desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255)
-    colour = ColorField(default=lambda: Chapters.random_color(), unique=True, editable=True)  # lambda function used to generate new random color
-
-    @staticmethod
-    def generate_random_hex():
-        import random
-
-        return "#{:06x}".format(random.randint(0, 0xFFFFFF))  # Generate random hex colour code
-
-    # Should only be ran once when new chapter is created with no provided color.
-    # Can also be delegated to the form if needed instead of the model, but this is more convenient for now.
-    @staticmethod
-    def random_color():
-        while True:
-            new_color = Chapters.generate_random_hex()
-
-            # If color does not exist yet in database then return it, otherwise generate a new one
-            if not Chapters.objects.filter(colour=new_color).exists():
-                return new_color
+    colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
