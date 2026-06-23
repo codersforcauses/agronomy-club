@@ -1,10 +1,34 @@
 from django.db import models
+from colorfield.fields import ColorField  
 
 
 # Model for chapters information such as logo, location, description and email. Chapter members should be stored in a seperate model.
+# This model uses django-colorfield to store the colour of the chapter as well as provide a color picker widget in admin panel.
+# Documentation can be found here: https://github.com/fabiocaccamo/django-colorfield#readme
 class Chapters(models.Model):
-    id = models.AutoField(primary_key=True, one_to_many=True, editable=False, unique=True)
+    id = models.AutoField(primary_key=True, auto_created=True, editable=False, unique=True)
+    name = models.CharField(max_length=255)
+    abbrev = models.CharField(max_length=255)
     logo = models.URLField()
     location = models.CharField(max_length=255)
     desc = models.TextField()
     email = models.EmailField(max_length=255)
+    colour = ColorField(default=lambda: Chapters.random_color(), unique=True, editable=True) # lambda function used to generate new random color
+
+
+    @staticmethod
+    def generate_random_hex():
+        import random
+        
+        return "#{:06x}".format(random.randint(0, 0xFFFFFF)) # Generate random hex colour code
+
+
+    # Should only be ran once when new chapter is created with no provided color.
+    # Can also be delegated to the form if needed instead of the model, but this is more convenient for now.
+    @staticmethod
+    def random_color():
+        while True:
+            new_color = Chapters.generate_random_hex()
+            if not Chapters.objects.filter(colour=new_color).exists(): # If color does not exist yet in database then return it, otherwise generate a new one
+                return new_color
+        
