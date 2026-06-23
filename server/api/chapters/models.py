@@ -12,7 +12,7 @@ class Chapters(models.Model):
     abbrev = models.CharField(max_length=255)
     logo = models.URLField()
     location = models.CharField(max_length=255)
-    desc = models.TextField()
+    desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255)
     colour = ColorField(default=lambda: Chapters.random_color(), unique=True, editable=True)  # lambda function used to generate new random color
 
