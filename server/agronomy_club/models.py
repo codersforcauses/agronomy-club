@@ -5,7 +5,6 @@ from colorfield.fields import ColorField  # noqa
 # Documentation can be found here: https://github.com/fabiocaccamo/django-colorfield#readme
 
 
-@staticmethod
 def generate_random_hex():
     import random
 
@@ -14,7 +13,6 @@ def generate_random_hex():
 
 # Should only be ran once when new chapter is created with no provided color.
 # Can also be delegated to the form if needed instead of the model, but this is more convenient for now.
-@staticmethod
 def random_color():
     while True:
         new_color = generate_random_hex()
