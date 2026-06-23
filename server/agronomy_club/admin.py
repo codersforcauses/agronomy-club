@@ -1,5 +1,5 @@
 from django.contrib import admin  # noqa
-from api.chapters.models import Chapters
+from agronomy_club.models import Chapters  # noqa
 
 
 # Register your models here.
