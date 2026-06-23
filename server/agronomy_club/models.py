@@ -5,7 +5,6 @@ from colorfield.fields import ColorField  # noqa
 # Documentation can be found here: https://github.com/fabiocaccamo/django-colorfield#readme
 
 
-
 @staticmethod
 def generate_random_hex():
     import random
@@ -22,7 +21,7 @@ def random_color():
 
         # If color does not exist yet in database then return it, otherwise generate a new one
         if not Chapters.objects.filter(colour=new_color).exists():
-            return new_color   
+            return new_color
 
 
 class Chapters(models.Model):
