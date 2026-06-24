@@ -45,3 +45,6 @@ class Event(models.Model):
     date = models.DateTimeField()
     thumbnail = models.ImageField(upload_to="event_thumbnails/", null=True, blank=True)
     chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="events")
+
+    def __str__(self):
+        return f"{self.title} - {self.chapter}"
