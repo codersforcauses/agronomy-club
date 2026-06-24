@@ -50,12 +50,11 @@ class ResourceTypeTag(models.Model):
 
 class Resource(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    chapter_id = models.ForeignKey(
-        Chapters,
-        on_delete=models.CASCADE,
-        related_name="resources"
-    )
+    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="resources")
     name = models.CharField(max_length=100)
     file = models.FileField(upload_to=resource_upload_path)
     upload_date = models.DateTimeField(auto_now_add=True)
     type_tags = models.ManyToManyField(ResourceTypeTag, blank=True, related_name="resources")
+
+    def __str__(self):
+        return f"{self.name} - {self.chapter}"
