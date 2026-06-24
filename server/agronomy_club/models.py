@@ -44,5 +44,5 @@ class Resources(models.Model):
         on_delete=models.CASCADE,
         related_name="resources"
     )
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)
     link = models.URLField(max_length=255)
