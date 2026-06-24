@@ -50,10 +50,12 @@ class Event(models.Model):
         return f"{self.title} - {self.chapter}"
 
 
+# Resource file upload path generator grouped by chapters
 def resource_upload_path(instance, file_name):
-    return f'resources/chapter_{instance.chapter_id.id}/{file_name}'
+    return f'resources/chapter_{instance.chapter.id}/{file_name}'
 
 
+# Resource type tags for filter
 class ResourceTypeTag(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
