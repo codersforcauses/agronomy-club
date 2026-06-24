@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -48,10 +47,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "colorfield",
     "django_extensions",
     "rest_framework",
     "corsheaders",
     "api.healthcheck",
+    "agronomy_club"
 ]
 
 MIDDLEWARE = [
@@ -129,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en-au"
 
 TIME_ZONE = "UTC"
 
