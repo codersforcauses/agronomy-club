@@ -37,6 +37,10 @@ class Chapters(models.Model):
         return str(self.name)
 
 
+def resource_upload_path(instance, file_name):
+    return f'resources/chapter_{instance.chapter_id.id}/{file_name}'
+
+
 class Resources(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     chapter_id = models.ForeignKey(
@@ -45,4 +49,4 @@ class Resources(models.Model):
         related_name="resources"
     )
     name = models.CharField(max_length=100)
-    link = models.URLField(max_length=255)
+    file = models.FileField(upload_to=resource_upload_path)
