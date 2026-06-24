@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { CommitteeMemberCard } from "@/components/ui/CommitteeMemberCard";
+
 export const metadata: Metadata = {
   title: "About | Agronomy Club",
   description:
     "Discover the purpose, values, and impact strategy guiding the Agronomy Club.",
 };
+
+const committeeMembers = [
+  { name: "Member 1", position: "President", photo: "" },
+  { name: "Member 2", position: "Vice-President", photo: "" },
+  { name: "Member 3", position: "Secretary", photo: "" },
+  { name: "Member 4", position: "Treasurer", photo: "" },
+];
 
 export default function AboutPage() {
   return (
@@ -45,6 +54,22 @@ export default function AboutPage() {
               agri-food workforce.
             </li>
           </ul>
+        </div>
+        <div>
+          <p className="text-sm uppercase tracking-widest text-green-600">
+            The Committee
+          </p>
+          {/*<h2 className = "text-2xl font-bold text-gray-900">The Committee</h2>*/}
+          <div className="mt-6 grid grid-cols-4 gap-6">
+            {committeeMembers.map((member) => (
+              <CommitteeMemberCard
+                key={member.name}
+                name={member.name}
+                position={member.position}
+                photo={member.photo}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
