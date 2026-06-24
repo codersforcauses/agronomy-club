@@ -36,8 +36,8 @@ class Chapters(models.Model):
 
 class Event(models.Model):
     """ Model for events information such as title, description, location, date, thumbnail and chapter."""
-    title = models.CharField(max_length=255)
-    description = models.TextField()
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
     date = models.DateTimeField()
     thumbnail = models.ImageField(upload_to="event_thumbnails/", null=True, blank=True)
