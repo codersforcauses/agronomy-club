@@ -33,6 +33,9 @@ class Chapters(models.Model):
     email = models.EmailField(max_length=255)
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
 
+    def __str__(self):
+        return str(self.name)
+
 
 class Event(models.Model):
     """ Model for events information such as title, description, location, date, thumbnail and chapter."""
