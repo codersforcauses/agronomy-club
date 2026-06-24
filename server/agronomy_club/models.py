@@ -41,7 +41,14 @@ def resource_upload_path(instance, file_name):
     return f'resources/chapter_{instance.chapter_id.id}/{file_name}'
 
 
-class Resources(models.Model):
+class ResourceTypeTag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return str(self.name)
+
+
+class Resource(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     chapter_id = models.ForeignKey(
         Chapters,
@@ -50,3 +57,5 @@ class Resources(models.Model):
     )
     name = models.CharField(max_length=100)
     file = models.FileField(upload_to=resource_upload_path)
+    upload_date = models.DateTimeField(auto_now_add=True)
+    type_tags = models.ManyToManyField(ResourceTypeTag, blank=True, related_name="resources")
