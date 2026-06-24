@@ -34,4 +34,4 @@ class Chapters(models.Model):
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
 
     def __str__(self):
-        return self.name
+        return str(self.name)
