@@ -32,3 +32,6 @@ class Chapters(models.Model):
     desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255)
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
+
+    def __str__(self):
+        return self.name
