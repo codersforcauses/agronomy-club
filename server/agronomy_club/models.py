@@ -32,3 +32,14 @@ class Chapters(models.Model):
     desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255)
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
+
+
+class Resources(models.Model):
+    id = models.AutoField(primary_key=True, auto_created=True, unique=True)
+    chapter_id = models.ForeignKey(
+        Chapters,
+        on_delete=models.CASCADE,
+        related_name="resources"
+    )
+    name = models.CharField(max_length=255)
+    link = models.URLField(max_length=255)
