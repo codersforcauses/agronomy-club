@@ -50,11 +50,6 @@ class Event(models.Model):
         return f"{self.title} - {self.chapter}"
 
 
-# Resource file upload path generator grouped by chapters
-def resource_upload_path(instance, file_name):
-    return f'resources/chapter_{instance.chapter.id}/{file_name}'
-
-
 # Resource type tags for filter
 class ResourceTypeTag(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -67,7 +62,7 @@ class Resource(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="resources")
     name = models.CharField(max_length=100)
-    file = models.FileField(upload_to=resource_upload_path)
+    link = models.URLField(max_length=255)
     upload_date = models.DateTimeField(auto_now_add=True)
     type_tags = models.ManyToManyField(ResourceTypeTag, blank=True, related_name="resources")
 
