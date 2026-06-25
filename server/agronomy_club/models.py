@@ -16,6 +16,8 @@ def generate_random_hex():
 def random_color():
     while True:
         new_color = generate_random_hex()
+
+        # If color does not exist yet in database then return it, otherwise generate a new one
         if not Chapters.objects.filter(colour=new_color).exists():
             return new_color
 
@@ -48,10 +50,33 @@ class Event(models.Model):
         return f"{self.title} - {self.chapter}"
 
 
-# Create your models here.
 class Quiz(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=100)
     public = models.BooleanField()
     chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
     quiz_data = models.JSONField()
+
+    def __str__(self):
+        return f"{self.name} - {self.chapter}"
+
+
+# Resource type tags for filter
+class ResourceTypeTag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    color = ColorField(default=random_color, unique=True, editable=True)
+
+    def __str__(self):
+        return str(self.name)
+
+
+class Resource(models.Model):
+    id = models.AutoField(primary_key=True, auto_created=True, unique=True)
+    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="resources")
+    name = models.CharField(max_length=100)
+    link = models.URLField(max_length=255)
+    upload_date = models.DateTimeField(auto_now_add=True)
+    type_tags = models.ManyToManyField(ResourceTypeTag, blank=True, related_name="resources")
+
+    def __str__(self):
+        return f"{self.name} - {self.chapter}"
