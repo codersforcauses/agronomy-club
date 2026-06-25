@@ -9,4 +9,5 @@ class ChaptersAdmin(admin.ModelAdmin):
     search_fields = ('id', 'name', 'abbrev', 'location')
     pass
 
+
 admin.site.register(Quiz)

@@ -55,3 +55,4 @@ class Quiz(models.Model):
     chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
     quiz_data = models.JSONField()
+    
