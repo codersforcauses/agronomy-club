@@ -1,5 +1,5 @@
 import datetime  # noqa
-from django.core.validators import MaxValueValidator,MinValueValidator  # noqa
+from django.core.validators import MaxValueValidator, MinValueValidator  # noqa
 from django.db import models  # noqa
 from colorfield.fields import ColorField  # noqa
 
@@ -9,87 +9,87 @@ from colorfield.fields import ColorField  # noqa
 
 
 def generate_random_hex():
-	import random
+    import random
 
-	return "#{:06x}".format(random.randint(0, 0xFFFFFF))  # Generate random hex colour code
+    return "#{:06x}".format(random.randint(0, 0xFFFFFF))  # Generate random hex colour code
 
 
 # Should only be ran once when new chapter is created with no provided color.
 # Can also be delegated to the form if needed instead of the model, but this is more convenient for now.
 def random_color():
-	while True:
-		new_color = generate_random_hex()
+    while True:
+        new_color = generate_random_hex()
 
-		# If color does not exist yet in database then return it, otherwise generate a new one
-		if not Chapters.objects.filter(colour=new_color).exists():
-			return new_color
+        # If color does not exist yet in database then return it, otherwise generate a new one
+        if not Chapters.objects.filter(colour=new_color).exists():
+            return new_color
 
 
 # Validators for graduation year
 def current_year():
-	return datetime.date.today().year
-
+    return datetime.date.today().year
 
 
 def max_value_curr_year(value):
-	return MaxValueValidator(current_year()+12)(value)
+    return MaxValueValidator(current_year() + 12)(value)
 
 
 class Chapters(models.Model):
-	id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-	name = models.CharField(max_length=255)
-	abbrev = models.CharField(max_length=255)
-	# Store chapter logos in media/chapter_logos/ directory. Need to also include default logo for when chapter does not provide one.
-	logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png')
-	location = models.CharField(max_length=255)
-	desc = models.TextField(max_length=5000)
-	email = models.EmailField(max_length=255)
-	colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
+    id = models.AutoField(primary_key=True, auto_created=True, unique=True)
+    name = models.CharField(max_length=255)
+    abbrev = models.CharField(max_length=255)
+    # Store chapter logos in media/chapter_logos/ directory. Need to also include default logo for when chapter does not provide one.
+    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png')
+    location = models.CharField(max_length=255)
+    desc = models.TextField(max_length=5000)
+    email = models.EmailField(max_length=255)
+    colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
 
-	def __str__(self):
-		return str(self.name)
+    def __str__(self):
+        return str(self.name)
 
 
 class Event(models.Model):
-	""" Model for events information such as title, description, location, date, thumbnail and chapter."""
-	title = models.CharField(max_length=100)
-	description = models.CharField(max_length=255)
-	location = models.CharField(max_length=255)
-	date = models.DateTimeField()
-	thumbnail = models.ImageField(upload_to="event_thumbnails/", null=True, blank=True)
-	chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="events")
+    """ Model for events information such as title, description, location, date, thumbnail and chapter."""
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    date = models.DateTimeField()
+    thumbnail = models.ImageField(upload_to="event_thumbnails/", null=True, blank=True)
+    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="events")
 
-	def __str__(self):
-		return f"{self.title} - {self.chapter}"
+    def __str__(self):
+        return f"{self.title} - {self.chapter}"
 
 
 # Resource type tags for filter
 class ResourceTypeTag(models.Model):
-	name = models.CharField(max_length=100, unique=True)
-	color = ColorField(default=random_color, unique=True, editable=True)
+    name = models.CharField(max_length=100, unique=True)
+    color = ColorField(default=random_color, unique=True, editable=True)
 
-	def __str__(self):
-		return str(self.name)
+    def __str__(self):
+        return str(self.name)
 
 
 class Resource(models.Model):
-	id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-	chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="resources")
-	name = models.CharField(max_length=100)
-	link = models.URLField(max_length=255)
-	upload_date = models.DateTimeField(auto_now_add=True)
-	type_tags = models.ManyToManyField(ResourceTypeTag, blank=True, related_name="resources")
+    id = models.AutoField(primary_key=True, auto_created=True, unique=True)
+    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="resources")
+    name = models.CharField(max_length=100)
+    link = models.URLField(max_length=255)
+    upload_date = models.DateTimeField(auto_now_add=True)
+    type_tags = models.ManyToManyField(ResourceTypeTag, blank=True, related_name="resources")
 
-	def __str__(self):
-		return f"{self.name} - {self.chapter}"
+    def __str__(self):
+        return f"{self.name} - {self.chapter}"
+
 
 class Users(models.Model):
-	id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-	full_name = models.CharField(max_length=100)
-	grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
-	discipline = models.CharField(max_length=100)
-	email = models.EmailField(max_length=255, unique=True)
-	global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
-   
-	def __str__(self):
-		return f"{self.full_name} - {self.global_role}"
+    id = models.AutoField(primary_key=True, auto_created=True, unique=True)
+    full_name = models.CharField(max_length=100)
+    grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
+    discipline = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255, unique=True)
+    global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
+
+    def __str__(self):
+        return f"{self.full_name} - {self.global_role}"
