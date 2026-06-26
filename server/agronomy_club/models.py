@@ -30,6 +30,7 @@ def current_year():
 	return datetime.date.today().year
 
 
+
 def max_value_curr_year(value):
 	return MaxValueValidator(current_year()+12)(value)
 
@@ -81,7 +82,6 @@ class Resource(models.Model):
 
 	def __str__(self):
 		return f"{self.name} - {self.chapter}"
-
 
 class Users(models.Model):
 	id = models.AutoField(primary_key=True, auto_created=True, unique=True)
