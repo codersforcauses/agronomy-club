@@ -29,6 +29,7 @@ def random_color():
 def current_year():
     return datetime.date.today().year
 
+
 def max_value_curr_year(value):
     return MaxValueValidator(current_year()+12)(value)
 
@@ -82,15 +83,13 @@ class Resource(models.Model):
         return f"{self.name} - {self.chapter}"
 
 
-
 class Users(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     full_name = models.CharField(max_length=100)
     grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
     discipline = models.CharField(max_length=100)
     email = models.EmailField(max_length=255, unique=True)
-    global_role  = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
+    global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
    
     def __str__(self):
         return f"{self.full_name} - {self.global_role}"
-    
