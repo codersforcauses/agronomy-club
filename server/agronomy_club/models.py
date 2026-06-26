@@ -35,3 +35,37 @@ class Chapters(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class Event(models.Model):
+    """ Model for events information such as title, description, location, date, thumbnail and chapter."""
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    date = models.DateTimeField()
+    thumbnail = models.ImageField(upload_to="event_thumbnails/", null=True, blank=True)
+    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="events")
+
+    def __str__(self):
+        return f"{self.title} - {self.chapter}"
+
+
+# Resource type tags for filter
+class ResourceTypeTag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    color = ColorField(default=random_color, unique=True, editable=True)
+
+    def __str__(self):
+        return str(self.name)
+
+
+class Resource(models.Model):
+    id = models.AutoField(primary_key=True, auto_created=True, unique=True)
+    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="resources")
+    name = models.CharField(max_length=100)
+    link = models.URLField(max_length=255)
+    upload_date = models.DateTimeField(auto_now_add=True)
+    type_tags = models.ManyToManyField(ResourceTypeTag, blank=True, related_name="resources")
+
+    def __str__(self):
+        return f"{self.name} - {self.chapter}"
