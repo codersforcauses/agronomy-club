@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                             ("alumni", "Alumni"),
                             ("user", "User"),
                         ],
-                        default="member",
+                        default="user",
                         max_length=100,
                     ),
                 ),

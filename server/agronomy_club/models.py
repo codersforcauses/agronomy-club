@@ -89,8 +89,8 @@ class Users(models.Model):
     grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
     discipline = models.CharField(max_length=100)
     email = models.EmailField(max_length=255, unique=True)
-    global_role  = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='member')
+    global_role  = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
    
     def __str__(self):
-        return f"{self.full_name} - {self.chapter}"
+        return f"{self.full_name} - {self.global_role}"
     
