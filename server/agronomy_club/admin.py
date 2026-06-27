@@ -1,6 +1,5 @@
 from django.contrib import admin  # noqa
-from agronomy_club.models import Chapters, Quiz  # noqa
-from agronomy_club.models import Chapters, Resource, ResourceTypeTag  # noqa
+from agronomy_club.models import Users, Chapters, Resource, ResourceTypeTag  # noqa
 
 
 # Register your models here.
@@ -25,3 +24,10 @@ class ResourceAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'link', 'chapter', 'upload_date')
     search_fields = ('id', 'name', 'link')
     list_filter = ('type_tags', 'chapter')
+
+
+@admin.register(Users)
+class UsersAdmin(admin.ModelAdmin):
+    list_display = ('id', 'full_name', 'grad_yr', 'discipline', 'email', 'global_role')
+    search_fields = ('id', 'full_name', 'discipline',)
+    list_filter = ('grad_yr', 'global_role')
