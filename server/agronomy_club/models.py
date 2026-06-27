@@ -1,5 +1,6 @@
 from django.db import models  # noqa
 from colorfield.fields import ColorField  # noqa
+
 # Model for chapters information such as logo, location, description and email. Chapter members should be stored in a seperate model.
 # This model uses django-colorfield to store the colour of the chapter as well as provide a color picker widget in admin panel.
 # Documentation can be found here: https://github.com/fabiocaccamo/django-colorfield#readme
@@ -7,7 +8,6 @@ from colorfield.fields import ColorField  # noqa
 
 def generate_random_hex():
     import random
-
     return "#{:06x}".format(random.randint(0, 0xFFFFFF))  # Generate random hex colour code
 
 
@@ -48,6 +48,17 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.chapter}"
+
+
+class Quiz(models.Model):
+    name = models.CharField(max_length=100)
+    public = models.BooleanField()
+    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE)
+    upload_date = models.DateTimeField(auto_now_add=True)
+    quiz_data = models.JSONField()
+
+    def __str__(self):
+        return f"{self.name} - {self.chapter}"
 
 
 # Resource type tags for filter
