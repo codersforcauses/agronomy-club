@@ -27,19 +27,23 @@ function QuizListItem({
   uploadDate,
 }: QuizListItemProps) {
   return (
-    <div className="flex w-full flex-col">
-      <Item className="shadow-md">
+    <div className="flex w-full flex-col rounded-md shadow-md">
+      <Item size="default" className="pb-0 pl-0 pt-0">
         <div
           style={{ "--chapter-color": chapterColor } as React.CSSProperties}
-          className="h-full w-2 rounded-l-md bg-[var(--chapter-color)]"
-        ></div>
-        <ItemContent>
-          <ItemTitle>{quizName}</ItemTitle>
-          <div className="justify-between">
-            <ItemDescription className="text-left">
-              created by {chapter}
+          className="m-0 w-2 self-stretch rounded-l-md bg-[var(--chapter-color)]"
+        />
+        <ItemContent className="p-3 pb-4 pt-4">
+          <ItemTitle className="text-base font-semibold">{quizName}</ItemTitle>
+          <div className="flex flex-col">
+            <ItemDescription className="text-(--accent) break-normal text-left">
+              <span className="italic">created by </span>
+              {chapter}
             </ItemDescription>
-            <div className="text-right">uploaded on {uploadDate}</div>
+            <div className="ml-8 mt-1 text-right align-text-bottom text-xs text-muted-foreground">
+              <span className="italic">uploaded on </span>
+              {uploadDate}
+            </div>
           </div>
         </ItemContent>
         <ItemActions>
