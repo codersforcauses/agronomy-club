@@ -1,5 +1,7 @@
 from django.db import models  # noqa
 from colorfield.fields import ColorField  # noqa
+import datetime  # noqa
+from django.core.validators import MaxValueValidator, MinValueValidator  # noqa
 
 # Model for chapters information such as logo, location, description and email. Chapter members should be stored in a seperate model.
 # This model uses django-colorfield to store the colour of the chapter as well as provide a color picker widget in admin panel.
@@ -20,6 +22,15 @@ def random_color():
         # If color does not exist yet in database then return it, otherwise generate a new one
         if not Chapters.objects.filter(colour=new_color).exists():
             return new_color
+
+
+# Validators for graduation year
+def current_year():
+    return datetime.date.today().year
+
+
+def max_value_curr_year(value):
+    return MaxValueValidator(current_year() + 12)(value)
 
 
 class Chapters(models.Model):
@@ -80,3 +91,15 @@ class Resource(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.chapter}"
+
+
+class Users(models.Model):
+    id = models.AutoField(primary_key=True, auto_created=True, unique=True)
+    full_name = models.CharField(max_length=100)
+    grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
+    discipline = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255, unique=True)
+    global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
+
+    def __str__(self):
+        return f"{self.full_name} - {self.global_role}"
