@@ -14,13 +14,35 @@ import {
 } from "@/components/ui/item";
 
 type QuizListItemProps = {
+  /** The name of the quiz. */
   quizName: string;
+  /** The chapter that uploaded the quiz. */
   chapter: string;
+  /** The chapter's colour hex. */
   chapterColor: string;
+  /** The quiz's upload date. */
   uploadDate: string;
+  /** Called when the user clicks the Download button. */
   onDownload: () => void;
 };
 
+/**
+ * Displays a quiz as a card with its name, chapter, upload date, and a download button.
+ *
+ * The `onDownload` callback is invoked when the user clicks the Download button.
+ *
+ * @example
+ * ```tsx
+ * <QuizListItem
+ *   quizName="Name of Quiz"
+ *   chapter="Name of Chapter"
+ *   chapterColor="#800851"
+ *   uploadDate="27/6/2026"
+ *   onDownload={() => downloadQuiz()}
+ * />
+ * ```
+ *
+ */
 function QuizListItem({
   quizName,
   chapter,
