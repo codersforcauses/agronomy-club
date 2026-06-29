@@ -17,7 +17,7 @@ class ResourceTypeTagListAPIView(generics.ListAPIView):
     queryset = ResourceTypeTag.objects.all()
     serializer_class = ResourceTypeTagSerializer
 
-    # TODO: guest permission for GET (list)
+    # TODO: guest permission
 
 
 class ResourceListCreateAPIView(generics.ListCreateAPIView):
