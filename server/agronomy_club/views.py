@@ -21,8 +21,17 @@ class ResourceTypeTagListAPIView(generics.ListAPIView):
 
 
 class ResourceListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Resource.objects.all().order_by("-upload_date")
     serializer_class = ResourceSerializer
+
+    def get_queryset(self):
+        self.queryset = Resource.objects.all().order_by("-upload_date")
+        tags = self.request.GET.get("tags")
+        if tags:
+            tag_ids = [t for t in tags.split(",") if t.strip().isdigit()]
+            if tag_ids:
+                self.queryset = self.queryset.filter(type_tags__id__in=tag_ids).distinct()
+
+        return self.queryset
 
     # TODO: guest permission for GET (list), chapter admin permission for POST (create)
 
