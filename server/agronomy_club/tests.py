@@ -128,7 +128,7 @@ class ResourceModelSmokeTests(TestCase):
                     color='#111111'
                 )
 
-    def test_cascade_delete_chapter(self):
+    def test_cascade_delete_chapter_on_resource(self):
         resource = Resource.objects.create(
             chapter=self.chapter,
             name='valorant cheat client',
@@ -141,7 +141,7 @@ class ResourceModelSmokeTests(TestCase):
 
         self.assertEqual(Resource.objects.filter(pk=resource.pk).count(), 0)
 
-    def test_multiple_tags(self):
+    def test_multiple_resource_tags(self):
         tag1 = ResourceTypeTag.objects.create(name='game')
         tag2 = ResourceTypeTag.objects.create(name='docs')
 
@@ -158,7 +158,7 @@ class ResourceModelSmokeTests(TestCase):
         self.assertIn(tag1, saved_resource.type_tags.all())
         self.assertIn(tag2, saved_resource.type_tags.all())
 
-    def test_reject_invalid_url(self):
+    def test_reject_invalid_resource_url(self):
         resource = Resource(
             chapter=self.chapter,
             name='valorant cheat client',
