@@ -13,18 +13,11 @@ def ping(request):
     return HttpResponse("Pong!", status=200)
 
 
-class ResourceTypeTagListAPIView(generics.ListAPIView):
+class ResourceTypeTagListCreateAPIView(generics.ListCreateAPIView):
     queryset = ResourceTypeTag.objects.all()
     serializer_class = ResourceTypeTagSerializer
 
-    # TODO: guest permission
-
-
-class ResourceTypeTagCreateAPIView(generics.CreateAPIView):
-    queryset = ResourceTypeTag.objects.all()
-    serializer_class = ResourceTypeTagSerializer
-
-    # TODO: super admin permission
+    # TODO: guest permission for GET (list), super admin permission for POST (create)
 
 
 class ResourceTypeTagRetreiveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -34,18 +27,11 @@ class ResourceTypeTagRetreiveUpdateDestroyAPIView(generics.RetrieveUpdateDestroy
     # TODO: super admin permission
 
 
-class ResourceListAPIView(generics.ListAPIView):
+class ResourceListCreateAPIView(generics.ListCreateAPIView):
     queryset = Resource.objects.all()
     serializer_class = ResourceSerializer
 
-    # TODO: guest permission
-
-
-class ResourceCreateAPIView(generics.CreateAPIView):
-    queryset = Resource.objects.all()
-    serializer_class = ResourceSerializer
-
-    # TODO: chapter admin permission
+    # TODO: guest permission for GET (list), chapter admin permission for POST (create)
 
 
 class ResourceRetreiveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
