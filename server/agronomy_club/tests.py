@@ -75,14 +75,8 @@ class UserModelMockUnitTests(SimpleTestCase):
 
 
 class ResourceModelSmokeTests(TestCase):
-    def tearDown(self):
-        Resource.objects.all().delete()
-        Chapters.objects.all().delete()
-        ResourceTypeTag.objects.all().delete()
-        super().tearDown()
-
-    def test_can_create_and_read_resource(self):
-        chapter = Chapters.objects.create(
+    def setUp(self):
+        self.chapter = Chapters.objects.create(
             name='gamers',
             abbrev='game',
             location='Amphoreus',
@@ -90,12 +84,19 @@ class ResourceModelSmokeTests(TestCase):
             email='gamers@agronomy.club'
         )
 
+    def tearDown(self):
+        Resource.objects.all().delete()
+        Chapters.objects.all().delete()
+        ResourceTypeTag.objects.all().delete()
+        super().tearDown()
+
+    def test_can_create_and_read_resource(self):
         tag = ResourceTypeTag.objects.create(
             name='game'
         )
 
         resource = Resource.objects.create(
-            chapter=chapter,
+            chapter=self.chapter,
             name='valorant cheat client',
             link='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         )
@@ -134,35 +135,19 @@ class ResourceModelSmokeTests(TestCase):
                 )
 
     def test_cascade_delete_chapter(self):
-        chapter = Chapters.objects.create(
-            name='gamers',
-            abbrev='game',
-            location='Amphoreus',
-            desc='we play, maybe',
-            email='gamers@agronomy.club'
-        )
-
         resource = Resource.objects.create(
-            chapter=chapter,
+            chapter=self.chapter,
             name='valorant cheat client',
             link='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         )
 
         self.assertEqual(Resource.objects.filter(pk=resource.pk).count(), 1)
 
-        chapter.delete()
+        self.chapter.delete()
 
         self.assertEqual(Resource.objects.filter(pk=resource.pk).count(), 0)
 
     def test_multiple_tags(self):
-        chapter = Chapters.objects.create(
-            name='gamers',
-            abbrev='game',
-            location='Amphoreus',
-            desc='we play, maybe',
-            email='gamers@agronomy.club'
-        )
-
         tag1 = ResourceTypeTag.objects.create(
             name='game'
         )
@@ -172,7 +157,7 @@ class ResourceModelSmokeTests(TestCase):
         )
 
         resource = Resource.objects.create(
-            chapter=chapter,
+            chapter=self.chapter,
             name='valorant cheat client',
             link='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         )
@@ -185,16 +170,8 @@ class ResourceModelSmokeTests(TestCase):
         self.assertIn(tag2, saved_resource.type_tags.all())
 
     def test_reject_invalid_url(self):
-        chapter = Chapters.objects.create(
-            name='gamers',
-            abbrev='game',
-            location='Amphoreus',
-            desc='we play, maybe',
-            email='gamers@agronomy.club'
-        )
-
         resource = Resource(
-            chapter=chapter,
+            chapter=self.chapter,
             name='valorant cheat client',
             link='bad link',
         )
