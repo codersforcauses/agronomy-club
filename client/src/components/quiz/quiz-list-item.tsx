@@ -18,6 +18,7 @@ type QuizListItemProps = {
   chapter: string;
   chapterColor: string;
   uploadDate: string;
+  onDownload: () => void;
 };
 
 function QuizListItem({
@@ -25,6 +26,7 @@ function QuizListItem({
   chapter,
   chapterColor,
   uploadDate,
+  onDownload,
 }: QuizListItemProps) {
   return (
     <div className="flex w-full flex-col rounded-md shadow-md">
@@ -47,7 +49,7 @@ function QuizListItem({
           </div>
         </ItemContent>
         <ItemActions>
-          <Button>Download</Button>
+          <Button onClick={onDownload}>Download</Button>
         </ItemActions>
       </Item>
     </div>
