@@ -21,6 +21,8 @@ class ResourceSerializer(serializers.ModelSerializer):
         required=False,
     )
 
+    # TODO : add chapter serializer (easier frontend)
+
     class Meta:
         model = Resource
         fields = ['id', 'chapter', 'name', 'link', 'upload_date', 'type_tags', 'type_tag_ids']
