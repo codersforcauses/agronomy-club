@@ -21,7 +21,7 @@ class ResourceTypeTagListAPIView(generics.ListAPIView):
 
 
 class ResourceListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Resource.objects.all()
+    queryset = Resource.objects.all().order_by("-upload_date")
     serializer_class = ResourceSerializer
 
     # TODO: guest permission for GET (list), chapter admin permission for POST (create)
