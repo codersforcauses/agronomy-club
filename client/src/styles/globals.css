@@ -97,10 +97,10 @@
   }
 
   a {
-    @apply text-brand-green transition-colors duration-150 ease-out;
+    @apply text-brand-surface transition-colors duration-150 ease-out;
   }
 
   a:hover {
-    @apply text-brand-green-dark;
+    @apply text-brand-green;
   }
 }
