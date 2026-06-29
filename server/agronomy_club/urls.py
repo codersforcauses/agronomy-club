@@ -10,8 +10,7 @@ urlpatterns = [
     path("resources/<int:pk>/", views.ResourceRetreiveUpdateDestroyAPIView.as_view(), name="resource-detail"),
 
     # Resource type tags
-    path("resource-type-tags/", views.ResourceTypeTagListCreateAPIView.as_view(), name="resource-type-tag-list-create"),
-    path("resource-type-tags/<int:pk>/", views.ResourceTypeTagRetreiveUpdateDestroyAPIView.as_view(), name="resource-type-tag-detail"),
+    path("resource-type-tags/", views.ResourceTypeTagListAPIView.as_view(), name="resource-type-tag-list"),
 ]
 
 # Override styling of the admin dashboard here
