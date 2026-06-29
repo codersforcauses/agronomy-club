@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className={`${inter.variable} font-sans text-soil-800`}>
+        <main className={`${inter.variable} font-sans text-brand-text`}>
           <Providers>
             <Navbar />
             {children}
