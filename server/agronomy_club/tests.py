@@ -77,6 +77,8 @@ class UserModelMockUnitTests(SimpleTestCase):
 class ResourceModelSmokeTests(TestCase):
     def tearDown(self):
         Resource.objects.all().delete()
+        Chapters.objects.all().delete()
+        ResourceTypeTag.objects.all().delete()
         super().tearDown()
 
     def test_can_create_and_read_resource(self):
