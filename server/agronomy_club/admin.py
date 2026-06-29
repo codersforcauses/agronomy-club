@@ -7,6 +7,13 @@ from agronomy_club.models import ChapterMemberships, Users, Chapters, Resource, 
 class ChaptersAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'abbrev', 'location', 'email')
     search_fields = ('id', 'name', 'abbrev', 'location')
+    pass
+
+
+@admin.register(Quiz)
+class QuizAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'public', 'chapter', 'upload_date')
+    search_fields = ('id', 'name', 'chapter__name')
 
 
 @admin.register(ResourceTypeTag)

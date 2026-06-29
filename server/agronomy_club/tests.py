@@ -1,5 +1,4 @@
 from unittest.mock import patch
-
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.db import transaction
