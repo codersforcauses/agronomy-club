@@ -91,9 +91,7 @@ class ResourceModelSmokeTests(TestCase):
         super().tearDown()
 
     def test_can_create_and_read_resource(self):
-        tag = ResourceTypeTag.objects.create(
-            name='game'
-        )
+        tag = ResourceTypeTag.objects.create(name='game')
 
         resource = Resource.objects.create(
             chapter=self.chapter,
@@ -111,15 +109,11 @@ class ResourceModelSmokeTests(TestCase):
         self.assertEqual(str(saved_resource), 'valorant cheat client - gamers')
 
     def test_reject_duplicate_tag_name(self):
-        ResourceTypeTag.objects.create(
-            name='webpage'
-        )
+        ResourceTypeTag.objects.create(name='webpage')
 
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
-                ResourceTypeTag.objects.create(
-                    name='webpage'
-                )
+                ResourceTypeTag.objects.create(name='webpage')
 
     def test_reject_duplicate_tag_color(self):
         ResourceTypeTag.objects.create(
@@ -148,13 +142,8 @@ class ResourceModelSmokeTests(TestCase):
         self.assertEqual(Resource.objects.filter(pk=resource.pk).count(), 0)
 
     def test_multiple_tags(self):
-        tag1 = ResourceTypeTag.objects.create(
-            name='game'
-        )
-
-        tag2 = ResourceTypeTag.objects.create(
-            name='docs'
-        )
+        tag1 = ResourceTypeTag.objects.create(name='game')
+        tag2 = ResourceTypeTag.objects.create(name='docs')
 
         resource = Resource.objects.create(
             chapter=self.chapter,
