@@ -36,19 +36,6 @@
 
     --surface: 48, 45.45%, 97.84%;
 
-    --brand-50: 94.29, 36.84%, 96.27%;
-    --brand-100: 100 39.13% 90.98%;
-    --brand-200: 100 36% 80.39%;
-    --brand-400: 101.25 34.78% 54.9%;
-    --brand-600: 103.26 52.44% 32.16%;
-    --brand-700: 103.88 53.6% 24.51%;
-    --brand-800: 107.5 48.98% 19.22%;
-    --brand-900: 110.63 45.71% 13.73%;
-
-    --soil-700: 25.33 43.69% 20.2%;
-    --soil-800: 23.23 44.93% 13.53%;
-    --soil-900: 22.11 48.72% 7.65%;
-
     color-scheme: light;
   }
 
@@ -85,7 +72,7 @@
 
 @layer base {
   body {
-    @apply bg-surface text-soil-800 antialiased;
+    @apply bg-brand-surface text-brand-text antialiased;
     background-image:
       radial-gradient(
         circle at top left,
@@ -106,14 +93,14 @@
   h4,
   h5,
   h6 {
-    @apply font-semibold text-soil-900;
+    @apply font-semibold text-brand-text-dark;
   }
 
   a {
-    @apply text-brand-600 transition-colors duration-150 ease-out;
+    @apply text-brand-green transition-colors duration-150 ease-out;
   }
 
   a:hover {
-    @apply text-brand-700;
+    @apply text-brand-green-dark;
   }
 }

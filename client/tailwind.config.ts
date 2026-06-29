@@ -28,24 +28,34 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+
         brand: {
-          50: "hsl(var(--brand-50))",
-          100: "hsl(var(--brand-100))",
-          200: "hsl(var(--brand-200))",
-          //300: "#a4ca92", //unused
-          400: "hsl(var(--brand-400))",
-          //500:  "#5a9a3d", //unused
-          600: "hsl(var(--brand-600))",
-          700: "hsl(var(--brand-700))",
-          800: "hsl(var(--brand-800))",
-          900: "hsl(var(--brand-900))",
+          green: {
+            DEFAULT: "#3F7D27",
+            dark: "#166534",
+            light: "#d7e2d4",
+          },
+
+          text: {
+            DEFAULT: "#4a301d",
+            dark: "#1d110a",
+            light: "#98765e",
+          },
+
+          yellow: {
+            DEFAULT: "#f4b643",
+            light: "#fbf0d5",
+          },
+
+          brown: {
+            DEFAULT: "#8b5a3c",
+          },
+
+          surface: "#fcfbf7",
+
+          shadow: "rgba(22, 101, 52, 0.10)", // 10% opacity of #166534
         },
-        soil: {
-          700: "hsl(var(--soil-700))",
-          800: "hsl(var(--soil-800))",
-          900: "hsl(var(--soil-900))",
-        },
-        surface: "hsl(var(--surface))",
+
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
