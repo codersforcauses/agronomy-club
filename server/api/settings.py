@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+from django.templatetags.static import static
 
+from dotenv import load_dotenv
 load_dotenv()
 
 
@@ -37,10 +38,10 @@ ALLOWED_HOSTS = (
     else []
 )
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -89,6 +90,42 @@ TEMPLATES = [
         },
     },
 ]
+
+UNFOLD = {
+    "COLORS":{
+         "base": {
+            "50": "#fcfbf7",
+            "100": "#fcfbf7",
+            "200": "#166534",
+            "300": "#166534",
+            "600": "#166534",
+            
+            
+        },
+         "primary":{
+            "50": "#166534",
+            "100": "#166534",
+            "200": "#166534",
+            "300": "#166534",
+            "400": "#166534",
+            "500": "#166534",
+            "600": "#166534",
+            "700": "#166534",
+            "800": "#166534",
+            "900": "#166534",
+            "950": "#166534",
+        },
+        "font":{
+            "subtle-light": "#4a301d",  # text-base-500
+            "subtle-dark": "#4a301d",  # text-base-400
+            "default-light": "#4a301d1",  # text-base-600
+            "default-dark": "#4a301d",  # text-base-300
+            "light-important": "#166534",  # text-base-700
+            "dark-important": "#166534",  # text-base-200
+
+        }
+    }
+}
 
 WSGI_APPLICATION = "api.wsgi.application"
 
