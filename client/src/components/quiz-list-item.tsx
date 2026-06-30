@@ -58,11 +58,11 @@ function QuizListItem({
           className="m-0 w-2 self-stretch rounded-l-md bg-[var(--chapter-color)]"
         />
         <ItemContent className="p-3 pb-4 pt-4">
-          <ItemTitle className="text-brand-green text-base font-semibold">
+          <ItemTitle className="text-brand-text-dark text-base font-semibold">
             {quizName}
           </ItemTitle>
           <div className="flex flex-col">
-            <ItemDescription className="text-brand-green-dark break-normal text-left">
+            <ItemDescription className="text-brand-green break-normal text-left">
               <span className="italic">created by </span>
               {chapter}
             </ItemDescription>
@@ -73,7 +73,10 @@ function QuizListItem({
           </div>
         </ItemContent>
         <ItemActions>
-          <Button className="bg-brand-green text-surface" onClick={onDownload}>
+          <Button
+            className="bg-brand-green text-brand-surface"
+            onClick={onDownload}
+          >
             Download
           </Button>
         </ItemActions>
