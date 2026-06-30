@@ -1,5 +1,5 @@
+import { Bug, Droplet, Sprout, Wheat } from "lucide-react";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About | Agronomy Club",
@@ -39,9 +39,12 @@ export default function AboutPage() {
 
           <div className="mt-2 grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="w-full rounded-[20px] border border-[#D7F3DF] bg-white p-7 shadow-[0_8px_24px_rgba(22,101,52,0.05)]">
-              <h3 className="text-[16px] font-bold leading-[22px] text-[#15803D]">
-                Nutrient Management
-              </h3>
+              <div className="flex items-center gap-2">
+                <Wheat className="h-4 w-4 text-[#166534]" aria-hidden="true" />
+                <h3 className="text-[16px] font-bold leading-[22px] text-[#15803D]">
+                  Nutrient Management
+                </h3>
+              </div>
               <p className="mt-2 text-[14px] font-normal leading-[20px] text-[#374151]">
                 Explore plant nutrition, soil fertility, soil testing, nutrient
                 sources, placement, timing, diagnostics, and nutrient management
@@ -50,9 +53,15 @@ export default function AboutPage() {
             </div>
 
             <div className="w-full rounded-[20px] border border-[#D7F3DF] bg-white p-7 shadow-[0_8px_24px_rgba(22,101,52,0.05)]">
-              <h3 className="text-[16px] font-bold leading-[22px] text-[#15803D]">
-                Soil and Water Management
-              </h3>
+              <div className="flex items-center gap-2">
+                <Droplet
+                  className="h-4 w-4 text-[#166534]"
+                  aria-hidden="true"
+                />
+                <h3 className="text-[16px] font-bold leading-[22px] text-[#15803D]">
+                  Soil and Water Management
+                </h3>
+              </div>
               <p className="mt-2 text-[14px] font-normal leading-[20px] text-[#374151]">
                 Learn how soil health, water use, and irrigation practices shape
                 sustainable field management
@@ -60,9 +69,12 @@ export default function AboutPage() {
             </div>
 
             <div className="w-full rounded-[20px] border border-[#D7F3DF] bg-white p-7 shadow-[0_8px_24px_rgba(22,101,52,0.05)]">
-              <h3 className="text-[16px] font-bold leading-[22px] text-[#15803D]">
-                Pest Management
-              </h3>
+              <div className="flex items-center gap-2">
+                <Bug className="h-4 w-4 text-[#166534]" aria-hidden="true" />
+                <h3 className="text-[16px] font-bold leading-[22px] text-[#15803D]">
+                  Pest Management
+                </h3>
+              </div>
               <p className="mt-2 text-[14px] font-normal leading-[20px] text-[#374151]">
                 Build skills in pest identification, sampling, monitoring,
                 decision-making, management strategies, environmental
@@ -71,10 +83,13 @@ export default function AboutPage() {
             </div>
 
             <div className="w-full rounded-[20px] border border-[#D7F3DF] bg-white p-7 shadow-[0_8px_24px_rgba(22,101,52,0.05)]">
-              <h3 className="text-[16px] font-bold leading-[22px] text-[#15803D]">
-                Crop Management
-              </h3>
-              <p className="mt-2font-normal text-[14px] leading-[20px] text-[#374151]">
+              <div className="flex items-center gap-2">
+                <Sprout className="h-4 w-4 text-[#166534]" aria-hidden="true" />
+                <h3 className="text-[16px] font-bold leading-[22px] text-[#15803D]">
+                  Crop Management
+                </h3>
+              </div>
+              <p className="mt-2 text-[14px] font-normal leading-[20px] text-[#374151]">
                 Develop practical knowledge of cropping systems, variety
                 selection, crop establishment, crop growth, technology use,
                 harvest, storage, and production economics.
