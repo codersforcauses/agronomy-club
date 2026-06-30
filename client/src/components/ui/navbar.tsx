@@ -33,14 +33,14 @@ export default function Navbar() {
           href="/"
           className="mr-6 flex items-center gap-2 text-xl font-bold"
         >
-          <Sprout className="h-8 w-8 text-brand-surface" />
+          <Sprout className="h-8 w-8 text-[#54c612]" />
           <span className="sr-only text-brand-surface">Agronomy Club</span>
           <span aria-hidden="true" className="whitespace-nowrap md:hidden">
             Agronomy
           </span>
           <span
             aria-hidden="true"
-            className="hidden whitespace-nowrap md:inline"
+            className="hidden whitespace-nowrap text-[#54c612] md:inline"
           >
             Agronomy Club
           </span>

@@ -9,9 +9,7 @@ export const metadata: Metadata = {
 export default function AlumniPage() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-4xl font-bold text-brand-text-dark">
-        Alumni Network
-      </h1>
+      <h1 className="text-4xl font-bold">Alumni Network</h1>
       <p className="mt-4 text-lg text-brand-text">
         The Agronomy Club alumni network bridges current members with
         professionals in agribusiness, research labs, sustainability
@@ -20,9 +18,7 @@ export default function AlumniPage() {
       </p>
 
       <div className="mt-10 rounded-xl border border-brand-green-light bg-brand-surface p-6 shadow-sm">
-        <h2 className="text-xl font-semibold text-brand-text-dark">
-          On The Roadmap
-        </h2>
+        <h2 className="text-xl font-semibold">On The Roadmap</h2>
         <ul className="mt-4 space-y-2 text-sm text-brand-text">
           <li>
             • Alumni spotlights featuring career pathways and field insights

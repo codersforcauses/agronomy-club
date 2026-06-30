@@ -17,9 +17,7 @@ export default function QuizzesPage() {
       <div className="mx-auto max-w-4xl px-4">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="mb-4 text-4xl font-bold text-brand-text-dark">
-            Interactive Quizzes
-          </h1>
+          <h1 className="mb-4 text-4xl font-bold">Interactive Quizzes</h1>
           <p className="text-lg text-brand-text">
             Challenge your agricultural knowledge with real-time interactive
             quizzes. Test yourself, compete with others, and see where you stand
@@ -31,7 +29,7 @@ export default function QuizzesPage() {
         <div className="mb-12 rounded-lg border-2 border-brand-green-light bg-white p-8 shadow-lg md:p-12">
           <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
             <div className="flex-1">
-              <h2 className="mb-4 text-3xl font-bold text-brand-text-dark">
+              <h2 className="mb-4 text-3xl font-bold">
                 Ready to Test Your Knowledge?
               </h2>
               <p className="mb-6 text-brand-text">

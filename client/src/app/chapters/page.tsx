@@ -16,7 +16,7 @@ export default function ChaptersPage() {
           Global network
         </p>
 
-        <h1 className="mt-2 text-4xl font-bold text-brand-text-dark">
+        <h1 className="mt-2 text-4xl font-bold">
           Chapters &amp; Field Alliances
         </h1>
 
@@ -56,9 +56,7 @@ export default function ChaptersPage() {
             className="flex h-full flex-col justify-between rounded-2xl border border-brand-green-light bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-card"
           >
             <div>
-              <h2 className="text-xl font-semibold text-brand-text-dark">
-                {chapter.name}
-              </h2>
+              <h2 className="text-xl font-semibold">{chapter.name}</h2>
 
               <div className="mt-3 flex items-center gap-2 text-sm text-brand-green-dark">
                 <MapPinned className="h-4 w-4" aria-hidden="true" />

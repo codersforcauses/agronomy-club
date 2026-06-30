@@ -16,9 +16,7 @@ export default function ResourcesPage() {
             <p className="text-sm uppercase tracking-widest text-brand-green-dark">
               Resource library
             </p>
-            <h1 className="mt-2 text-4xl font-bold text-brand-text-dark">
-              Study Materials
-            </h1>
+            <h1 className="mt-2 text-4xl font-bold">Study Materials</h1>
             <p className="mt-4 text-lg text-brand-text">
               We are curating a searchable knowledge base featuring lecture
               decks, lab protocols, field data sheets, and case studies
@@ -42,9 +40,7 @@ export default function ResourcesPage() {
           </div>
         </div>
         <div className="rounded-xl border border-brand-green-light bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-brand-text-dark">
-            Contribute materials
-          </h2>
+          <h2 className="text-xl font-semibold">Contribute materials</h2>
           <p className="mt-3 text-sm text-brand-text">
             Chapters and partners can upload resources once authentication
             launches. We&apos;ll review submissions for accuracy, accessibility,
