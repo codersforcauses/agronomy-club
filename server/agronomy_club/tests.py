@@ -227,28 +227,28 @@ class ResourceAPISmokeTests(APITestCase):
         super().tearDown()
 
     def test_list_resources(self):
-        url = reverse('resource-list-create')
+        url = reverse('resource-list')
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 3)
 
     def test_check_order_resources(self):
-        url = reverse('resource-list-create')
+        url = reverse('resource-list')
         response = self.client.get(url)
 
         ids = [item['id'] for item in response.json()]
         self.assertEqual(ids, [self.r3.id, self.r2.id, self.r1.id])
 
     def test_filter_resources_with_single_tag(self):
-        url = reverse('resource-list-create')
+        url = reverse('resource-list')
         response = self.client.get(url, {'tags': self.t1.id})
 
         self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]['id'], self.r1.id)
 
     def test_filter_resources_with_2_tag(self):
-        url = reverse('resource-list-create')
+        url = reverse('resource-list')
         response = self.client.get(url, {'tags': f'{self.t1.id},{self.t2.id}'})
 
         self.assertEqual(len(response.json()), 2)
@@ -256,76 +256,18 @@ class ResourceAPISmokeTests(APITestCase):
         self.assertEqual(ids, [self.r2.id, self.r1.id])
 
     def test_bad_tag_filter(self):
-        url = reverse('resource-list-create') + '?tags=hi'
+        url = reverse('resource-list') + '?tags=hi'
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 3)
 
     def test_filter_nonexistent_tag(self):
-        url = reverse('resource-list-create')
+        url = reverse('resource-list')
         response = self.client.get(url, {'tags': 9999})
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 0)
-
-    def test_create_resource(self):
-        payload = {
-            'chapter': self.chapter.id,
-            'name': 'free diamond locks',
-            'link': 'https://growtopia.xyz/real-free-dls',
-            'type_tag_ids': [self.t1.id, self.t3.id]
-        }
-
-        url = reverse('resource-list-create')
-        response = self.client.post(url, payload, format='json')
-
-        self.assertEqual(response.status_code, 201)
-
-        created = Resource.objects.get(name='free diamond locks')
-        self.assertEqual(created.type_tags.count(), 2)
-
-    def test_create_resource_invalid_link(self):
-        payload = {
-            'chapter': self.chapter.id,
-            'name': 'free diamond locks',
-            'link': 'vro://growtopia.xyz/real-free-dls'
-        }
-
-        url = reverse('resource-list-create')
-        response = self.client.post(url, payload, format='json')
-
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(Resource.objects.count(), 3)
-
-    def test_retreive_resource(self):
-        url = reverse('resource-detail', kwargs={'pk': self.r1.pk})
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()['id'], self.r1.id)
-
-    def test_update_resource(self):
-        url = reverse('resource-detail', kwargs={'pk': self.r2.pk})
-        response = self.client.patch(url, {'name': 'hydrogen bomb vs coughing baby'}, format='json')
-
-        self.assertEqual(response.status_code, 200)
-
-        self.r2.refresh_from_db()
-        self.assertEqual(self.r2.name, 'hydrogen bomb vs coughing baby')
-
-    def test_destroy_resource(self):
-        url = reverse('resource-detail', kwargs={'pk': self.r3.pk})
-        response = self.client.delete(url)
-
-        self.assertEqual(response.status_code, 204)
-        self.assertFalse(Resource.objects.filter(pk=self.r3.pk).exists())
-
-    def test_bad_resource_id(self):
-        url = reverse('resource-detail', kwargs={'pk': 9999})
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, 404)
 
     def test_list_resource_tags(self):
         url = reverse('resource-type-tag-list')
