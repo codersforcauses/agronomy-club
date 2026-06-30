@@ -6,8 +6,7 @@ urlpatterns = [
     path("ping/", views.ping, name="ping"),
 
     # Resources
-    path("resources/", views.ResourceListCreateAPIView.as_view(), name="resource-list-create"),
-    path("resources/<int:pk>/", views.ResourceRetreiveUpdateDestroyAPIView.as_view(), name="resource-detail"),
+    path("resources/", views.ResourceListAPIView.as_view(), name="resource-list"),
 
     # Resource type tags
     path("resource-type-tags/", views.ResourceTypeTagListAPIView.as_view(), name="resource-type-tag-list"),

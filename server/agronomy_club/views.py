@@ -17,10 +17,8 @@ class ResourceTypeTagListAPIView(generics.ListAPIView):
     queryset = ResourceTypeTag.objects.all()
     serializer_class = ResourceTypeTagSerializer
 
-    # TODO: guest permission
 
-
-class ResourceListCreateAPIView(generics.ListCreateAPIView):
+class ResourceListAPIView(generics.ListAPIView):
     serializer_class = ResourceSerializer
 
     def get_queryset(self):
@@ -32,12 +30,3 @@ class ResourceListCreateAPIView(generics.ListCreateAPIView):
                 self.queryset = self.queryset.filter(type_tags__id__in=tag_ids).distinct()
 
         return self.queryset
-
-    # TODO: guest permission for GET (list), chapter admin permission for POST (create)
-
-
-class ResourceRetreiveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Resource.objects.all()
-    serializer_class = ResourceSerializer
-
-    # TODO: chapter admin permission
