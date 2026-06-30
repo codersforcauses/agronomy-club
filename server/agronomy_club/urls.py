@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path("ping/", views.ping, name="ping"),
+    path("events/", views.EventListAPIView.as_view(), name="events-list"),
 ]
 
 # Override styling of the admin dashboard here
