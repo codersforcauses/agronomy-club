@@ -51,18 +51,18 @@ function QuizListItem({
   onDownload,
 }: QuizListItemProps) {
   return (
-    <div className="shadow-brand-shadow flex w-full flex-col rounded-md shadow-md">
+    <div className="flex w-full flex-col rounded-md shadow-md shadow-brand-shadow">
       <Item size="default" className="pb-0 pl-0 pt-0">
         <div
           style={{ "--chapter-color": chapterColor } as React.CSSProperties}
           className="m-0 w-2 self-stretch rounded-l-md bg-[var(--chapter-color)]"
         />
         <ItemContent className="p-3 pb-4 pt-4">
-          <ItemTitle className="text-brand-text-dark text-base font-semibold">
+          <ItemTitle className="text-base font-semibold text-brand-text-dark">
             {quizName}
           </ItemTitle>
           <ItemDescription className="flex flex-row justify-between break-normal">
-            <span className="text-brand-green text-left">
+            <span className="text-left text-brand-green">
               <span className="italic">created by </span>
               {chapter}
             </span>
