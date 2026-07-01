@@ -34,6 +34,8 @@
 
     --radius: 0.5rem;
 
+    --surface: 48, 45.45%, 97.84%;
+
     color-scheme: light;
   }
 
@@ -70,7 +72,7 @@
 
 @layer base {
   body {
-    @apply bg-surface text-soil-800 antialiased;
+    @apply bg-brand-surface text-brand-text antialiased;
     background-image:
       radial-gradient(
         circle at top left,
@@ -91,14 +93,14 @@
   h4,
   h5,
   h6 {
-    @apply font-semibold text-soil-900;
+    @apply font-semibold text-brand-text-dark;
   }
 
   a {
-    @apply text-brand-600 transition-colors duration-150 ease-out;
+    @apply text-brand-surface transition-colors duration-150 ease-out;
   }
 
   a:hover {
-    @apply text-brand-700;
+    @apply text-brand-green;
   }
 }
