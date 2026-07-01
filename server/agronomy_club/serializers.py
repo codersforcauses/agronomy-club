@@ -5,7 +5,11 @@ from .models import Resource, ResourceTypeTag
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceTypeTag
-        fields = ['id', 'name', 'color']
+        fields = [
+            'id',
+            'name',
+            'color'
+            ]
 
 
 class ResourceSerializer(serializers.ModelSerializer):
@@ -14,11 +18,14 @@ class ResourceSerializer(serializers.ModelSerializer):
 
     # TODO : add chapter serializer (easier frontend)
 
+    chapter_name = serializers.CharField(source="chapter.name")
+
     class Meta:
         model = Resource
         fields = [
             'id',
             'chapter',
+            'chapter_name',
             'name',
             'link',
             'upload_date',
