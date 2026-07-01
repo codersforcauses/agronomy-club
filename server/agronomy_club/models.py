@@ -107,9 +107,12 @@ class Users(models.Model):
 
 class ChapterMemberships(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    userID = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='user_memberships')
+    user_id = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='user_memberships')
     chapter_role = models.CharField(max_length=100, choices=[('member', 'Member'), ('admin', 'Admin'), ('owner', 'Owner')], default='member')
     chapter_id = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name='chapter_memberships')
+    position = models.CharField(max_length=100, choices=[('pres', 'President'), ('vpres', 'Vice President'),
+                                                         ('sec', 'Secretary'), ('treas', 'Treasurer'),
+                                                         ('ocm', 'Ordinary Committee Member')], default='pres')
 
     def __str__(self):
-        return f"{self.userID.full_name} - {self.chapter_id.name} - {self.chapter_role}"
+        return f"{self.user_id.full_name} - {self.chapter_id.name} - {self.chapter_role}"
