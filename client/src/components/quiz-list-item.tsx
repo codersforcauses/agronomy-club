@@ -61,16 +61,16 @@ function QuizListItem({
           <ItemTitle className="text-brand-text-dark text-base font-semibold">
             {quizName}
           </ItemTitle>
-          <div className="flex flex-col">
-            <ItemDescription className="text-brand-green break-normal text-left">
+          <ItemDescription className="flex flex-row justify-between break-normal">
+            <span className="text-brand-green text-left">
               <span className="italic">created by </span>
               {chapter}
-            </ItemDescription>
-            <div className="ml-8 mt-1 text-right align-text-bottom text-xs text-muted-foreground">
+            </span>
+            <span className="self-end text-nowrap text-right text-muted-foreground">
               <span className="italic">uploaded on </span>
               {uploadDate}
-            </div>
-          </div>
+            </span>
+          </ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button
