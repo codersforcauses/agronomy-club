@@ -22,6 +22,14 @@ def random_color():
             return new_color
 
 
+def random_color_resource_tag():
+    while True:
+        new_color = generate_random_hex()
+
+        if not ResourceTypeTag.objects.filter(color=new_color).exists():
+            return new_color
+
+
 class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     name = models.CharField(max_length=255)
@@ -53,7 +61,7 @@ class Event(models.Model):
 # Resource type tags for filter
 class ResourceTypeTag(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    color = ColorField(default=random_color, unique=True, editable=True)
+    color = ColorField(default=random_color_resource_tag, unique=True, editable=True)
 
     def __str__(self):
         return str(self.name)
