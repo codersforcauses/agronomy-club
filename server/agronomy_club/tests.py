@@ -17,6 +17,14 @@ from shutil import rmtree
 from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters
 
 
+# Create a 1x1 pixel PNG
+def make_test_image():
+    buffer = BytesIO()
+    Image.new('RGB', (1, 1)).save(buffer, format='PNG')
+    buffer.seek(0)
+    return SimpleUploadedFile('logo.png', buffer.read(), content_type='image/png')
+
+
 class UserModelSmokeTests(TestCase):
     def tearDown(self):
         Users.objects.all().delete()
@@ -177,14 +185,6 @@ class ResourceModelSmokeTests(TestCase):
 
         with self.assertRaises(ValidationError):
             resource.full_clean()
-
-
-# Create a 1x1 pixel PNG
-def make_test_image():
-    buffer = BytesIO()
-    Image.new('RGB', (1, 1)).save(buffer, format='PNG')
-    buffer.seek(0)
-    return SimpleUploadedFile('logo.png', buffer.read(), content_type='image/png')
 
 
 @override_settings(MEDIA_ROOT=mkdtemp())
