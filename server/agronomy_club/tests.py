@@ -3,8 +3,12 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.db import transaction
 from django.test import SimpleTestCase, TestCase
+from django.utils import timezone
+from django.urls import reverse
+from rest_framework.test import APITestCase
+from datetime import datetime
 
-from agronomy_club.models import Users, max_value_curr_year
+from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters
 
 
 class UserModelSmokeTests(TestCase):
@@ -72,3 +76,202 @@ class UserModelMockUnitTests(SimpleTestCase):
             max_value_curr_year(2048)
 
         mocked_current_year.assert_called_once_with()
+
+
+class ResourceModelSmokeTests(TestCase):
+    def setUp(self):
+        self.chapter = Chapters.objects.create(
+            name='gamers',
+            abbrev='game',
+            location='Amphoreus',
+            desc='we play, maybe',
+            email='gamers@agronomy.club'
+        )
+
+    def tearDown(self):
+        Resource.objects.all().delete()
+        Chapters.objects.all().delete()
+        ResourceTypeTag.objects.all().delete()
+        super().tearDown()
+
+    def test_can_create_and_read_resource(self):
+        tag = ResourceTypeTag.objects.create(name='game')
+
+        resource = Resource.objects.create(
+            chapter=self.chapter,
+            name='valorant cheat client',
+            link='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        )
+        resource.type_tags.set([tag])
+
+        saved_resource = Resource.objects.get(pk=resource.pk)
+
+        self.assertEqual(saved_resource.name, 'valorant cheat client')
+        self.assertEqual(saved_resource.link, 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        self.assertEqual(str(saved_resource.chapter), 'gamers')
+        self.assertEqual(str(saved_resource.type_tags.first()), 'game')
+        self.assertEqual(str(saved_resource), 'valorant cheat client - gamers')
+
+    def test_reject_duplicate_tag_name(self):
+        ResourceTypeTag.objects.create(name='webpage')
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                ResourceTypeTag.objects.create(name='webpage')
+
+    def test_reject_duplicate_tag_color(self):
+        ResourceTypeTag.objects.create(
+            name='webpage',
+            color='#111111'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                ResourceTypeTag.objects.create(
+                    name='video',
+                    color='#111111'
+                )
+
+    def test_cascade_delete_chapter_on_resource(self):
+        resource = Resource.objects.create(
+            chapter=self.chapter,
+            name='valorant cheat client',
+            link='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        )
+
+        self.assertEqual(Resource.objects.filter(pk=resource.pk).count(), 1)
+
+        self.chapter.delete()
+
+        self.assertEqual(Resource.objects.filter(pk=resource.pk).count(), 0)
+
+    def test_multiple_resource_tags(self):
+        tag1 = ResourceTypeTag.objects.create(name='game')
+        tag2 = ResourceTypeTag.objects.create(name='docs')
+
+        resource = Resource.objects.create(
+            chapter=self.chapter,
+            name='valorant cheat client',
+            link='https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        )
+        resource.type_tags.set([tag1, tag2])
+
+        saved_resource = Resource.objects.get(pk=resource.pk)
+
+        self.assertEqual(saved_resource.type_tags.count(), 2)
+        self.assertIn(tag1, saved_resource.type_tags.all())
+        self.assertIn(tag2, saved_resource.type_tags.all())
+
+    def test_reject_invalid_resource_url(self):
+        resource = Resource(
+            chapter=self.chapter,
+            name='valorant cheat client',
+            link='bad link',
+        )
+
+        with self.assertRaises(ValidationError):
+            resource.full_clean()
+
+
+class ResourceAPISmokeTests(APITestCase):
+    def setUp(self):
+        self.chapter = Chapters.objects.create(
+            name='gamers',
+            abbrev='game',
+            location='Amphoreus',
+            desc='we play, maybe',
+            email='gamers@agronomy.club'
+        )
+
+        self.t1 = ResourceTypeTag.objects.create(name='game')
+        self.t2 = ResourceTypeTag.objects.create(name='docs')
+        self.t3 = ResourceTypeTag.objects.create(name='tutorial')
+
+        self.r1 = Resource.objects.create(
+            chapter=self.chapter,
+            name="valorant cheat client",
+            link="https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        )
+
+        self.r2 = Resource.objects.create(
+            chapter=self.chapter,
+            name="making nukes for babies",
+            link="https://en.wikipedia.org/wiki/Nuclear_Gandhi",
+        )
+
+        self.r3 = Resource.objects.create(
+            chapter=self.chapter,
+            name="insert gen alpha joke here",
+            link="https://skibidi.rizz:6767"
+        )
+
+        self.r1.type_tags.set([self.t1, self.t2])
+        self.r2.type_tags.set([self.t2, self.t3])
+
+        Resource.objects.filter(pk=self.r1.pk).update(
+            upload_date=timezone.make_aware(datetime(1945, 8, 17))
+        )
+
+        Resource.objects.filter(pk=self.r2.pk).update(
+            upload_date=timezone.make_aware(datetime(2001, 11, 9))
+        )
+
+        Resource.objects.filter(pk=self.r3.pk).update(
+            upload_date=timezone.make_aware(datetime(2026, 11, 12))
+        )
+
+    def tearDown(self):
+        Resource.objects.all().delete()
+        Chapters.objects.all().delete()
+        ResourceTypeTag.objects.all().delete()
+        super().tearDown()
+
+    def test_list_resources(self):
+        url = reverse('resource-list')
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 3)
+
+    def test_check_order_resources(self):
+        url = reverse('resource-list')
+        response = self.client.get(url)
+
+        ids = [item['id'] for item in response.json()]
+        self.assertEqual(ids, [self.r3.id, self.r2.id, self.r1.id])
+
+    def test_filter_resources_with_single_tag(self):
+        url = reverse('resource-list')
+        response = self.client.get(url, {'tags': self.t1.id})
+
+        self.assertEqual(len(response.json()), 1)
+        self.assertEqual(response.json()[0]['id'], self.r1.id)
+
+    def test_filter_resources_with_2_tag(self):
+        url = reverse('resource-list')
+        response = self.client.get(url, {'tags': f'{self.t1.id},{self.t2.id}'})
+
+        self.assertEqual(len(response.json()), 2)
+        ids = [item['id'] for item in response.json()]
+        self.assertEqual(ids, [self.r2.id, self.r1.id])
+
+    def test_bad_tag_filter(self):
+        url = reverse('resource-list') + '?tags=hi'
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 3)
+
+    def test_filter_nonexistent_tag(self):
+        url = reverse('resource-list')
+        response = self.client.get(url, {'tags': 9999})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 0)
+
+    def test_list_resource_tags(self):
+        url = reverse('resource-type-tag-list')
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 3)
