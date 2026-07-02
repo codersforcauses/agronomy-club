@@ -1,8 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework import generics
 
-from .models import Resource, ResourceTypeTag
-from .serializers import ResourceSerializer, ResourceTypeTagSerializer
+from .models import Resource, ResourceTypeTag, Users
+from .serializers import ResourceSerializer, ResourceTypeTagSerializer, AlumniSerializer
 
 from django.http import HttpResponse
 
@@ -30,3 +30,8 @@ class ResourceListAPIView(generics.ListAPIView):
                 self.queryset = self.queryset.filter(type_tags__id__in=tag_ids).distinct()
 
         return self.queryset
+
+
+class AlumniListAPIView(generics.ListAPIView):
+    serializer_class = AlumniSerializer
+    queryset = Users.objects.filter(global_role="alumni")
