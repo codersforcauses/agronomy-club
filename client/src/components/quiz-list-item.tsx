@@ -79,6 +79,11 @@ function QuizListItem({
           >
             Download
           </Button>
+          {/* Variant for href to download link 
+          <Button asChild>
+            <a href="<<Download link>>">Download</a>
+          <Button>
+          */}
         </ItemActions>
       </Item>
     </div>
