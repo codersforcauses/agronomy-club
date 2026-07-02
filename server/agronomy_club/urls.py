@@ -10,6 +10,9 @@ urlpatterns = [
 
     # Resource type tags
     path("resource-type-tags/", views.ResourceTypeTagListAPIView.as_view(), name="resource-type-tag-list"),
+
+    # Alumni
+    path("alumni/", views.AlumniListAPIView.as_view(), name="alumni-list"),
 ]
 
 # Override styling of the admin dashboard here
