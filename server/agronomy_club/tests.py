@@ -173,6 +173,28 @@ class ResourceModelSmokeTests(TestCase):
             resource.full_clean()
 
 
+class ChaptersModelSmokeTests(TestCase):
+    def test_create_read_chapter(self):
+        chapter = Chapters.objects.create(
+            name='gamers',
+            abbrev='game',
+            location='Amphoreus',
+            desc='we play, maybe',
+            email='gamers@agronomy.club',
+            colour='#111111'
+        )
+
+        saved_chapter = Chapters.objects.get(pk=chapter.pk)
+
+        self.assertEqual(saved_chapter.name, 'gamers')
+        self.assertEqual(saved_chapter.abbrev, 'game')
+        self.assertEqual(saved_chapter.location, 'Amphoreus')
+        self.assertEqual(saved_chapter.desc, 'we play, maybe')
+        self.assertEqual(saved_chapter.email, 'gamers@agronomy.club')
+        self.assertEqual(saved_chapter.colour, '#111111')
+        self.assertEqual(str(saved_chapter), 'gamers')
+
+
 class ResourceAPISmokeTests(APITestCase):
     def setUp(self):
         self.chapter = Chapters.objects.create(
