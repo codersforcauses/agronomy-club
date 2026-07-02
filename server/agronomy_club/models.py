@@ -2,6 +2,7 @@ from django.db import models  # noqa
 from colorfield.fields import ColorField  # noqa
 import datetime  # noqa
 from django.core.validators import MaxValueValidator, MinValueValidator  # noqa
+from django import forms
 
 # Model for chapters information such as logo, location, description and email. Chapter members should be stored in a seperate model.
 # This model uses django-colorfield to store the colour of the chapter as well as provide a color picker widget in admin panel.
@@ -111,8 +112,34 @@ class ChapterMemberships(models.Model):
     chapter_role = models.CharField(max_length=100, choices=[('member', 'Member'), ('admin', 'Admin'), ('owner', 'Owner')], default='member')
     chapter_id = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name='chapter_memberships')
     position = models.CharField(max_length=100, choices=[('pres', 'President'), ('vpres', 'Vice President'),
-                                                         ('sec', 'Secretary'), ('treas', 'Treasurer'),
-                                                         ('ocm', 'Ordinary Committee Member')], default='pres')
+                                                         ('sec', 'Secretary'), ('treas', 'Treasurer'), ('mark', 'Marketing Officer'),
+                                                         ('ocm', 'Ordinary Committee Member')], default='pres', blank=True)
 
     def __str__(self):
         return f"{self.user_id.full_name} - {self.chapter_id.name} - {self.chapter_role}"
+
+    # runs after a change to an object is submitted on the dashboard, performing validation checks
+    # it has been overridden to include more validation for the different chapter roles
+    # admins and owners must have a valid position, whereas members cannot have a position
+    def clean(self):
+        super().clean()
+        if self.chapter_role not in ('admin', 'owner'):
+            if self.chapter_role != 'member':
+                raise forms.ValidationError("Invalid Chapter Role")
+            if self.position != '':
+                raise forms.ValidationError("Chapter Members cannot have a Committee Position. They must be an Admin or Owner to have one.")
+            self.position = ''
+        else:
+            if self.position not in ('pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'):
+                raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
+        return super().clean()
+
+    # runs after clean() and immediately before the database is written to, in essence the 'last line of defense' for validation checks
+    # has been overridden to include sanitisation of the position field as a last check
+    def save(self):
+        if self.chapter_role not in ('admin', 'owner'):
+            self.position = ''
+        else:
+            if self.position not in ('pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'):
+                raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
+        return super().save()

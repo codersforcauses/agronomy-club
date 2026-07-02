@@ -38,6 +38,6 @@ class UsersAdmin(admin.ModelAdmin):
 
 @admin.register(ChapterMemberships)
 class ChapterMembershipsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_id', 'chapter_role', 'chapter_id')
+    list_display = ('id', 'user_id', 'chapter_role', 'chapter_id', 'position')
     search_fields = ('id', 'user_id__full_name', 'chapter_id__name')
     list_filter = ('chapter_role',)
