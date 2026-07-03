@@ -75,7 +75,7 @@ class EventModelSmokeTests(TestCase):
             email="perth@agronomyclub.example",
             colour="#aabbcc",
         )
-        naive_dt = datetime.datetime(2026, 6, 15, 14, 0)
+        naive_dt = datetime(2026, 6, 15, 14, 0)
         self.event_datetime = timezone.make_aware(
             naive_dt,
             timezone.get_default_timezone(),
@@ -105,7 +105,7 @@ class EventModelSmokeTests(TestCase):
 
     def test_event_date_is_datetime(self):
         saved_event = Event.objects.get(pk=self.event.pk)
-        self.assertIsInstance(saved_event.date, datetime.datetime)
+        self.assertIsInstance(saved_event.date, datetime)
 
     def test_event_datetime_matches(self):
         saved_event = Event.objects.get(pk=self.event.pk)

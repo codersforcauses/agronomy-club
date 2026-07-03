@@ -1,14 +1,10 @@
 from rest_framework import generics
 from rest_framework.decorators import api_view
-from rest_framework import generics
-
-from .models import Resource, ResourceTypeTag
-from .serializers import ResourceSerializer, ResourceTypeTagSerializer
 
 from django.http import HttpResponse
 
-from .models import Event
-from .serializers import EventListSerializer
+from .models import Event, Resource, ResourceTypeTag
+from .serializers import EventListSerializer, ResourceSerializer, ResourceTypeTagSerializer
 
 
 # Create your views here.
