@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+import { QuizListItem } from "@/components/quiz-list-item";
+
 export const metadata = {
   title: "Quizzes | Agronomy Club",
   description:
@@ -181,6 +183,13 @@ export default function QuizzesPage() {
             </li>
           </ul>
         </div>
+        <QuizListItem
+          quizName="Name of Quiz"
+          chapter="Name of Chapter"
+          chapterColor="#800851"
+          uploadDate="27/6/2026"
+          downloadUrl=""
+        />
       </div>
     </main>
   );

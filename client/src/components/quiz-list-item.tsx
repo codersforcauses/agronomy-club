@@ -22,14 +22,13 @@ type QuizListItemProps = {
   chapterColor: string;
   /** The quiz's upload date. */
   uploadDate: string;
-  /** Called when the user clicks the Download button. */
-  onDownload: () => void;
+  /** the quiz's download url. */
+  downloadUrl: string;
 };
 
 /**
  * Displays a quiz as a card with its name, chapter, upload date, and a download button.
  *
- * The `onDownload` callback is invoked when the user clicks the Download button.
  *
  * @example
  * ```tsx
@@ -38,7 +37,7 @@ type QuizListItemProps = {
  *   chapter="Name of Chapter"
  *   chapterColor="#800851"
  *   uploadDate="27/6/2026"
- *   onDownload={() => downloadQuiz()}
+ *   downloadUrl=""
  * />
  * ```
  *
@@ -48,7 +47,7 @@ function QuizListItem({
   chapter,
   chapterColor,
   uploadDate,
-  onDownload,
+  downloadUrl,
 }: QuizListItemProps) {
   return (
     <div className="flex w-full flex-col rounded-md shadow-md shadow-brand-shadow">
@@ -73,17 +72,15 @@ function QuizListItem({
           </ItemDescription>
         </ItemContent>
         <ItemActions className="pr-5">
-          <Button
+          {/* <Button
             className="bg-brand-green text-brand-surface"
             onClick={onDownload}
           >
             Download
+          </Button> */}
+          <Button asChild className="bg-brand-green text-brand-surface">
+            <a href={downloadUrl}>Download</a>
           </Button>
-          {/* Variant for href to download link 
-          <Button asChild>
-            <a href="<<Download link>>">Download</a>
-          <Button>
-          */}
         </ItemActions>
       </Item>
     </div>
