@@ -19,18 +19,19 @@ export function CommitteeMemberCard({
   photo,
 }: CommitteeMemberCardProps) {
   return (
-    <Card className="mx-auto w-full max-w-sm overflow-hidden rounded-2xl border border-[#dcfce7] pt-0 shadow-md">
-      <div className="relative h-64 w-full">
-        <Image
-          src={photo || "/placeholder.jpg"}
-          alt={name}
-          fill
-          className="object-cover"
-        />
+    <Card className="w-[200px] shrink-0 overflow-hidden rounded-xl border border-[#dcfce7] pt-0 shadow-sm">
+      <div className="relative aspect-square w-full bg-[#dcfce7]">
+        {photo && (
+          <Image src={photo} alt={name} fill className="object-cover" />
+        )}
       </div>
-      <CardHeader className="bg-[#fcfbf7]">
-        <CardTitle className="text-[#1d110a]">{name}</CardTitle>
-        <CardDescription className="text-[#166534]">{position}</CardDescription>
+      <CardHeader className="bg-[#fcfbf7] px-3 py-2">
+        <CardTitle className="text-sm font-semibold text-[#1d110a]">
+          {name}
+        </CardTitle>
+        <CardDescription className="text-xs text-[#166534]">
+          {position}
+        </CardDescription>
       </CardHeader>
     </Card>
   );
