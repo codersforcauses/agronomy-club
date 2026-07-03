@@ -40,4 +40,4 @@ class EventListAPIView(generics.ListAPIView):
     serializer_class = EventListSerializer
 
     def get_queryset(self):
-        return Event.objects.all().order_by("date")
+        return Event.objects.all().order_by("-date")
