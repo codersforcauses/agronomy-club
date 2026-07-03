@@ -1,5 +1,5 @@
 from django.contrib import admin  # noqa
-from agronomy_club.models import Users, Quiz, Chapters, Resource, ResourceTypeTag  # noqa
+from agronomy_club.models import Users, Quiz, Chapters, Resource, ResourceTypeTag, Event  # noqa
 
 
 # Register your models here.
@@ -27,6 +27,13 @@ class ResourceAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'link', 'chapter', 'upload_date')
     search_fields = ('id', 'name', 'link')
     list_filter = ('type_tags', 'chapter')
+
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'location', 'date', 'chapter')
+    search_fields = ('id', 'title', 'location', 'chapter__name')
+    list_filter = ('chapter',)
 
 
 @admin.register(Users)
