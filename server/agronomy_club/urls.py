@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path("ping/", views.ping, name="ping"),
+    path("quizzes/download/<int:id>/", views.QuizDataAPIView.as_view(), name="quiz-download"),
 ]
 
 # Override styling of the admin dashboard here
