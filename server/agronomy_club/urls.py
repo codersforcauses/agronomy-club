@@ -5,6 +5,13 @@ from . import views
 urlpatterns = [
     path("ping/", views.ping, name="ping"),
 
+    # Chapters
+    path(
+        "chapters/<int:id>/",
+        views.IndividualChapterAPIView.as_view(),
+        name="individual-chapter",
+    ),
+
     # Resources
     path("resources/", views.ResourceListAPIView.as_view(), name="resource-list"),
 

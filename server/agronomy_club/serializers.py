@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Resource, ResourceTypeTag, Event
-
+from .models import Resource, ResourceTypeTag, Event, Chapters
 
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,4 +45,29 @@ class EventListSerializer(serializers.ModelSerializer):
             "date",
             "thumbnail",
             "chapterName",
+        ]
+
+
+class ChapterSerializer(serializers.ModelSerializer):
+    # resources serializer for read request
+    # (show all resources owned by chapter)
+    resources = ResourceSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Chapters
+        fields = "__all__"
+
+
+class ListedChaptersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chapters
+        fields = [
+            'id',
+            'name',
+            'abbrev',
+            'logo',
+            'location',
+            'desc',
+            'email',
+            'colour'
         ]

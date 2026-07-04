@@ -1,11 +1,10 @@
 from rest_framework import generics
 from rest_framework.decorators import api_view
 
+from .models import Resource, ResourceTypeTag, Chapters, Event
+from .serializers import ResourceSerializer, ResourceTypeTagSerializer, ChapterSerializer
+
 from django.http import HttpResponse
-
-from .models import Event, Resource, ResourceTypeTag
-from .serializers import EventListSerializer, ResourceSerializer, ResourceTypeTagSerializer
-
 
 # Create your views here.
 @api_view(["GET"])
@@ -22,14 +21,21 @@ class ResourceListAPIView(generics.ListAPIView):
     serializer_class = ResourceSerializer
 
     def get_queryset(self):
-        self.queryset = Resource.objects.all().order_by("-upload_date")
+        queryset = Resource.objects.all().order_by("-upload_date")
         tags = self.request.GET.get("tags")
         if tags:
             tag_ids = [t for t in tags.split(",") if t.strip().isdigit()]
             if tag_ids:
-                self.queryset = self.queryset.filter(type_tags__id__in=tag_ids).distinct()
+                queryset = queryset.filter(type_tags__id__in=tag_ids).distinct()
 
-        return self.queryset
+        return queryset
+
+
+
+class IndividualChapterAPIView(generics.RetrieveAPIView):
+    queryset = Chapters.objects.all().order_by("name")
+    serializer_class = ChapterSerializer
+    lookup_url_kwarg = "id"
 
 
 class EventListAPIView(generics.ListAPIView):
