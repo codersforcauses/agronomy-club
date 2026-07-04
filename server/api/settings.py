@@ -154,6 +154,12 @@ STATIC_ROOT = "static_files"
 # These files are then copied to the STATIC_ROOT location.
 STATICFILES_DIRS = ("static",)
 
+# The directory to store images and other media
+MEDIA_ROOT = BASE_DIR/"media"
+
+# The path to serve images and other media
+MEDIA_URL = "/media/"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
