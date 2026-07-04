@@ -35,7 +35,7 @@ def unseed_resource_type_tags(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("agronomy_club", "0006_chaptermemberships"),
+        ("agronomy_club", "0007_remove_resourcetypetag_color_and_more"),
     ]
     operations = [
         migrations.RunPython(seed_resource_type_tags, unseed_resource_type_tags),
