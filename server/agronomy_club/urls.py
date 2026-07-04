@@ -13,6 +13,9 @@ urlpatterns = [
 
     # Alumni
     path("alumni/", views.AlumniListAPIView.as_view(), name="alumni-list"),
+    
+    # Events
+    path("events/", views.EventListAPIView.as_view(), name="events-list"),
 ]
 
 # Override styling of the admin dashboard here

@@ -1,8 +1,8 @@
-from rest_framework.decorators import api_view
 from rest_framework import generics
 
-from .models import Resource, ResourceTypeTag, Users
-from .serializers import ResourceSerializer, ResourceTypeTagSerializer, AlumniSerializer
+from .models import Resource, ResourceTypeTag, Users, Event
+from .serializers import ResourceSerializer, ResourceTypeTagSerializer, AlumniSerializer, EventListSerializer
+from rest_framework.decorators import api_view
 
 from django.http import HttpResponse
 
@@ -35,3 +35,14 @@ class ResourceListAPIView(generics.ListAPIView):
 class AlumniListAPIView(generics.ListAPIView):
     serializer_class = AlumniSerializer
     queryset = Users.objects.filter(global_role="alumni")
+
+
+class EventListAPIView(generics.ListAPIView):
+    """
+    GET /api/events/
+    Returns a list of events.
+    """
+    serializer_class = EventListSerializer
+
+    def get_queryset(self):
+        return Event.objects.all().order_by("-date")
