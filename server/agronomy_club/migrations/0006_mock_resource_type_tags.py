@@ -2,15 +2,23 @@ from django.db import migrations
 
 # Light, saturated colours chosen to stay legible on a dark green background.
 RESOURCE_TYPE_TAGS = [
-    {"name": "Guide", "color": "#FFD54F"},
-    {"name": "Template", "color": "#4FC3F7"},
-    {"name": "Calculator", "color": "#BA68C8"},
-    {"name": "Dashboard", "color": "#4DD0E1"},
-    {"name": "Video", "color": "#FF8A65"},
-    {"name": "Lecture Deck", "color": "#FFB74D"},
-    {"name": "Data Sheet", "color": "#9575CD"},
-    {"name": "Lab Protocol", "color": "#F06292"},
-    {"name": "Case Study", "color": "#AED581"},
+    {"name": "Guide"},
+    {"name": "Template"},
+    {"name": "Calculator"},
+    {"name": "Dashboard"},
+    {"name": "Video"},
+    {"name": "Lecture Deck"},
+    {"name": "Data Sheet"},
+    {"name": "Lab Protocol"},
+    {"name": "Case Study"},
+    {"name": "Video Game"},
+    {"name": "Simulation"},
+    {"name": "DataBase"},
+    {"name": "Article"},
+    {"name": "Tool/Software"},
+    {"name": "Website"},
+    {"name": "Dataset"},
+
 ]
 
 

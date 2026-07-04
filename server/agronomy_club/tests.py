@@ -274,4 +274,4 @@ class ResourceAPISmokeTests(APITestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 3)
+        self.assertEqual(len(response.json()), 19)
