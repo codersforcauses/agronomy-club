@@ -18,8 +18,8 @@ class QuizAdmin(admin.ModelAdmin):
 
 @admin.register(ResourceTypeTag)
 class ResourceTypeTagAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'color')
-    search_fields = ('name',)
+    list_display = ('id', 'name', 'lucide_name')
+    search_fields = ('name', 'lucide_name')
 
 
 @admin.register(Resource)
