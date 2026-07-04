@@ -91,7 +91,7 @@ class ResourceModelSmokeTests(TestCase):
     def tearDown(self):
         Resource.objects.all().delete()
         Chapters.objects.all().delete()
-        ResourceTypeTag.objects.all().delete()
+        ResourceTypeTag.objects.exclude(pk__in=self._existing_tag_ids).delete()
         super().tearDown()
 
     def test_can_create_and_read_resource(self):
@@ -223,7 +223,9 @@ class ResourceAPISmokeTests(APITestCase):
     def tearDown(self):
         Resource.objects.all().delete()
         Chapters.objects.all().delete()
-        ResourceTypeTag.objects.all().delete()
+        ResourceTypeTag.objects.filter(
+            pk__in=self.t1.pk, self.t2.pk, self.t3.pk
+        ).delete()
         super().tearDown()
 
     def test_list_resources(self):
