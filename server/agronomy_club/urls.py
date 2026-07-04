@@ -13,6 +13,9 @@ urlpatterns = [
 
     # Resource type tags
     path("resource-type-tags/", views.ResourceTypeTagListAPIView.as_view(), name="resource-type-tag-list"),
+
+    # Events
+    path("events/", views.EventListAPIView.as_view(), name="events-list"),
 ]
 
 # Override styling of the admin dashboard here

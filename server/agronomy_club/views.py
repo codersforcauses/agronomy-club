@@ -1,8 +1,8 @@
-from rest_framework.decorators import api_view
 from rest_framework import generics
-from .serializers import QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer
+from .serializers import QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer
+from rest_framework.decorators import api_view
 from django.http import HttpResponse
-from .models import Quiz, Resource, ResourceTypeTag
+from .models import Quiz, Resource, ResourceTypeTag, Event
 
 
 # Create your views here.
@@ -12,9 +12,11 @@ def ping(request):
 
 
 class QuizDataAPIView(generics.RetrieveAPIView):
-    queryset = Quiz.objects.all()
     serializer_class = QuizDataSerializer
     lookup_field = "id"
+
+    def get_queryset(self):
+        return Quiz.object.all()
 
 
 class ResourceTypeTagListAPIView(generics.ListAPIView):
@@ -34,3 +36,14 @@ class ResourceListAPIView(generics.ListAPIView):
                 self.queryset = self.queryset.filter(type_tags__id__in=tag_ids).distinct()
 
         return self.queryset
+
+
+class EventListAPIView(generics.ListAPIView):
+    """
+    GET /api/events/
+    Returns a list of events.
+    """
+    serializer_class = EventListSerializer
+
+    def get_queryset(self):
+        return Event.objects.all().order_by("-date")
