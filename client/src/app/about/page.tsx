@@ -12,7 +12,7 @@ export default function AboutPage() {
     <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="space-y-6">
         <div>
-          <p className="text-brand-green-dark text-sm uppercase tracking-widest">
+          <p className="text-sm uppercase tracking-widest text-brand-green-dark">
             Our purpose
           </p>
           <h1 className="mt-2 text-4xl font-bold">
@@ -25,7 +25,7 @@ export default function AboutPage() {
             accelerate sustainable agricultural impact.
           </p>
         </div>
-        <div className="border-brand-green-light bg-brand-surface rounded-xl border p-6 shadow-sm">
+        <div className="rounded-xl border border-brand-green-light bg-brand-surface p-6 shadow-sm">
           <h2 className="text-xl font-semibold">Our Pillars</h2>
           <ul className="mt-4 space-y-3 text-sm">
             <li>
