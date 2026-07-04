@@ -250,6 +250,82 @@ class ChaptersModelSmokeTests(TestCase):
                     colour='#111111'
                 )
 
+    def test_reject_duplicate_name(self):
+        Chapters.objects.create(
+            name='c1',
+            abbrev='c1',
+            location='l1',
+            desc='d1',
+            email='c1@agronomy.club'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Chapters.objects.create(
+                    name='c1',
+                    abbrev='c2',
+                    location='l2',
+                    desc='d2',
+                    email='c2@agronomy.club'
+                )
+
+    def test_reject_duplicate_abbrev(self):
+        Chapters.objects.create(
+            name='c1',
+            abbrev='c1',
+            location='l1',
+            desc='d1',
+            email='c1@agronomy.club'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Chapters.objects.create(
+                    name='c2',
+                    abbrev='c1',
+                    location='l2',
+                    desc='d2',
+                    email='c2@agronomy.club'
+                )
+
+    def test_reject_duplicate_email(self):
+        Chapters.objects.create(
+            name='c1',
+            abbrev='c1',
+            location='l1',
+            desc='d1',
+            email='c1@agronomy.club'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Chapters.objects.create(
+                    name='c2',
+                    abbrev='c2',
+                    location='l2',
+                    desc='d2',
+                    email='c1@agronomy.club'
+                )
+
+    def test_reject_duplicate_logo(self):
+        Chapters.objects.create(
+            name='c1',
+            abbrev='c1',
+            location='l1',
+            desc='d1',
+            email='c1@agronomy.club'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Chapters.objects.create(
+                    name='c2',
+                    abbrev='c1',
+                    location='l2',
+                    desc='d2',
+                    email='c2@agronomy.club'
+                )
+
 
 class ResourceAPISmokeTests(APITestCase):
     def setUp(self):
