@@ -1,5 +1,4 @@
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { ArrowRight, Radio, Target, Trophy } from "lucide-react";
 
 import { QuizListItem } from "@/components/quiz-list-item";
 
@@ -17,20 +16,10 @@ export default function QuizzesPage() {
   return (
     <main className="min-h-screen py-12">
       <div className="mx-auto max-w-4xl px-4">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="mb-4 text-4xl font-bold">Interactive Quizzes</h1>
-          <p className="text-lg text-brand-text">
-            Challenge your agricultural knowledge with real-time interactive
-            quizzes. Test yourself, compete with others, and see where you stand
-            on the leaderboard!
-          </p>
-        </div>
-
         {/* Main CTA Card */}
-        <div className="mb-12 rounded-lg border-2 border-brand-green-light bg-white p-8 shadow-lg md:p-12">
-          <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
-            <div className="flex-1">
+        <div className="mb-12 overflow-hidden rounded-2xl bg-white shadow-lg">
+          <div className="flex flex-col md:flex-row">
+            <div className="flex flex-1 flex-col justify-center p-8 md:p-12">
               <h2 className="mb-4 text-3xl font-bold">
                 Ready to Test Your Knowledge?
               </h2>
@@ -42,81 +31,30 @@ export default function QuizzesPage() {
                 href={quizMateUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-brand-green-dark px-8 py-4 font-semibold text-brand-surface transition hover:bg-brand-yellow"
+                className="inline-flex w-fit items-center gap-2 rounded-lg bg-brand-green-dark px-8 py-4 font-semibold text-brand-surface transition hover:bg-brand-yellow"
               >
                 Open Quiz-Mate
                 <ArrowRight size={20} />
               </a>
             </div>
-            <div className="flex-1 text-center">
-              <div className="rounded-lg bg-brand-yellow-light p-8">
-                <div className="mb-4 text-5xl">🎯</div>
-                <p className="font-semibold text-brand-text">
-                  Live Interactive Quizzes
-                </p>
+            <div className="flex flex-1 flex-col items-center justify-center bg-brand-green-light px-6 py-10 text-center md:py-12">
+              <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-brand-green-dark text-brand-surface shadow-sm">
+                <Target className="size-8" aria-hidden="true" />
               </div>
+              <p className="text-lg font-bold text-brand-text-dark">
+                Live Interactive Quizzes
+              </p>
+              <ul className="mt-6 flex flex-wrap justify-center gap-2">
+                <li className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-brand-green-dark shadow-sm">
+                  <Radio className="size-3.5" aria-hidden="true" />
+                  Live sessions
+                </li>
+                <li className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-brand-green-dark shadow-sm">
+                  <Trophy className="size-3.5" aria-hidden="true" />
+                  Leaderboard
+                </li>
+              </ul>
             </div>
-          </div>
-        </div>
-
-        {/* Features Grid */}
-        <div className="mb-12 grid gap-8 md:grid-cols-2">
-          {/* For Hosts */}
-          <div className="rounded-lg border-l-4 border-brand-green bg-white p-8 shadow">
-            <h3 className="mb-4 text-2xl font-bold text-brand-green">
-              For Quiz Hosts
-            </h3>
-            <ul className="space-y-3 text-brand-text">
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-green">✓</span>
-                <span>Create custom quizzes about agriculture</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-green">✓</span>
-                <span>Host real-time quiz sessions</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-green">✓</span>
-                <span>View answer statistics and insights</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-green">✓</span>
-                <span>Share QR codes for easy joining</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-green">✓</span>
-                <span>Add images to questions (host view only)</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* For Players */}
-          <div className="rounded-lg border-l-4 border-brand-yellow bg-white p-8 shadow">
-            <h3 className="mb-4 text-2xl font-bold text-brand-yellow">
-              For Quiz Players
-            </h3>
-            <ul className="space-y-3 text-brand-text">
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-yellow">✓</span>
-                <span>Join quizzes with access code or QR code</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-yellow">✓</span>
-                <span>Answer questions in real-time</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-yellow">✓</span>
-                <span>Get instant feedback on your answers</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-yellow">✓</span>
-                <span>See the leaderboard and rankings</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="font-bold text-brand-yellow">✓</span>
-                <span>Track your score as the quiz progresses</span>
-              </li>
-            </ul>
           </div>
         </div>
 
@@ -165,24 +103,7 @@ export default function QuizzesPage() {
           </div>
         </div>
 
-        {/* Tips */}
-        <div className="border-green-light rounded-lg border-2 bg-brand-green-light p-8">
-          <h3 className="mb-4 text-xl font-bold text-brand-text">💡 Tips</h3>
-          <ul className="space-y-2 text-brand-text">
-            <li>
-              • <strong>For Hosts:</strong> Set a time limit for each question
-              to increase engagement
-            </li>
-            <li>
-              • <strong>For Players:</strong> Answer as quickly and accurately
-              as possible to win
-            </li>
-            <li>
-              • <strong>Everyone:</strong> Check out the leaderboard to see how
-              you compare
-            </li>
-          </ul>
-        </div>
+        <h2 className="mb-6 text-3xl font-bold">Quizzes</h2>
         <QuizListItem
           quizName="Name of Quiz"
           chapter="Name of Chapter"
