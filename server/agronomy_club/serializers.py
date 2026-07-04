@@ -1,5 +1,8 @@
+import re
 from rest_framework import serializers
-from .models import Resource, ResourceTypeTag, Event
+from .models import Resource, ResourceTypeTag, Event, Chapters
+
+HEX_COLOUR_RE = re.compile(r'^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$')
 
 
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
@@ -47,3 +50,35 @@ class EventListSerializer(serializers.ModelSerializer):
             "thumbnail",
             "chapterName",
         ]
+
+
+class ChaptersSerializer(serializers.ModelSerializer):
+    logo = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Chapters
+        fields = [
+            'id',
+            'name',
+            'abbrev',
+            'logo',
+            'location',
+            'desc',
+            'email',
+            'colour'
+        ]
+
+    def get_logo(self, obj):
+        if not obj.logo:
+            return None
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(obj.logo.url)
+        return obj.logo.url
+
+    def validate_colour(self, value):
+        if not HEX_COLOUR_RE.match(value):
+            raise serializers.ValidationError(
+                "Color must be a valid hex code, e.g. #RRGGBB or #RGB."
+            )
+        return value
