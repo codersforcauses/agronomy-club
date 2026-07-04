@@ -5,7 +5,6 @@ RESOURCE_TYPE_TAGS = [
     {"name": "Guide"},
     {"name": "Template"},
     {"name": "Calculator"},
-    {"name": "Dashboard"},
     {"name": "Video"},
     {"name": "Lecture Deck"},
     {"name": "Data Sheet"},
@@ -17,7 +16,6 @@ RESOURCE_TYPE_TAGS = [
     {"name": "Article"},
     {"name": "Tool/Software"},
     {"name": "Website"},
-    {"name": "Dataset"},
 
 ]
 
