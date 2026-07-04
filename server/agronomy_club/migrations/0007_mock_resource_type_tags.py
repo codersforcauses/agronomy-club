@@ -40,7 +40,7 @@ def unseed_resource_type_tags(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("agronomy_club", "0005_users"),
+        ("agronomy_club", "0006_chaptermemberships"),
     ]
     operations = [
         migrations.RunPython(seed_resource_type_tags, unseed_resource_type_tags),
