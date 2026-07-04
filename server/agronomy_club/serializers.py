@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Resource, ResourceTypeTag, Event, Chapters
 
+
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceTypeTag

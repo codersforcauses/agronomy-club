@@ -2,9 +2,10 @@ from rest_framework import generics
 from rest_framework.decorators import api_view
 
 from .models import Resource, ResourceTypeTag, Chapters, Event
-from .serializers import ResourceSerializer, ResourceTypeTagSerializer, ChapterSerializer
+from .serializers import ResourceSerializer, ResourceTypeTagSerializer, ChapterSerializer, EventListSerializer
 
 from django.http import HttpResponse
+
 
 # Create your views here.
 @api_view(["GET"])
@@ -29,7 +30,6 @@ class ResourceListAPIView(generics.ListAPIView):
                 queryset = queryset.filter(type_tags__id__in=tag_ids).distinct()
 
         return queryset
-
 
 
 class IndividualChapterAPIView(generics.RetrieveAPIView):
