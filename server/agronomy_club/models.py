@@ -36,13 +36,13 @@ def max_value_curr_year(value):
 
 class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    name = models.CharField(max_length=255)
-    abbrev = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
+    abbrev = models.CharField(max_length=255, unique=True)
     # Store chapter logos in media/chapter_logos/ directory. Need to also include default logo for when chapter does not provide one.
-    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png')
+    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default=f'chapter_logo/{name}.png', unique=True)
     location = models.CharField(max_length=255)
     desc = models.TextField(max_length=5000)
-    email = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=255, unique=True)
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
 
     def __str__(self):
