@@ -1,10 +1,10 @@
-from rest_framework.decorators import api_view
 from rest_framework import generics
-
-from .models import Resource, ResourceTypeTag
-from .serializers import ResourceSerializer, ResourceTypeTagSerializer
+from rest_framework.decorators import api_view
 
 from django.http import HttpResponse
+
+from .models import Event, Resource, ResourceTypeTag
+from .serializers import EventListSerializer, ResourceSerializer, ResourceTypeTagSerializer
 
 
 # Create your views here.
@@ -30,3 +30,14 @@ class ResourceListAPIView(generics.ListAPIView):
                 self.queryset = self.queryset.filter(type_tags__id__in=tag_ids).distinct()
 
         return self.queryset
+
+
+class EventListAPIView(generics.ListAPIView):
+    """
+    GET /api/events/
+    Returns a list of events.
+    """
+    serializer_class = EventListSerializer
+
+    def get_queryset(self):
+        return Event.objects.all().order_by("-date")
