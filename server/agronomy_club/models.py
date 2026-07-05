@@ -38,8 +38,8 @@ class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     name = models.CharField(max_length=255, unique=True)
     abbrev = models.CharField(max_length=255, unique=True)
-    # Store chapter logos in media/chapter_logos/ directory. Need to also include default logo for when chapter does not provide one.
-    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default=f'chapter_logo/{name}.png', unique=True)
+    # Store chapter logos in media/chapter_logos/ directory. When no logo is uploaded, default to chapter_logos/<name>.png (set in save()).
+    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, unique=True)
     location = models.CharField(max_length=255)
     desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255, unique=True)
@@ -47,6 +47,12 @@ class Chapters(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    # Default the logo path to chapter_logos/<name>.png when none is provided.
+    def save(self, *args, **kwargs):
+        if not self.logo:
+            self.logo = f'chapter_logos/{self.name}.png'
+        return super().save(*args, **kwargs)
 
 
 class Event(models.Model):
