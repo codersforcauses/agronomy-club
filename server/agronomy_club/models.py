@@ -39,7 +39,7 @@ class Chapter(models.Model):
     name = models.CharField(max_length=255, unique=True)
     abbrev = models.CharField(max_length=255, unique=True)
     # Store chapter logos in media/chapter_logos/ directory. Need to also include default logo for when chapter does not provide one.
-    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png', unique=True)
+    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default=f'chapter_logo/{name}.png', unique=True)
     location = models.CharField(max_length=255)
     desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255, unique=True)
