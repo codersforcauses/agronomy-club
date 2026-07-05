@@ -7,7 +7,6 @@ from django.db import transaction
 from django.test import SimpleTestCase, TestCase, override_settings
 from django.utils import timezone
 from django.urls import reverse
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from rest_framework.test import APITestCase
 from datetime import datetime
@@ -266,7 +265,7 @@ class ChaptersModelSmokeTests(TestCase):
 
         self.assertEqual(saved_chapter.name, 'gamers')
         self.assertEqual(saved_chapter.abbrev, 'game')
-        self.assertEqual(saved_chapter.logo.name, 'chapter_logos/default.png')
+        self.assertEqual(saved_chapter.logo.name, 'chapter_logos/gamers.png')
         self.assertEqual(saved_chapter.location, 'Amphoreus')
         self.assertEqual(saved_chapter.desc, 'we play, maybe')
         self.assertEqual(saved_chapter.email, 'gamers@agronomy.club')
@@ -365,10 +364,11 @@ class ChaptersModelSmokeTests(TestCase):
                     email='c1@agronomy.club'
                 )
 
-    def test_reject_duplicate_logo(self):
+    def test_reject_duplicate_logo_path(self):
         Chapters.objects.create(
             name='c1',
             abbrev='c1',
+            logo='chapter_logos/logo.png',
             location='l1',
             desc='d1',
             email='c1@agronomy.club'
@@ -378,7 +378,8 @@ class ChaptersModelSmokeTests(TestCase):
             with transaction.atomic():
                 Chapters.objects.create(
                     name='c2',
-                    abbrev='c1',
+                    abbrev='c2',
+                    logo='chapter_logos/logo.png',
                     location='l2',
                     desc='d2',
                     email='c2@agronomy.club'
