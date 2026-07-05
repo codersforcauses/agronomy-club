@@ -1,6 +1,7 @@
 "use client";
 
-import { ImageIcon, MapPinned } from "lucide-react";
+import { ArrowRight, ImageIcon, MapPinned } from "lucide-react";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -27,57 +28,69 @@ export default function ChapterCard({
   onView,
 }: ChapterCardProps) {
   return (
-    <Card className="w-full max-w-md overflow-hidden rounded-xl p-0 shadow-md">
-      {/* Top colour bar */}
+    <Card className="min-h-[320px] w-[385px] overflow-hidden rounded-xl p-0 shadow-md">
       <div className="h-3 w-full" style={{ backgroundColor: color }} />
 
-      <CardContent className="space-y-5 p-6">
-        {/* Chapter Image */}
+      <CardContent className="flex h-full flex-col p-6">
+        {/* Image */}
         {imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={imageUrl}
             alt={`${name} chapter`}
-            className="h-16 w-16 rounded-md object-cover"
+            width={70}
+            height={70}
+            className="rounded-md object-cover"
           />
         ) : (
-          <ImageIcon className="h-16 w-16 text-card-foreground" />
+          <ImageIcon className="h-[70px] w-[70px]" />
         )}
 
-        {/* Chapter Name */}
-        <div>
-          <CardTitle className="text-2xl font-bold">{abbreviation}</CardTitle>
+        {/* Text */}
+        <div className="mt-[10px] space-y-[10px]">
+          <CardTitle className="text-xl font-bold leading-tight">
+            {abbreviation}
+          </CardTitle>
 
-          <p className="mt-1 text-lg font-semibold text-card-foreground">
+          <p className="text-base font-semibold leading-tight text-card-foreground">
             {name}
           </p>
         </div>
 
         {/* Location */}
-        <div className="flex items-center gap-2 text-green-600">
+        <div className="mt-[10px] flex items-center gap-2 text-brand-green-dark">
           <MapPinned className="h-4 w-4" />
-
-          <span className="text-base font-medium">{location}</span>
+          <span className="text-sm font-medium">{location}</span>
         </div>
 
         {/* Description */}
-        <p className="text-base text-muted-foreground">{description}</p>
+        <p className="mt-[10px] line-clamp-2 text-sm leading-5 text-muted-foreground">
+          {description}
+        </p>
 
         {/* Buttons */}
-        <div className="flex gap-4 pt-2">
+        <div className="mt-auto flex w-[337px] gap-5 py-[10px]">
+          {/* Join */}
           <Button
-            className="flex-1 bg-green-600 text-white hover:bg-green-700"
+            className="group relative h-10 w-[216px] shrink-0 bg-brand-green text-white transition-opacity hover:bg-brand-green hover:opacity-80"
             onClick={onJoin}
           >
-            Join
-          </Button>
+            <span className="transition-transform duration-200 group-hover:-translate-x-2">
+              Join
+            </span>
 
+            <ArrowRight className="absolute right-4 h-4 w-4 opacity-0 transition-all duration-200 group-hover:opacity-100" />
+          </Button>
+          {/* View */}
           <Button
             variant="outline"
-            className="flex-1 border-green-700 bg-transparent text-green-700 hover:bg-green-50 hover:text-green-700"
+            className="group relative h-10 w-[101px] shrink-0 border-brand-green bg-transparent text-brand-green transition-colors hover:bg-brand-green-light hover:text-brand-green"
             onClick={onView}
           >
-            View
+            <span className="transition-transform duration-200 group-hover:-translate-x-1">
+              View
+            </span>
+
+            <ArrowRight className="absolute right-3 h-4 w-4 opacity-0 transition-all duration-200 group-hover:opacity-100" />
           </Button>
         </div>
       </CardContent>
