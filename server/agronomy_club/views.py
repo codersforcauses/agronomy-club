@@ -34,7 +34,9 @@ class ResourceListAPIView(generics.ListAPIView):
 
 class AlumniListAPIView(generics.ListAPIView):
     serializer_class = AlumniSerializer
-    queryset = Users.objects.filter(global_role="alumni")
+
+    def get_queryset(self):
+        return Users.objects.filter(global_role="alumni").order_by("-grad_yr")
 
 
 class EventListAPIView(generics.ListAPIView):
