@@ -71,7 +71,7 @@ export default function ChaptersPage() {
             <div className="mt-6">
               <Link
                 href={`mailto:${chapter.email}`}
-                className="inline-flex items-center gap-2 rounded-lg bg-brand-green-light px-3 py-2 text-sm font-semibold text-brand-green-dark transition hover:bg-brand-green-light"
+                className="inline-flex items-center gap-2 rounded-lg bg-brand-green-light px-3 py-2 font-ui text-sm font-semibold text-brand-green-dark transition hover:bg-brand-green-light"
               >
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 Contact chapter

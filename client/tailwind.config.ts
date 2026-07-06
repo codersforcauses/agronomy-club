@@ -21,6 +21,13 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+        content: [
+          "var(--font-merriweather)",
+          "Merriweather",
+          "system-ui",
+          "serif",
+        ],
+        ui: ["var(--font-roboto-slab)", "Roboto-Slab", "system-ui", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",

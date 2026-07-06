@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Merriweather , Roboto_Slab } from "next/font/google";
 
 import Providers from "@/components/main/providers";
 import Navbar from "@/components/ui/navbar";
@@ -11,7 +11,14 @@ export const metadata: Metadata = {
   description: "Home Page",
 };
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  variable: "--font-merriweather",
+});
+const roboto_slab = Roboto_Slab({
+  subsets: ["latin"],
+  variable: "--font-roboto-slab",
+});
 
 export default function RootLayout({
   children,
@@ -19,9 +26,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${merriweather.variable} ${roboto_slab.variable}`}
+    >
       <body>
-        <main className={`${inter.variable} font-sans text-brand-text`}>
+        <main className={`font-content text-brand-text`}>
           <Providers>
             <Navbar />
             {children}
