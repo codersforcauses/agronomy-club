@@ -1,10 +1,10 @@
 from rest_framework import generics
+
+from .models import Resource, ResourceTypeTag, Users, Event
+from .serializers import ResourceSerializer, ResourceTypeTagSerializer, AlumniSerializer, EventListSerializer
 from rest_framework.decorators import api_view
 
 from django.http import HttpResponse
-
-from .models import Event, Resource, ResourceTypeTag
-from .serializers import EventListSerializer, ResourceSerializer, ResourceTypeTagSerializer
 
 
 # Create your views here.
@@ -30,6 +30,13 @@ class ResourceListAPIView(generics.ListAPIView):
                 self.queryset = self.queryset.filter(type_tags__id__in=tag_ids).distinct()
 
         return self.queryset
+
+
+class AlumniListAPIView(generics.ListAPIView):
+    serializer_class = AlumniSerializer
+
+    def get_queryset(self):
+        return Users.objects.filter(global_role="alumni").order_by("-grad_yr")
 
 
 class EventListAPIView(generics.ListAPIView):

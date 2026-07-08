@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Resource, ResourceTypeTag, Event
+from .models import Resource, ResourceTypeTag, Event, Users
 
 
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
@@ -31,6 +31,12 @@ class ResourceSerializer(serializers.ModelSerializer):
             'upload_date',
             'type_tags'
             ]
+
+
+class AlumniSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        exclude = ['global_role']
 
 
 class EventListSerializer(serializers.ModelSerializer):
