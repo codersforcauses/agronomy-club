@@ -16,7 +16,7 @@ class QuizDataAPIView(generics.RetrieveAPIView):
     lookup_field = "id"
 
     def get_queryset(self):
-        return Quiz.object.all()
+        return Quiz.objects.filter(public=True)
 
 
 class ResourceTypeTagListAPIView(generics.ListAPIView):
