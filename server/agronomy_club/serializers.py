@@ -1,4 +1,5 @@
 from rest_framework import serializers
+<<<<<<< HEAD
 from .models import Quiz, Resource, ResourceTypeTag, Event
 
 
@@ -6,6 +7,9 @@ class QuizDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
         fields = ["quiz_data"]
+=======
+from .models import Resource, ResourceTypeTag, Event, Users
+>>>>>>> d59a4acd0c25cf8e1b974ffa8c0d402ef6dd867b
 
 
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
@@ -37,6 +41,12 @@ class ResourceSerializer(serializers.ModelSerializer):
             'upload_date',
             'type_tags'
             ]
+
+
+class AlumniSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        exclude = ['global_role']
 
 
 class EventListSerializer(serializers.ModelSerializer):
