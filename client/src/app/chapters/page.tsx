@@ -2,6 +2,8 @@ import { Mail, MapPinned } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import ChapterCard from "@/components/chapters/chapter-card";
+
 export const metadata: Metadata = {
   title: "Chapters | Agronomy Club",
   description:
@@ -26,6 +28,26 @@ export default function ChaptersPage() {
           as new universities and partner farms come online.
         </p>
       </header>
+
+      {/* TEMP TEST BLOCK CARD COMPONENT */}
+      <div className="mt-12 flex flex-wrap gap-6">
+        <ChapterCard
+          abbreviation="Chapter Abbreviation"
+          name="Chapter Name"
+          location="location"
+          description="Dryland farming systems, regenerative agriculture, and student-led field trials."
+          color="#2e7d32"
+        />
+
+        <ChapterCard
+          abbreviation="NSG"
+          name="Nordic Sustainability Group"
+          location="Copenhagen, Denmark"
+          description="Climate-resilient growing systems and sustainable food production research."
+          color="#0288d1"
+        />
+      </div>
+      {/* END TEMP TEST BLOCK */}
 
       <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {[
