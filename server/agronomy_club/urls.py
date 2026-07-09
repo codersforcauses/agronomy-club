@@ -5,6 +5,9 @@ from . import views
 urlpatterns = [
     path("ping/", views.ping, name="ping"),
 
+    # Quiz
+    path("quizzes/download/<int:id>/", views.QuizDataAPIView.as_view(), name="quiz-download"),
+
     # Resources
     path("resources/", views.ResourceListAPIView.as_view(), name="resource-list"),
 
@@ -16,7 +19,7 @@ urlpatterns = [
 
     # Events
     path("events/", views.EventListAPIView.as_view(), name="events-list"),
-    
+
     # Quiz List
     path("quizzes/", views.QuizListAPIView.as_view(), name="quiz-list"),
 ]

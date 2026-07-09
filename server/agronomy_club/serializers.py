@@ -1,5 +1,11 @@
 from rest_framework import serializers
-from .models import Resource, ResourceTypeTag, Event, Users, Quiz
+from .models import Quiz, Resource, ResourceTypeTag, Event, Users
+
+
+class QuizDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiz
+        fields = ["quiz_data"]
 
 
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
@@ -53,7 +59,8 @@ class EventListSerializer(serializers.ModelSerializer):
             "thumbnail",
             "chapterName",
         ]
-        
+
+
 class QuizSerializer(serializers.ModelSerializer):
     chapterName = serializers.CharField(source="chapter.name")
 
