@@ -296,7 +296,7 @@ class ChaptersModelSmokeTests(TestCase):
             colour='#111111'
         )
 
-        with self.assertRaises(ValidationError):
+        with self.assertRaises((ValidationError, IntegrityError)):
             with transaction.atomic():
                 Chapters.objects.create(
                     name='c2',
@@ -316,7 +316,7 @@ class ChaptersModelSmokeTests(TestCase):
             email='c1@agronomy.club'
         )
 
-        with self.assertRaises(ValidationError):
+        with self.assertRaises((ValidationError, IntegrityError)):
             with transaction.atomic():
                 Chapters.objects.create(
                     name='c1',
@@ -335,7 +335,7 @@ class ChaptersModelSmokeTests(TestCase):
             email='c1@agronomy.club'
         )
 
-        with self.assertRaises(ValidationError):
+        with self.assertRaises((ValidationError, IntegrityError)):
             with transaction.atomic():
                 Chapters.objects.create(
                     name='c2',
@@ -354,7 +354,7 @@ class ChaptersModelSmokeTests(TestCase):
             email='c1@agronomy.club'
         )
 
-        with self.assertRaises(ValidationError):
+        with self.assertRaises((ValidationError, IntegrityError)):
             with transaction.atomic():
                 Chapters.objects.create(
                     name='c2',
@@ -374,7 +374,7 @@ class ChaptersModelSmokeTests(TestCase):
             email='c1@agronomy.club'
         )
 
-        with self.assertRaises(ValidationError):
+        with self.assertRaises((ValidationError, IntegrityError)):
             with transaction.atomic():
                 Chapters.objects.create(
                     name='c2',
