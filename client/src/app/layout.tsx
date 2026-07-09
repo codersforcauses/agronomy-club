@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import type { Metadata } from "next";
-import { Merriweather , Roboto_Slab } from "next/font/google";
+import { Merriweather, Roboto_Slab } from "next/font/google";
 
 import Providers from "@/components/main/providers";
 import Navbar from "@/components/ui/navbar";
