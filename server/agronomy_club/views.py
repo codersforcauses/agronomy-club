@@ -1,5 +1,5 @@
 from rest_framework import generics
-from .serializers import QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer
+from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer
 from .models import Resource, ResourceTypeTag, Users, Event, Quiz
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
@@ -54,3 +54,14 @@ class EventListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return Event.objects.all().order_by("-date")
+
+
+class QuizListAPIView(generics.ListAPIView):
+    """
+    GET /api/quizzes/
+    Returns a list of quizzes
+    """
+    serializer_class = QuizSerializer
+
+    def get_queryset(self):
+        return Quiz.objects.filter(public=True).order_by("-upload_date")

@@ -59,3 +59,16 @@ class EventListSerializer(serializers.ModelSerializer):
             "thumbnail",
             "chapterName",
         ]
+
+
+class QuizSerializer(serializers.ModelSerializer):
+    chapterName = serializers.CharField(source="chapter.name")
+
+    class Meta:
+        model = Quiz
+        fields = [
+            "id",
+            "name",
+            "chapterName",
+            "upload_date",
+        ]
