@@ -1,9 +1,7 @@
 from rest_framework import generics
-
-from .models import Resource, ResourceTypeTag, Users, Event
-from .serializers import ResourceSerializer, ResourceTypeTagSerializer, AlumniSerializer, EventListSerializer
+from .serializers import QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer
+from .models import Resource, ResourceTypeTag, Users, Event, Quiz
 from rest_framework.decorators import api_view
-
 from django.http import HttpResponse
 
 
@@ -11,6 +9,14 @@ from django.http import HttpResponse
 @api_view(["GET"])
 def ping(request):
     return HttpResponse("Pong!", status=200)
+
+
+class QuizDataAPIView(generics.RetrieveAPIView):
+    serializer_class = QuizDataSerializer
+    lookup_field = "id"
+
+    def get_queryset(self):
+        return Quiz.objects.filter(public=True)
 
 
 class ResourceTypeTagListAPIView(generics.ListAPIView):

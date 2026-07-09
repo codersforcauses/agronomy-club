@@ -1,5 +1,11 @@
 from rest_framework import serializers
-from .models import Resource, ResourceTypeTag, Event, Users
+from .models import Quiz, Resource, ResourceTypeTag, Event, Users
+
+
+class QuizDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiz
+        fields = ["quiz_data"]
 
 
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
