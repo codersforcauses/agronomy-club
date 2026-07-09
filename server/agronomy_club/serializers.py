@@ -79,6 +79,6 @@ class ChaptersSerializer(serializers.ModelSerializer):
     def validate_colour(self, value):
         if not HEX_COLOUR_RE.match(value):
             raise serializers.ValidationError(
-                "Color must be a valid 6-digit hex code, e.g. #RRGGBB."
+                "Color must be a valid 6-digit hex code: #RRGGBB."
             )
         return value
