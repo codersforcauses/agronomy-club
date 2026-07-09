@@ -12,19 +12,15 @@ export default function ChaptersPage() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <header className="text-center">
-        <h1 className="mt-2 text-left text-6xl font-bold text-brand-green">
-          Chapters
-        </h1>
+        <h1 className="font-bold text-brand-green">OUR COMMUNITY</h1>
 
-        <p className="mt-4 text-left text-lg text-brand-text">
-          Chapters empower local leaders to adapt agronomic solutions to their
-          region's climate, crops, and community needs. This directory will grow
-          as new universities and partner farms come online.
-        </p>
+        <h2 className="text-3xl font-bold tracking-tight text-brand-text-dark sm:text-4xl">
+          Chapters &amp; Field Alliances
+        </h2>
       </header>
 
       {/* TEMP TEST BLOCK CARD COMPONENT */}
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-12 grid justify-items-center gap-10 sm:grid-cols-2 xl:grid-cols-3">
         <ChapterCard
           abbreviation="Chapter Abbreviation"
           name="Midwest Tennessee Chapter"
