@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { type Alumni,AlumniCard } from "@/components/ui/alumnicard";
+import { type Alumni, AlumniCard } from "@/components/ui/alumnicard";
 
 export const metadata: Metadata = {
   title: "Alumni Network | Agronomy Club",
@@ -113,7 +113,7 @@ export default async function AlumniPage() {
           <a
             key={year}
             href={`#year-${year}`}
-            className="border-brand-600 text-brand-700 hover:bg-brand-50 rounded-full border px-3 py-1 text-sm transition"
+            className="rounded-full border border-brand-green px-3 py-1 text-sm text-brand-green transition hover:bg-brand-green-light"
           >
             {year}
           </a>
@@ -124,8 +124,10 @@ export default async function AlumniPage() {
         {years.map((year) => (
           <section key={year} id={`year-${year}`} className="scroll-mt-24">
             <div className="mb-4">
-              <h2 className="text-soil-900 text-xl font-semibold">{year}</h2>
-              <div className="bg-brand-500 mt-1 h-1 w-11 rounded-full" />
+              <h2 className="text-xl font-semibold text-brand-text-dark">
+                {year}
+              </h2>
+              <div className="mt-1 h-1 w-11 rounded-full bg-brand-green" />
             </div>
 
             <div className="flex flex-wrap gap-4">
