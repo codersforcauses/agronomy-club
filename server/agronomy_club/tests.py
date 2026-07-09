@@ -265,7 +265,7 @@ class ChaptersModelSmokeTests(TestCase):
 
         self.assertEqual(saved_chapter.name, 'gamers')
         self.assertEqual(saved_chapter.abbrev, 'game')
-        self.assertEqual(saved_chapter.logo.name, 'chapter_logos/gamers.png')
+        self.assertEqual(saved_chapter.logo.name, 'chapter_logos/default.png')
         self.assertEqual(saved_chapter.location, 'Amphoreus')
         self.assertEqual(saved_chapter.desc, 'we play, maybe')
         self.assertEqual(saved_chapter.email, 'gamers@agronomy.club')
