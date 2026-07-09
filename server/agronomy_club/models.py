@@ -38,8 +38,8 @@ class Chapter(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     name = models.CharField(max_length=255, unique=True)
     abbrev = models.CharField(max_length=255, unique=True)
-    # Store chapter logos in media/chapter_logos/ directory. When no logo is uploaded, default to chapter_logos/<name>.png (set in save()).
-    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, unique=True)
+    # Store chapter logos in media/chapter_logos/ directory. When no logo is uploaded, default to chapter_logos/default.png.
+    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png')
     location = models.CharField(max_length=255)
     desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255, unique=True)
@@ -48,10 +48,27 @@ class Chapter(models.Model):
     def __str__(self):
         return str(self.name)
 
-    # Default the logo path to chapter_logos/<name>.png when none is provided.
-    def save(self, *args, **kwargs):
+    # Unique logo path validation, ignoring the default path
+    def clean(self):
+        super().clean()
+
+        # No path to default path
         if not self.logo:
-            self.logo = f'chapter_logos/{self.name}.png'
+            self.logo = 'chapter_logos/default.png'
+
+        if self.logo != 'chapter_logos/default.png':
+            queryset = Chapters.objects.filter(logo=self.logo)
+
+            # For update queries (object already exist in db)
+            if self.pk:
+                queryset = queryset.exclude(pk=self.pk)
+
+            if queryset.exists():
+                raise forms.ValidationError('Logo path already exists')
+
+    # Enforce clean in object saves
+    def save(self, *args, **kwargs):
+        self.full_clean()
         return super().save(*args, **kwargs)
 
 
