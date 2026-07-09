@@ -2,7 +2,7 @@ import re
 from rest_framework import serializers
 from .models import Resource, ResourceTypeTag, Event, Chapters
 
-HEX_COLOUR_RE = re.compile(r'^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$')
+HEX_COLOUR_RE = re.compile(r'^#[0-9a-fA-F]{6}$')
 
 
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
@@ -79,6 +79,6 @@ class ChaptersSerializer(serializers.ModelSerializer):
     def validate_colour(self, value):
         if not HEX_COLOUR_RE.match(value):
             raise serializers.ValidationError(
-                "Color must be a valid hex code, e.g. #RRGGBB or #RGB."
+                "Color must be a valid 6-digit hex code, e.g. #RRGGBB."
             )
         return value
