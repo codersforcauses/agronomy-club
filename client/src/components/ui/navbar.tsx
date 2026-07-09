@@ -35,12 +35,9 @@ export default function Navbar() {
         >
           <Sprout className="h-8 w-8 text-[#54c612]" />
           <span className="sr-only text-brand-surface">Agronomy Club</span>
-          <span aria-hidden="true" className="whitespace-nowrap md:hidden">
-            Agronomy
-          </span>
           <span
             aria-hidden="true"
-            className="hidden whitespace-nowrap text-[#54c612] md:inline"
+            className="whitespace-nowrap text-[#54c612] md:inline"
           >
             Agronomy Club
           </span>
