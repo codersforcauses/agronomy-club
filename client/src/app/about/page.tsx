@@ -1,4 +1,4 @@
-import { Bug, Droplet, Mail,Sprout, Wheat } from "lucide-react";
+import { Bug, Droplet, Mail, Sprout, Wheat } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
