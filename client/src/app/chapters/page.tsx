@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import ChapterCard from "@/components/chapters/chapter-card";
+import ChapterCard from "@/components/chapter-card";
 
 export const metadata: Metadata = {
   title: "Chapters | Agronomy Club",
@@ -11,12 +11,11 @@ export const metadata: Metadata = {
 export default function ChaptersPage() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <header className="text-center">
-        <h1 className="font-bold text-brand-green">OUR COMMUNITY</h1>
-
-        <h2 className="text-3xl font-bold tracking-tight text-brand-text-dark sm:text-4xl">
+      <header className="flex flex-col gap-1 text-center">
+        <p className="font-semibold text-brand-green">OUR COMMUNITY</p>
+        <h1 className="text-3xl font-bold tracking-tight text-brand-text-dark sm:text-4xl">
           Chapters &amp; Field Alliances
-        </h2>
+        </h1>
       </header>
 
       {/* TEMP TEST BLOCK CARD COMPONENT */}
