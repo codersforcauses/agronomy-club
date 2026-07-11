@@ -109,7 +109,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-white p-8">
+        <div className="rounded-xl bg-white p-8 shadow-md shadow-brand-shadow">
           <p className="text-sm/5 font-semibold uppercase tracking-widest text-brand-green">
             Current Agronomy Club Committee
           </p>
