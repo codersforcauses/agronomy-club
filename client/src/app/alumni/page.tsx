@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { type Alumni, AlumniCard } from "@/components/ui/alumnicard";
+import { type Alumni, AlumniCard } from "@/components/alumnicard";
 
 export const metadata: Metadata = {
   title: "Alumni Network | Agronomy Club",
