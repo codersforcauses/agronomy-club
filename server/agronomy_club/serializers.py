@@ -65,18 +65,6 @@ class ChapterSerializer(serializers.ModelSerializer):
     # resources serializer for read request
     # (show all resources owned by chapter)
     resources = ResourceSerializer(many=True, read_only=True)
-    logo_url = serializers.SerializerMethodField()
-
-    def get_logo_url(self, obj):
-        if not obj.logo:
-            return None
-
-        logo_path = obj.logo.url
-        request = self.context.get("request")
-        if request is None:
-            return logo_path
-
-        return request.build_absolute_uri(logo_path)
 
     class Meta:
         model = Chapters
@@ -85,7 +73,6 @@ class ChapterSerializer(serializers.ModelSerializer):
             "name",
             "abbrev",
             "logo",
-            "logo_url",
             "location",
             "desc",
             "email",
