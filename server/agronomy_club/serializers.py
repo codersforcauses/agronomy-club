@@ -58,17 +58,3 @@ class ChapterSerializer(serializers.ModelSerializer):
         model = Chapters
         fields = "__all__"
 
-
-class ListedChaptersSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Chapters
-        fields = [
-            'id',
-            'name',
-            'abbrev',
-            'logo',
-            'location',
-            'desc',
-            'email',
-            'colour'
-        ]
