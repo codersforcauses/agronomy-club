@@ -63,9 +63,9 @@ export default function ChapterCard({
           {description}
         </p>
 
-        <div className="mt-6 flex w-full flex-col gap-4 sm:flex-row sm:gap-5">
+        <div className="mt-6 flex w-full flex-col gap-4 md:flex-row md:gap-5">
           <Button
-            className="group relative h-10 w-full bg-brand-green text-white transition-opacity hover:bg-brand-green hover:opacity-80 sm:flex-[2]"
+            className="group relative h-10 w-full bg-brand-green text-white transition-opacity hover:bg-brand-green hover:opacity-80 md:flex-[2]"
             onClick={onJoin}
           >
             <span className="transition-transform duration-200 group-hover:-translate-x-2">
@@ -77,7 +77,7 @@ export default function ChapterCard({
 
           <Button
             variant="outline"
-            className="group relative h-10 w-full border-2 border-brand-green bg-transparent text-brand-green transition-colors hover:bg-brand-green-light hover:text-brand-green sm:flex-1"
+            className="group relative h-10 w-full border-2 border-brand-green bg-transparent text-brand-green transition-colors hover:bg-brand-green-light hover:text-brand-green md:flex-1"
             onClick={onView}
           >
             <span className="transition-transform duration-200 group-hover:-translate-x-2">
