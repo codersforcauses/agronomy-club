@@ -48,28 +48,15 @@ class Chapter(models.Model):
     def __str__(self):
         return str(self.name)
 
-    # Unique logo path validation, ignoring the default path
-    def clean(self):
-        super().clean()
-
-        # No path to default path
-        if not self.logo:
-            self.logo = 'chapter_logos/default.png'
-
-        if self.logo != 'chapter_logos/default.png':
-            queryset = Chapters.objects.filter(logo=self.logo)
-
-            # For update queries (object already exist in db)
-            if self.pk:
-                queryset = queryset.exclude(pk=self.pk)
-
-            if queryset.exists():
-                raise forms.ValidationError('Logo path already exists')
-
-    # Enforce clean in object saves
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        return super().save(*args, **kwargs)
+    # Custon unique logo validation, ignoring the default path
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['logo'],
+                condition=~models.Q(logo='chapter_logos/default.png'),
+                name='unique_logo_except_default'
+            )
+        ]
 
 
 class Event(models.Model):
