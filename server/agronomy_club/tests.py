@@ -135,6 +135,9 @@ class UserModelMockUnitTests(SimpleTestCase):
 
 class ResourceModelSmokeTests(TestCase):
     def setUp(self):
+        self._existing_tag_ids = list(
+            ResourceTypeTag.objects.values_list('pk', flat=True)
+        )
         self.chapter = Chapters.objects.create(
             name='gamers',
             abbrev='game',
@@ -146,7 +149,7 @@ class ResourceModelSmokeTests(TestCase):
     def tearDown(self):
         Resource.objects.all().delete()
         Chapters.objects.all().delete()
-        ResourceTypeTag.objects.all().delete()
+        ResourceTypeTag.objects.exclude(pk__in=self._existing_tag_ids).delete()
         super().tearDown()
 
     def test_can_create_and_read_resource(self):
@@ -230,6 +233,9 @@ class ResourceModelSmokeTests(TestCase):
 
 class ResourceAPISmokeTests(APITestCase):
     def setUp(self):
+        self._existing_tag_ids = list(
+            ResourceTypeTag.objects.values_list('pk', flat=True)
+        )
         self.chapter = Chapters.objects.create(
             name='gamers',
             abbrev='game',
@@ -278,7 +284,7 @@ class ResourceAPISmokeTests(APITestCase):
     def tearDown(self):
         Resource.objects.all().delete()
         Chapters.objects.all().delete()
-        ResourceTypeTag.objects.all().delete()
+        ResourceTypeTag.objects.exclude(pk__in=self._existing_tag_ids).delete()
         super().tearDown()
 
     def test_list_resources(self):

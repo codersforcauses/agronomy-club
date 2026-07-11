@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Resource, ResourceTypeTag, Event, Chapters
+from .models import Quiz, Resource, ResourceTypeTag, Event, Users, Chapters
 
 
 class ResourceTypeTagSerializer(serializers.ModelSerializer):
@@ -31,6 +31,12 @@ class ResourceSerializer(serializers.ModelSerializer):
             'upload_date',
             'type_tags'
             ]
+
+
+class AlumniSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        exclude = ['global_role']
 
 
 class EventListSerializer(serializers.ModelSerializer):
@@ -81,3 +87,14 @@ class ChapterSerializer(serializers.ModelSerializer):
             "resources",
         ]
 
+class QuizSerializer(serializers.ModelSerializer):
+    chapterName = serializers.CharField(source="chapter.name")
+
+    class Meta:
+        model = Quiz
+        fields = [
+            "id",
+            "name",
+            "chapterName",
+            "upload_date",
+        ]
