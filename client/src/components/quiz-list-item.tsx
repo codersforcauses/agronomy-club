@@ -50,7 +50,7 @@ function QuizListItem({
   downloadUrl,
 }: QuizListItemProps) {
   return (
-    <div className="flex w-full flex-col rounded-md shadow-md shadow-brand-shadow">
+    <div className="flex w-full flex-col rounded-md bg-white shadow-md shadow-brand-shadow">
       <Item size="default" className="w-full p-0">
         <div
           style={{ "--chapter-color": chapterColor } as React.CSSProperties}
@@ -78,7 +78,10 @@ function QuizListItem({
           >
             Download
           </Button> */}
-          <Button asChild className="bg-brand-green text-brand-surface">
+          <Button
+            asChild
+            className="bg-brand-green text-brand-surface transition-opacity hover:bg-brand-green hover:text-white hover:opacity-80"
+          >
             <a href={downloadUrl}>Download</a>
           </Button>
         </ItemActions>
