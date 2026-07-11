@@ -330,3 +330,29 @@ class ResourceAPISmokeTests(APITestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 3)
+
+
+class ChapterAPISmokeTests(APITestCase):
+    def setUp(self):
+        self.chapter = Chapters.objects.create(
+            name='perth',
+            abbrev='per',
+            location='perth',
+            desc='chapter description',
+            email='perth@agronomy.club'
+        )
+
+    def tearDown(self):
+        Chapters.objects.all().delete()
+        super().tearDown()
+
+    def test_individual_chapter_returns_absolute_logo_url(self):
+        url = reverse('individual-chapter', kwargs={'id': self.chapter.id})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertIn('logo', payload)
+        self.assertIn('logo_url', payload)
+        self.assertTrue(payload['logo_url'].startswith('http://testserver/'))
+        self.assertTrue(payload['logo_url'].endswith(payload['logo']))
