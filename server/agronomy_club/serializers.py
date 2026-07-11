@@ -62,8 +62,6 @@ class EventListSerializer(serializers.ModelSerializer):
 
 
 class ListedChapterSerializer(serializers.ModelSerializer):
-    logo = serializers.SerializerMethodField()
-
     class Meta:
         model = Chapters
         fields = [
@@ -74,14 +72,6 @@ class ListedChapterSerializer(serializers.ModelSerializer):
             'location',
             'desc',
         ]
-
-    def get_logo(self, obj):
-        if not obj.logo:
-            return None
-        request = self.context.get('request')
-        if request is not None:
-            return request.build_absolute_uri(obj.logo.url)
-        return obj.logo.url
 
 
 class QuizSerializer(serializers.ModelSerializer):
