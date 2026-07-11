@@ -87,6 +87,7 @@ class ChapterSerializer(serializers.ModelSerializer):
             "resources",
         ]
 
+
 class QuizSerializer(serializers.ModelSerializer):
     chapterName = serializers.CharField(source="chapter.name")
 

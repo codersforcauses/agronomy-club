@@ -1,11 +1,7 @@
 from rest_framework import generics
-from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer
+from .serializers import QuizSerializer, QuizSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer
 from .models import Resource, ResourceTypeTag, Users, Event, Quiz
 from rest_framework.decorators import api_view
-
-from .models import Resource, ResourceTypeTag, Chapters, Event
-from .serializers import ResourceSerializer, ResourceTypeTagSerializer, ChapterSerializer, EventListSerializer
-
 from django.http import HttpResponse
 
 
