@@ -61,7 +61,7 @@ class EventListSerializer(serializers.ModelSerializer):
         ]
 
 
-class ListedChaptersSerializer(serializers.ModelSerializer):
+class ListedChapterSerializer(serializers.ModelSerializer):
     logo = serializers.SerializerMethodField()
 
     class Meta:
