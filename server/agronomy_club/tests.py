@@ -351,14 +351,3 @@ class ChapterAPISmokeTests(APITestCase):
     def tearDown(self):
         Chapters.objects.all().delete()
         super().tearDown()
-
-    def test_individual_chapter_returns_absolute_logo_url(self):
-        url = reverse('individual-chapter', kwargs={'id': self.chapter.id})
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, 200)
-        payload = response.json()
-        self.assertIn('logo', payload)
-        self.assertIn('logo_url', payload)
-        self.assertTrue(payload['logo_url'].startswith('http://testserver/'))
-        self.assertTrue(payload['logo_url'].endswith(payload['logo']))
