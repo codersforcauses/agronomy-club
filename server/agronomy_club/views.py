@@ -1,6 +1,7 @@
 from rest_framework import generics
 from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer
-from .models import Resource, ResourceTypeTag, Users, Event, Quiz
+from .serializers import ListedChapterSerializer
+from .models import Resource, ResourceTypeTag, Users, Event, Quiz, Chapters
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
 
@@ -65,3 +66,8 @@ class QuizListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return Quiz.objects.filter(public=True).order_by("-upload_date")
+
+
+class ChapterListAPIView(generics.ListAPIView):
+    queryset = Chapters.objects.all()
+    serializer_class = ListedChapterSerializer
