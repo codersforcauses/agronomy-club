@@ -1,8 +1,5 @@
-import re
 from rest_framework import serializers
 from .models import Quiz, Resource, ResourceTypeTag, Event, Users, Chapters
-
-HEX_COLOUR_RE = re.compile(r'^#[0-9a-fA-F]{6}$')
 
 
 class QuizDataSerializer(serializers.ModelSerializer):
@@ -64,7 +61,7 @@ class EventListSerializer(serializers.ModelSerializer):
         ]
 
 
-class ChaptersSerializer(serializers.ModelSerializer):
+class ListedChaptersSerializer(serializers.ModelSerializer):
     logo = serializers.SerializerMethodField()
 
     class Meta:
@@ -76,8 +73,6 @@ class ChaptersSerializer(serializers.ModelSerializer):
             'logo',
             'location',
             'desc',
-            'email',
-            'colour'
         ]
 
     def get_logo(self, obj):
@@ -87,13 +82,6 @@ class ChaptersSerializer(serializers.ModelSerializer):
         if request is not None:
             return request.build_absolute_uri(obj.logo.url)
         return obj.logo.url
-
-    def validate_colour(self, value):
-        if not HEX_COLOUR_RE.match(value):
-            raise serializers.ValidationError(
-                "Color must be a valid 6-digit hex code: #RRGGBB."
-            )
-        return value
 
 
 class QuizSerializer(serializers.ModelSerializer):
