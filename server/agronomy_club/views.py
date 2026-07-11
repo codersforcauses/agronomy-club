@@ -33,9 +33,14 @@ class ResourceListAPIView(generics.ListAPIView):
 
 
 class IndividualChapterAPIView(generics.RetrieveAPIView):
-    queryset = Chapters.objects.all().order_by("name")
     serializer_class = ChapterSerializer
-    lookup_url_kwarg = "id"
+
+    def get_queryset(self):
+        self.queryset = Chapters.objects.all()
+        id = self.kwargs.get("id")
+        if id:
+            self.queryset = self.queryset.filter(id=id)
+        return self.queryset
 
 
 class EventListAPIView(generics.ListAPIView):
