@@ -10,23 +10,23 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 from datetime import datetime
 
-from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters, Event
+from agronomy_club.models import User, max_value_curr_year, Resource, ResourceTypeTag, Chapter, Event, ChapterMemberships
 
 
 class UserModelSmokeTests(TestCase):
     def tearDown(self):
-        Users.objects.all().delete()
+        User.objects.all().delete()
         super().tearDown()
 
     def test_can_create_and_read_user(self):
-        user = Users.objects.create(
+        user = User.objects.create(
             full_name="Ada Lovelace",
             grad_yr=2030,
             discipline="Agronomy",
             email="ada@example.com",
         )
 
-        saved_user = Users.objects.get(pk=user.pk)
+        saved_user = User.objects.get(pk=user.pk)
 
         self.assertEqual(saved_user.full_name, "Ada Lovelace")
         self.assertEqual(saved_user.email, "ada@example.com")
@@ -34,7 +34,7 @@ class UserModelSmokeTests(TestCase):
         self.assertEqual(str(saved_user), "Ada Lovelace - user")
 
     def test_rejects_duplicate_email(self):
-        Users.objects.create(
+        User.objects.create(
             full_name="Ada Lovelace",
             grad_yr=2030,
             discipline="Agronomy",
@@ -44,7 +44,7 @@ class UserModelSmokeTests(TestCase):
 
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
-                Users.objects.create(
+                User.objects.create(
                     full_name="Grace Hopper",
                     grad_yr=2031,
                     discipline="Soil Science",
@@ -53,7 +53,7 @@ class UserModelSmokeTests(TestCase):
                 )
 
     def test_rejects_invalid_graduation_year_on_clean(self):
-        user = Users(
+        user = User(
             full_name="Bad Year",
             grad_yr=1899,
             discipline="Agronomy",
@@ -67,7 +67,7 @@ class UserModelSmokeTests(TestCase):
 
 class EventModelSmokeTests(TestCase):
     def setUp(self):
-        self.chapter = Chapters.objects.create(
+        self.chapter = Chapter.objects.create(
             name="Perth Chapter",
             abbrev="PER",
             location="Perth",
@@ -138,7 +138,7 @@ class ResourceModelSmokeTests(TestCase):
         self._existing_tag_ids = list(
             ResourceTypeTag.objects.values_list('pk', flat=True)
         )
-        self.chapter = Chapters.objects.create(
+        self.chapter = Chapter.objects.create(
             name='gamers',
             abbrev='game',
             location='Amphoreus',
@@ -148,7 +148,7 @@ class ResourceModelSmokeTests(TestCase):
 
     def tearDown(self):
         Resource.objects.all().delete()
-        Chapters.objects.all().delete()
+        Chapter.objects.all().delete()
         ResourceTypeTag.objects.exclude(pk__in=self._existing_tag_ids).delete()
         super().tearDown()
 
@@ -236,7 +236,7 @@ class ResourceAPISmokeTests(APITestCase):
         self._existing_tag_ids = list(
             ResourceTypeTag.objects.values_list('pk', flat=True)
         )
-        self.chapter = Chapters.objects.create(
+        self.chapter = Chapter.objects.create(
             name='gamers',
             abbrev='game',
             location='Amphoreus',
@@ -283,7 +283,7 @@ class ResourceAPISmokeTests(APITestCase):
 
     def tearDown(self):
         Resource.objects.all().delete()
-        Chapters.objects.all().delete()
+        Chapter.objects.all().delete()
         ResourceTypeTag.objects.exclude(pk__in=self._existing_tag_ids).delete()
         super().tearDown()
 
@@ -336,3 +336,156 @@ class ResourceAPISmokeTests(APITestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 17)
+
+
+class AuthAPITests(APITestCase):
+    def test_signup_creates_normal_user(self):
+        response = self.client.post(
+            reverse('auth-signup'),
+            {
+                'full_name': 'Normal User',
+                'grad_yr': 2031,
+                'discipline': 'Agronomy',
+                'email': 'normal@example.com',
+                'password': 'StrongPass#2026',
+            },
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, 201)
+        user = User.objects.get(email='normal@example.com')
+        self.assertEqual(user.global_role, 'user')
+        self.assertTrue(user.check_password('StrongPass#2026'))
+
+    def test_signup_rejects_duplicate_email(self):
+        existing = User.objects.create(
+            full_name='Existing',
+            grad_yr=2030,
+            discipline='Agronomy',
+            email='existing@example.com',
+            global_role='user',
+        )
+        existing.set_password('StrongPass#2026')
+        existing.save()
+
+        response = self.client.post(
+            reverse('auth-signup'),
+            {
+                'full_name': 'Another',
+                'grad_yr': 2031,
+                'discipline': 'Agronomy',
+                'email': 'existing@example.com',
+                'password': 'StrongPass#2026',
+            },
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_login_succeeds_with_valid_credentials(self):
+        user = User.objects.create(
+            full_name='Login User',
+            grad_yr=2030,
+            discipline='Agronomy',
+            email='login@example.com',
+            global_role='user',
+        )
+        user.set_password('StrongPass#2026')
+        user.save()
+
+        response = self.client.post(
+            reverse('auth-login'),
+            {'email': 'login@example.com', 'password': 'StrongPass#2026'},
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['user']['email'], 'login@example.com')
+
+    def test_login_rejects_invalid_credentials(self):
+        user = User.objects.create(
+            full_name='Login User',
+            grad_yr=2030,
+            discipline='Agronomy',
+            email='login2@example.com',
+            global_role='user',
+        )
+        user.set_password('StrongPass#2026')
+        user.save()
+
+        response = self.client.post(
+            reverse('auth-login'),
+            {'email': 'login2@example.com', 'password': 'wrong-password'},
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, 401)
+
+
+class ChapterMembershipRequirementsTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(
+            full_name='Member User',
+            grad_yr=2030,
+            discipline='Agronomy',
+            email='member@example.com',
+            global_role='user',
+        )
+        self.chapter = Chapter.objects.create(
+            name='Membership Chapter',
+            abbrev='MEM',
+            location='Perth',
+            desc='Membership test chapter',
+            email='membership@agronomy.club',
+            colour='#bbaa11',
+        )
+
+    def test_member_cannot_have_committee_position(self):
+        membership = ChapterMemberships(
+            user_id=self.user,
+            chapter_id=self.chapter,
+            chapter_role='member',
+            position='pres',
+        )
+
+        with self.assertRaises(ValidationError):
+            membership.full_clean()
+
+    def test_admin_requires_valid_committee_position(self):
+        membership = ChapterMemberships(
+            user_id=self.user,
+            chapter_id=self.chapter,
+            chapter_role='admin',
+            position='',
+        )
+
+        with self.assertRaises(ValidationError):
+            membership.full_clean()
+
+    def test_owner_with_valid_position_is_accepted(self):
+        membership = ChapterMemberships.objects.create(
+            user_id=self.user,
+            chapter_id=self.chapter,
+            chapter_role='owner',
+            position='pres',
+        )
+
+        self.assertEqual(membership.chapter_role, 'owner')
+        self.assertEqual(membership.position, 'pres')
+
+    def test_unique_membership_per_user_and_chapter(self):
+        ChapterMemberships.objects.create(
+            user_id=self.user,
+            chapter_id=self.chapter,
+            chapter_role='member',
+            position='',
+        )
+
+        with self.assertRaises(ValidationError):
+            duplicate = ChapterMemberships(
+                user_id=self.user,
+                chapter_id=self.chapter,
+                chapter_role='admin',
+                position='pres',
+            )
+            duplicate.full_clean()

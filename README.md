@@ -199,6 +199,82 @@ python manage.py migrate # apply migrations
 
 If you run into migration conflicts that you can't be bothered to fix, run `nuke.sh` to clear your database. Then, run migrations again.
 
+### User Self-Service Auth API
+
+The backend provides frontend-facing endpoints for normal user signup and login.
+
+Base URL (dev): `http://localhost:8000/api`
+
+1. Signup
+
+Endpoint:
+`POST /auth/signup/`
+
+Request body:
+```json
+{
+   "full_name": "Jane Example",
+   "grad_yr": 2031,
+   "discipline": "Agronomy",
+   "email": "jane@example.com",
+   "password": "StrongPass#2026"
+}
+```
+
+Success response (`201 Created`):
+```json
+{
+   "message": "Signup successful.",
+   "user": {
+      "id": 1,
+      "full_name": "Jane Example",
+      "grad_yr": 2031,
+      "discipline": "Agronomy",
+      "email": "jane@example.com",
+      "global_role": "user"
+   }
+}
+```
+
+Common error responses:
+- `400 Bad Request` for invalid payload, weak/short password, duplicate email, or invalid graduation year.
+
+2. Login
+
+Endpoint:
+`POST /auth/login/`
+
+Request body:
+```json
+{
+   "email": "jane@example.com",
+   "password": "StrongPass#2026"
+}
+```
+
+Success response (`200 OK`):
+```json
+{
+   "message": "Login successful.",
+   "user": {
+      "id": 1,
+      "full_name": "Jane Example",
+      "grad_yr": 2031,
+      "discipline": "Agronomy",
+      "email": "jane@example.com",
+      "global_role": "user"
+   }
+}
+```
+
+Common error responses:
+- `401 Unauthorized` when email/password is incorrect.
+- `400 Bad Request` for malformed payload.
+
+Notes:
+- These endpoints are intended for normal users (not Django admin/Keycloak admin).
+- Passwords are stored as hashes in backend storage.
+
 ## Other
 
 ### Keycloak Deployment
