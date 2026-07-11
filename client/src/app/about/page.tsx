@@ -18,7 +18,7 @@ export default function AboutPage() {
           <h1 className="mt-2 text-2xl/6 font-bold text-brand-text-dark">
             Growing resilient food systems through collaboration
           </h1>
-          <p className="mt-2 text-base/5 font-normal text-brand-text">
+          <p className="mt-4 text-base/5 font-normal text-brand-text">
             The Agronomy Club is a student-led community supporting excellence
             in agronomic sciences. Through study tours, competitions, coaching,
             case study discussions, study groups, learning resources, and
@@ -39,7 +39,7 @@ export default function AboutPage() {
             collaboration.
           </h3>
 
-          <div className="mt-2 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="w-full rounded-xl bg-brand-green p-7 shadow-md shadow-brand-shadow">
               <div className="flex items-center gap-2">
                 <Sprout
@@ -57,7 +57,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="w-full rounded-xl bg-brand-yellow p-7 shadow-md shadow-brand-shadow">
+            <div className="w-full rounded-xl bg-brand-yellow p-7">
               <div className="flex items-center gap-2">
                 <Wheat
                   className="h-4 w-4 text-brand-text-dark"
@@ -74,7 +74,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="w-full rounded-xl bg-brand-text p-7 shadow-md shadow-brand-shadow">
+            <div className="w-full rounded-xl bg-brand-text p-7">
               <div className="flex items-center gap-2">
                 <Droplet
                   className="h-4 w-4 text-brand-surface"
@@ -90,7 +90,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="w-full rounded-xl bg-brand-brown p-7 shadow-md shadow-brand-shadow">
+            <div className="w-full rounded-xl bg-brand-brown p-7">
               <div className="flex items-center gap-2">
                 <Bug
                   className="h-4 w-4 text-brand-surface"
@@ -109,7 +109,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-white p-8 shadow-md shadow-brand-shadow">
+        <div className="rounded-xl bg-white p-8">
           <p className="text-sm/5 font-semibold uppercase tracking-widest text-brand-green">
             Current Agronomy Club Committee
           </p>
@@ -134,7 +134,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="w-full rounded-xl bg-brand-yellow-light p-5 shadow-md shadow-brand-shadow md:w-96">
+          <div className="w-full rounded-xl bg-brand-yellow-light p-5 md:w-96">
             <div className="flex items-center gap-2">
               <Mail
                 className="h-4 w-4 text-brand-text-dark"
