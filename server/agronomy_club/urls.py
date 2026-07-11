@@ -22,6 +22,9 @@ urlpatterns = [
 
     # Quiz List
     path("quizzes/", views.QuizListAPIView.as_view(), name="quiz-list"),
+
+    # Chapters
+    path("chapters/", views.ChapterListAPIView.as_view(), name='chapter-list')
 ]
 
 # Override styling of the admin dashboard here
