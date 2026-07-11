@@ -19,20 +19,17 @@ export function CommitteeMemberCard({
   photo,
 }: CommitteeMemberCardProps) {
   return (
-    <Card
-      className="w-[220px] shrink-0 overflow-hidden rounded-xl border-0 pt-0"
-      style={{ boxShadow: "0 4px 12px -4px rgba(22, 101, 52, 0.4)" }}
-    >
+    <Card className="w-[220px] shrink-0 overflow-hidden rounded-xl border-0 pt-0 shadow-md shadow-brand-shadow">
       <div className="relative aspect-square w-full bg-green-100">
         {photo && (
           <Image src={photo} alt={name} fill className="object-cover" />
         )}
       </div>
-      <CardHeader className="bg-surface px-3 py-3">
-        <CardTitle className="text-soil-900 text-sm font-semibold">
+      <CardHeader className="bg-surface px-4 py-4">
+        <CardTitle className="text-sm font-semibold text-brand-text-dark">
           {name}
         </CardTitle>
-        <CardDescription className="text-brand-700 text-xs">
+        <CardDescription className="text-xs text-brand-green">
           {position}
         </CardDescription>
       </CardHeader>

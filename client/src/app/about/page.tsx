@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { CommitteeMemberCard } from "@/components/ui/committee-member-card";
+import { CommitteeMemberCard } from "@/components/committee-member-card";
 
 export const metadata: Metadata = {
   title: "About | Agronomy Club",
