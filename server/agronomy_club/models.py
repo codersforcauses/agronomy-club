@@ -51,6 +51,7 @@ class Chapter(models.Model):
 
     # Custom unique logo validation, ignoring the default path
     class Meta:
+        db_table = 'agronomy_club_chapters'
         constraints = [
             models.UniqueConstraint(
                 fields=['logo'],
