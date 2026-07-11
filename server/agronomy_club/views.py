@@ -1,5 +1,5 @@
 from rest_framework import generics
-from .serializers import QuizSerializer, QuizSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer
+from .serializers import (QuizSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer)  #noqa: E501
 from .models import Resource, ResourceTypeTag, Users, Event, Quiz, Chapters
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
@@ -15,7 +15,7 @@ class QuizDataAPIView(generics.RetrieveAPIView):
     serializer_class = QuizSerializer
     lookup_field = "id"
 
-    def get_queryset(self): # type: ignore
+    def get_queryset(self):  # type: ignore
         return Quiz.objects.filter(public=True)
 
 
@@ -27,7 +27,7 @@ class ResourceTypeTagListAPIView(generics.ListAPIView):
 class ResourceListAPIView(generics.ListAPIView):
     serializer_class = ResourceSerializer
 
-    def get_queryset(self): # type: ignore
+    def get_queryset(self):  # type: ignore
         queryset = Resource.objects.all().order_by("-upload_date")
         tags = self.request.GET.get("tags")
         if tags:
@@ -43,7 +43,7 @@ class IndividualChapterAPIView(generics.RetrieveAPIView):
     lookup_field = "id"
     lookup_url_kwarg = "id"
 
-    def get_queryset(self): # type: ignore
+    def get_queryset(self):  # type: ignore
         self.queryset = Chapters.objects.all()
         id = self.kwargs.get("id")
         if id:
@@ -54,7 +54,7 @@ class IndividualChapterAPIView(generics.RetrieveAPIView):
 class AlumniListAPIView(generics.ListAPIView):
     serializer_class = AlumniSerializer
 
-    def get_queryset(self): # type: ignore
+    def get_queryset(self):  # type: ignore
         return Users.objects.filter(global_role="alumni").order_by("-grad_yr")
 
 
@@ -76,5 +76,5 @@ class QuizListAPIView(generics.ListAPIView):
     """
     serializer_class = QuizSerializer
 
-    def get_queryset(self): # pyright: ignore[reportIncompatibleMethodOverride]
+    def get_queryset(self):  # pyright: ignore[reportIncompatibleMethodOverride]
         return Quiz.objects.filter(public=True).order_by("-upload_date")
