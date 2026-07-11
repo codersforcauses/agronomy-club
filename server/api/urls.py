@@ -15,11 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+import os
+
 from django.contrib import admin
 from django.urls import path, include
 
+from agronomy_club.auth_views import admin_login_via_oidc
+
+
+AUTH_SOURCE = os.environ.get("AUTH_SOURCE", "local").lower()
+
 urlpatterns = [
+    path("admin/login/", admin_login_via_oidc, name="admin-login-via-oidc"),
     path("admin/", admin.site.urls),
     path("api/healthcheck/", include(("api.healthcheck.urls"))),
     path("api/", include(("agronomy_club.urls"))),
 ]
+
+if AUTH_SOURCE == "keycloak":
+    urlpatterns.insert(0, path("oidc/", include("mozilla_django_oidc.urls")))

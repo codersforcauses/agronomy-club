@@ -17,10 +17,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+def env_bool(name, default=False):
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in ("1", "true", "yes", "on")
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 FRONTEND_URL = os.environ.get("FRONTEND_URL")
+AUTH_SOURCE = os.environ.get("AUTH_SOURCE", "local").lower()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -54,6 +62,9 @@ INSTALLED_APPS = [
     "api.healthcheck",
     "agronomy_club"
 ]
+
+if AUTH_SOURCE == "keycloak":
+    INSTALLED_APPS.append("mozilla_django_oidc")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -164,3 +175,40 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+if AUTH_SOURCE == "keycloak":
+    AUTHENTICATION_BACKENDS = [
+        "agronomy_club.auth_backends.KeycloakOIDCAuthenticationBackend",
+        "django.contrib.auth.backends.ModelBackend",
+    ]
+
+    KEYCLOAK_BASE_URL = os.environ.get("KEYCLOAK_BASE_URL", "")
+    KEYCLOAK_REALM = os.environ.get("KEYCLOAK_REALM", "agronomy-club")
+
+    OIDC_RP_CLIENT_ID = os.environ.get("DJANGO_OIDC_CLIENT_ID", "django-admin")
+    OIDC_RP_CLIENT_SECRET = os.environ.get("DJANGO_OIDC_CLIENT_SECRET", "")
+    OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("KEYCLOAK_AUTH_URL", "")
+    OIDC_OP_TOKEN_ENDPOINT = os.environ.get("KEYCLOAK_TOKEN_URL", "")
+    OIDC_OP_USER_ENDPOINT = os.environ.get("KEYCLOAK_USERINFO_URL", "")
+    OIDC_OP_JWKS_ENDPOINT = os.environ.get("KEYCLOAK_JWKS_URL", "")
+    OIDC_OP_LOGOUT_ENDPOINT = KEYCLOAK_BASE_URL.rstrip("/") + "/realms/" + KEYCLOAK_REALM + "/protocol/openid-connect/logout"
+
+    OIDC_RP_SIGN_ALGO = "RS256"
+    OIDC_USE_NONCE = True
+    OIDC_CREATE_USER = True
+    OIDC_UPDATE_USER = True
+    OIDC_RP_SCOPES = "openid email profile"
+
+    OIDC_STORE_ACCESS_TOKEN = True
+    OIDC_STORE_ID_TOKEN = True
+    OIDC_VERIFY_JWT = env_bool("OIDC_VERIFY_JWT", True)
+
+    KEYCLOAK_SYNC_EFFECTIVE_ROLES = env_bool("KEYCLOAK_SYNC_EFFECTIVE_ROLES", True)
+    KEYCLOAK_ADMIN_REALM = os.environ.get("KEYCLOAK_ADMIN_REALM", "master")
+    KEYCLOAK_ADMIN_CLIENT_ID = os.environ.get("KEYCLOAK_ADMIN_CLIENT_ID", "admin-cli")
+    KEYCLOAK_ADMIN_CLIENT_SECRET = os.environ.get("KEYCLOAK_ADMIN_CLIENT_SECRET", "")
+    KEYCLOAK_ADMIN_USERNAME = os.environ.get("KEYCLOAK_ADMIN_USERNAME") or os.environ.get("KC_BOOTSTRAP_ADMIN_USERNAME")
+    KEYCLOAK_ADMIN_PASSWORD = os.environ.get("KEYCLOAK_ADMIN_PASSWORD") or os.environ.get("KC_BOOTSTRAP_ADMIN_PASSWORD")
+
+    LOGIN_REDIRECT_URL = "/admin/"
+    LOGOUT_REDIRECT_URL = "/admin/"

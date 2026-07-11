@@ -1,0 +1,256 @@
+{
+  "realm": "agronomy-club",
+  "enabled": true,
+  "displayName": "Agronomy Club",
+  "registrationAllowed": true,
+  "registrationEmailAsUsername": true,
+  "rememberMe": true,
+  "verifyEmail": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "platform_admin",
+        "description": "Full platform administration role with global cross-chapter access"
+      },
+      {
+        "name": "user",
+        "description": "Default non-privileged app user"
+      },
+      {
+        "name": "alumni",
+        "description": "Alumni visibility role"
+      },
+      {
+        "name": "committee_pres",
+        "description": "Chapter committee president"
+      },
+      {
+        "name": "committee_vpres",
+        "description": "Chapter committee vice president"
+      },
+      {
+        "name": "committee_sec",
+        "description": "Chapter committee secretary"
+      },
+      {
+        "name": "committee_treas",
+        "description": "Chapter committee treasurer"
+      },
+      {
+        "name": "committee_mark",
+        "description": "Chapter committee marketing"
+      },
+      {
+        "name": "committee_ocm",
+        "description": "Chapter committee ordinary member"
+      }
+    ]
+  },
+  "defaultRoles": [
+    "user"
+  ],
+  "groups": [
+    {
+      "name": "chapters",
+      "path": "/chapters",
+      "subGroups": [
+        {
+          "name": "__CHAPTER_ID__",
+          "path": "/chapters/__CHAPTER_ID__",
+          "subGroups": [
+            {
+              "name": "owner",
+              "path": "/chapters/__CHAPTER_ID__/owner"
+            },
+            {
+              "name": "admin",
+              "path": "/chapters/__CHAPTER_ID__/admin"
+            },
+            {
+              "name": "member",
+              "path": "/chapters/__CHAPTER_ID__/member"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "django-admin",
+      "name": "Django Admin Client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "bearerOnly": false,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "http://localhost:8081/*",
+        "http://localhost:8000/*"
+      ],
+      "webOrigins": [
+        "http://localhost:8081",
+        "http://localhost:8000"
+      ],
+      "secret": "CHANGE_ME_DJANGO_ADMIN_CLIENT_SECRET",
+      "defaultClientScopes": [
+        "profile",
+        "email",
+        "roles"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "protocolMappers": [
+        {
+          "name": "realm-roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "group-membership",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "consentRequired": false,
+          "config": {
+            "full.path": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "groups",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "agronomy-api",
+      "name": "Agronomy API Resource Server",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "bearerOnly": true,
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "attributes": {
+        "chapter.scope.enforcement": "required",
+        "chapter.scope.claim": "groups",
+        "chapter.scope.key": "chapter_id",
+        "platform.admin.bypass.role": "platform_admin"
+      },
+      "protocolMappers": [
+        {
+          "name": "api-client-roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-client-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "resource_access.agronomy-api.roles",
+            "jsonType.label": "String",
+            "client.id": "agronomy-api"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "agronomy-web",
+      "name": "Agronomy Web App",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "bearerOnly": false,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3000"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      },
+      "defaultClientScopes": [
+        "profile",
+        "email",
+        "roles"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "protocolMappers": [
+        {
+          "name": "realm-roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "group-membership",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "consentRequired": false,
+          "config": {
+            "full.path": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "groups",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "api-client-roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-client-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "resource_access.agronomy-api.roles",
+            "jsonType.label": "String",
+            "client.id": "agronomy-api"
+          }
+        }
+      ]
+    }
+  ]
+}

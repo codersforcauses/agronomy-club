@@ -11,6 +11,24 @@ services:
       timeout: 3s
       retries: 5
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2
+    restart: unless-stopped
+    env_file: ./.env.prod
+    command:
+      - start
+      - --hostname=${KC_HOSTNAME}
+      - --proxy-headers=${KC_PROXY_HEADERS:-xforwarded}
+      - --http-enabled=${KC_HTTP_ENABLED:-true}
+    ports:
+      - "${KEYCLOAK_HTTP_PORT:-8080}:8080"
+      - "${KEYCLOAK_MANAGEMENT_PORT:-9000}:9000"
+    volumes:
+      - ./docker/keycloak/themes:/opt/keycloak/themes:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
   server:
     image: ghcr.io/codersforcauses/django-nextjs-template-prod-server:latest
     restart: unless-stopped
@@ -25,6 +43,7 @@ services:
       - DJANGO_SETTINGS_MODULE=api.settings
     depends_on:
       - db
+      - keycloak
 
   client:
     image: ghcr.io/codersforcauses/django-nextjs-template-prod-client:latest
