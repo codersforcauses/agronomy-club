@@ -36,17 +36,34 @@ def max_value_curr_year(value):
 
 class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    name = models.CharField(max_length=255)
-    abbrev = models.CharField(max_length=255)
-    # Store chapter logos in media/chapter_logos/ directory. Need to also include default logo for when chapter does not provide one.
+    name = models.CharField(max_length=255, unique=True)
+    abbrev = models.CharField(max_length=255, unique=True)
+    # Store chapter logos in media/chapter_logos/ directory. When no logo is uploaded, default to chapter_logos/default.png.
     logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png')
     location = models.CharField(max_length=255)
     desc = models.TextField(max_length=5000)
-    email = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=255, unique=True)
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
 
     def __str__(self):
         return str(self.name)
+
+    # Custom unique logo validation, ignoring the default path
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['logo'],
+                condition=~models.Q(logo='chapter_logos/default.png'),
+                name='unique_logo_except_default'
+            )
+        ]
+
+    # Make null or empty path to default path
+    def save(self, *args, **kwargs):
+        if not self.logo:
+            self.logo = 'chapter_logos/default.png'
+
+        return super().save(*args, **kwargs)
 
 
 class Event(models.Model):
@@ -132,14 +149,14 @@ class ChapterMemberships(models.Model):
         else:
             if self.position not in ('pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'):
                 raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
-        return super().clean()
+        super().clean()
 
     # runs after clean() and immediately before the database is written to, in essence the 'last line of defense' for validation checks
     # has been overridden to include sanitisation of the position field as a last check
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.chapter_role not in ('admin', 'owner'):
             self.position = ''
         else:
             if self.position not in ('pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'):
                 raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
-        return super().save()
+        return super().save(*args, **kwargs)
