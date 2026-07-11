@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .serializers import QuizSerializer, QuizSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer
-from .models import Resource, ResourceTypeTag, Users, Event, Quiz
+from .serializers import QuizSerializer, QuizSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer
+from .models import Resource, ResourceTypeTag, Users, Event, Quiz, Chapters
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
 
@@ -12,7 +12,7 @@ def ping(request):
 
 
 class QuizDataAPIView(generics.RetrieveAPIView):
-    serializer_class = QuizDataSerializer
+    serializer_class = QuizSerializer
     lookup_field = "id"
 
     def get_queryset(self):
