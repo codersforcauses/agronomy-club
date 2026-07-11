@@ -1,5 +1,5 @@
 from rest_framework import generics
-from .serializers import (QuizSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer)  #noqa: E501
+from .serializers import (QuizSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer)  # noqa: E501
 from .models import Resource, ResourceTypeTag, Users, Event, Quiz, Chapters
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
@@ -65,7 +65,7 @@ class EventListAPIView(generics.ListAPIView):
     """
     serializer_class = EventListSerializer
 
-    def get_queryset(self): # type: ignore
+    def get_queryset(self):  # type: ignore
         return Event.objects.all().order_by("-date")
 
 
