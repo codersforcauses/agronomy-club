@@ -19,6 +19,9 @@ urlpatterns = [
 
     # Events
     path("events/", views.EventListAPIView.as_view(), name="events-list"),
+
+    # Quiz List
+    path("quizzes/", views.QuizListAPIView.as_view(), name="quiz-list"),
 ]
 
 # Override styling of the admin dashboard here
