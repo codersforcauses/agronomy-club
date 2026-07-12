@@ -136,10 +136,10 @@ class ChapterMemberships(models.Model):
 
     # runs after clean() and immediately before the database is written to, in essence the 'last line of defense' for validation checks
     # has been overridden to include sanitisation of the position field as a last check
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.chapter_role not in ('admin', 'owner'):
             self.position = ''
         else:
             if self.position not in ('pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'):
                 raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
-        return super().save()
+        return super().save(*args, **kwargs)
