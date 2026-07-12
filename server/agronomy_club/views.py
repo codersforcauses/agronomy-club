@@ -39,10 +39,11 @@ class ResourceListAPIView(generics.ListAPIView):
 
 
 class IndividualChapterAPIView(generics.RetrieveAPIView):
-    queryset = Chapters.objects.all()
     serializer_class = ChapterSerializer
     lookup_field = "id"
-    lookup_url_kwarg = "id"
+
+    def get_queryset(self):
+        return Chapters.objects.all()
 
 
 class AlumniListAPIView(generics.ListAPIView):
