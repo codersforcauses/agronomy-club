@@ -491,3 +491,18 @@ class ResourceAPISmokeTests(APITestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 17)
+
+
+class ChapterAPISmokeTests(APITestCase):
+    def setUp(self):
+        self.chapter = Chapters.objects.create(
+            name='perth',
+            abbrev='per',
+            location='perth',
+            desc='chapter description',
+            email='perth@agronomy.club'
+        )
+
+    def tearDown(self):
+        Chapters.objects.all().delete()
+        super().tearDown()
