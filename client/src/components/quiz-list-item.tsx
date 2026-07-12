@@ -76,7 +76,10 @@ function QuizListItem({
           >
             Download
           </Button> */}
-          <Button asChild className="bg-brand-green text-brand-surface">
+          <Button
+            asChild
+            className="bg-brand-green text-brand-surface transition-opacity hover:bg-brand-green hover:text-white hover:opacity-80"
+          >
             <a href={downloadUrl}>Download</a>
           </Button>
         </ItemActions>
