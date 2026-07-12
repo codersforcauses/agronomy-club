@@ -24,7 +24,7 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
     .join("");
 
   return (
-    <Card className="w-[200px] overflow-hidden pt-0">
+    <Card className="w-[220px] overflow-hidden border-0 pt-0 shadow-md shadow-brand-shadow">
       {/* Avatar area */}
       <div className="flex justify-center bg-brand-green-light py-6">
         <Avatar className="h-16 w-16">
@@ -34,7 +34,7 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
         </Avatar>
       </div>
 
-      <CardContent className="bg-brand-surface p-4">
+      <CardContent className="bg-white p-4">
         {/* Name + mail icon */}
         <div className="flex items-center justify-between">
           <p className="font-semibold text-brand-text-dark">{alumni.name}</p>
@@ -54,7 +54,7 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
           </Badge>
           <Badge
             variant="outline"
-            className="text-brand-text-dark"
+            className="border-2 text-brand-text-dark"
             style={{ borderColor: colour }}
           >
             {alumni.chapter}
