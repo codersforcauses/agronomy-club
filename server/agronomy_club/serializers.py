@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Quiz, Resource, ResourceTypeTag, Event, Users
+from .models import Quiz, Resource, ResourceTypeTag, Event, Users, Chapters
 
 
 class QuizDataSerializer(serializers.ModelSerializer):
@@ -58,6 +58,26 @@ class EventListSerializer(serializers.ModelSerializer):
             "date",
             "thumbnail",
             "chapterName",
+        ]
+
+
+class ChapterSerializer(serializers.ModelSerializer):
+    # resources serializer for read request
+    # (show all resources owned by chapter)
+    resources = ResourceSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Chapters
+        fields = [
+            "id",
+            "name",
+            "abbrev",
+            "logo",
+            "location",
+            "desc",
+            "email",
+            "colour",
+            "resources",
         ]
 
 
