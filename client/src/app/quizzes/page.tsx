@@ -7,7 +7,9 @@ import {
   Zap,
 } from "lucide-react";
 
+import { QuizInstructionModal } from "@/components/quiz-instruction-modal";
 import { QuizListItem } from "@/components/quiz-list-item";
+import { Button } from "@/components/ui/button";
 
 export const metadata = {
   title: "Quizzes | Agronomy Club",
@@ -24,7 +26,7 @@ export default function QuizzesPage() {
     <main className="min-h-screen py-12">
       <div className="mx-auto max-w-4xl px-4">
         {/* Main CTA Card */}
-        <div className="mb-12 overflow-hidden rounded-2xl bg-white shadow-lg">
+        <div className="mb-12 overflow-hidden rounded-xl bg-white shadow-lg">
           <div className="flex flex-col md:flex-row">
             <div className="flex flex-1 flex-col justify-center p-8 md:p-12">
               <h2 className="mb-4 text-3xl font-bold">
@@ -34,15 +36,17 @@ export default function QuizzesPage() {
                 Join live quiz sessions with other members. Answer questions in
                 real-time, get instant feedback, and climb the leaderboard!
               </p>
-              <a
-                href={quizMateUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-lg bg-brand-green-dark px-8 py-4 font-semibold text-brand-surface transition hover:bg-brand-yellow"
+              <Button
+                asChild
+                variant="default"
+                className="w-fit bg-brand-green px-8 py-6 text-lg font-semibold text-brand-surface hover:bg-brand-yellow"
               >
-                Open Quiz-Mate
-                <ArrowRight size={20} />
-              </a>
+                <a href={quizMateUrl} target="_blank" rel="noopener noreferrer">
+                  Open Quiz-Mate
+                  <ArrowRight size={24} strokeWidth={3} />
+                </a>
+              </Button>
+              <QuizInstructionModal />
             </div>
 
             <div
@@ -68,20 +72,20 @@ export default function QuizzesPage() {
                     Question 4 of 10
                   </p>
                   <h3 className="mt-2 text-lg font-bold leading-snug text-brand-text-dark">
-                    Which planet has the most moons?
+                    Which nutrient promotes leaf growth?
                   </h3>
 
                   <div className="mt-4 flex flex-col gap-2">
                     <div className="flex h-10 items-center justify-between rounded-xl bg-brand-brown/10 px-4 text-sm font-medium text-brand-brown">
-                      Jupiter
+                      Phosphorus
                       <CircleX className="size-4 text-brand-brown" />
                     </div>
                     <div className="flex h-10 items-center justify-between rounded-xl bg-brand-green-dark px-4 text-sm font-semibold text-brand-surface">
-                      Saturn
+                      Nitrogen
                       <CircleCheck className="size-4" />
                     </div>
                     <div className="flex h-10 items-center rounded-xl bg-brand-green-light px-4 text-sm font-medium text-brand-text-light">
-                      Mars
+                      Potassium
                     </div>
                   </div>
                 </div>
@@ -94,52 +98,6 @@ export default function QuizzesPage() {
             </div>
           </div>
         </div>
-
-        {/* How It Works */}
-        <div className="mb-12 rounded-lg bg-white p-8 shadow">
-          <h3 className="mb-6 text-2xl font-bold text-brand-green-dark">
-            How It Works
-          </h3>
-          <div className="grid gap-8 md:grid-cols-3">
-            {/* Step 1 */}
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-green text-2xl font-bold text-white">
-                1
-              </div>
-              <h4 className="mb-2 font-bold text-brand-text">
-                Host Creates Quiz
-              </h4>
-              <p className="text-sm text-brand-text-dark">
-                Host uploads or creates a quiz with multiple choice questions
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-green text-2xl font-bold text-white">
-                2
-              </div>
-              <h4 className="mb-2 font-bold text-brand-text">Players Join</h4>
-              <p className="text-sm text-brand-text-dark">
-                Players scan QR code or enter code to join the quiz session
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-green text-2xl font-bold text-white">
-                3
-              </div>
-              <h4 className="mb-2 font-bold text-brand-text">
-                Live Competition
-              </h4>
-              <p className="text-sm text-brand-text-dark">
-                Answer questions in real-time and see results on the leaderboard
-              </p>
-            </div>
-          </div>
-        </div>
-
         <h2 className="mb-6 text-3xl font-bold">Quizzes</h2>
         <QuizListItem
           quizName="Name of Quiz"
