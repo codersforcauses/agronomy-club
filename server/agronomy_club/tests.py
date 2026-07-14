@@ -510,7 +510,7 @@ class ChapterAPISmokeTests(APITestCase):
 
 class QuizModelSmokeTests(TestCase):
     def setUp(self):
-        self.chapter = Chapters.objects.create( # creates a real Chapter in the test database
+        self.chapter = Chapters.objects.create(  # creates a real Chapter in the test database
             name='gamers',
             abbrev='game',
             location='Amphoreus',
@@ -533,7 +533,6 @@ class QuizModelSmokeTests(TestCase):
         self.assertEqual(saved_quiz.chapter.location, 'Amphoreus')
         self.assertEqual(saved_quiz.quiz_data, '{"test": "data"}')
 
-    
     def test_upload_date_not_none(self):
         saved_quiz = Quiz.objects.create(
             name='slitherio',
