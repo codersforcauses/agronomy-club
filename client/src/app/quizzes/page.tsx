@@ -17,7 +17,18 @@ export const metadata = {
     "Interactive quizzes to test your agricultural knowledge in real-time",
 };
 
-export default function QuizzesPage() {
+interface Quiz {
+  id: number;
+  name: string;
+  chapterName: string;
+  chapterColour: string;
+  upload_date: string;
+}
+
+export default async function QuizzesPage() {
+  const response = await fetch("http://localhost:8000/api/quizzes/");
+  const quizzes: Quiz[] = await response.json();
+
   const quizMateUrl =
     process.env.NEXT_PUBLIC_QUIZ_MATE_URL ||
     "https://quiz-mate-q7uvfi4yhq-uc.a.run.app";
@@ -106,6 +117,23 @@ export default function QuizzesPage() {
           uploadDate="27/6/2026"
           downloadUrl=""
         />
+        <div>
+          {quizzes?.length > 0 ? (
+            quizzes.map((quiz) => (
+              <div key={quiz.id}>
+                <QuizListItem
+                  quizName={quiz.name}
+                  chapter={quiz.chapterName}
+                  chapterColor={quiz.chapterColour}
+                  uploadDate={quiz.upload_date}
+                  downloadUrl=""
+                />
+              </div>
+            ))
+          ) : (
+            <p>No quizzes available.</p>
+          )}
+        </div>
       </div>
     </main>
   );

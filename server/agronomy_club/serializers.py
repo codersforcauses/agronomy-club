@@ -83,6 +83,7 @@ class ChapterSerializer(serializers.ModelSerializer):
 
 class QuizSerializer(serializers.ModelSerializer):
     chapterName = serializers.CharField(source="chapter.name")
+    chapterColour = serializers.CharField(source="chapter.colour")
 
     class Meta:
         model = Quiz
@@ -90,5 +91,6 @@ class QuizSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "chapterName",
+            "chapterColour",
             "upload_date",
         ]
