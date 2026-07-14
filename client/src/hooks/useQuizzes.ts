@@ -3,13 +3,11 @@ import { AxiosError } from "axios";
 
 import api from "@/lib/api";
 
-type ApiQuizList = {
+export type ApiQuizList = {
   id: number;
   name: string;
-  public: boolean;
-  chapter: string;
+  chapterName: string;
   upload_date: string;
-  quiz_data: object;
 };
 
 export const useQuizzes = (
@@ -22,6 +20,11 @@ export const useQuizzes = (
     ...args,
     queryKey: ["quizzes"],
     queryFn: () => api.get("/quizzes/").then((res) => res.data),
-    retry: 1,
+    retry: (failureCount, error) => {
+      if (error?.response?.status === 404) {
+        return false;
+      }
+      return failureCount < 3;
+    },
   });
 };
