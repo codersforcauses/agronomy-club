@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-from django.templatetags.static import static
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -92,7 +91,7 @@ TEMPLATES = [
 ]
 
 UNFOLD = {
-    "COLORS":{
+    "COLORS": {
         "base": {
             "50": "#fcfbf7",
             "100": "#fcfbf7",
@@ -100,7 +99,7 @@ UNFOLD = {
             "300": "#3F7D27",
             "600": "#3F7D27",
         },
-         "primary":{
+        "primary": {
             "50": "#fcfbf7",
             "100": "#fcfbf7",
             "200": "#d7e2d4",
@@ -110,11 +109,11 @@ UNFOLD = {
             "600": "#166534",
             "700": "#166534",
         },
-        "font":{
+        "font": {
             "subtle-light": "#d7e2d4",  # text-base-500
             "subtle-dark": "#d7e2d4",  # text-base-400
             "default-light": "#3F7D27",  # text-base-600
-            "default-dark": "#3F7D27",  # text-base-300
+            "default-dark": "#fcfbf7",  # text-base-300
             "light-important": "#166534",  # text-base-700
             "dark-important": "#166534",  # text-base-200
         }

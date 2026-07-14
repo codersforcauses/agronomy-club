@@ -2,6 +2,7 @@ from django.contrib import admin
 import unfold
 from agronomy_club.models import ChapterMemberships, Users, Quiz, Chapters, Resource, ResourceTypeTag, Event  # noqa
 
+
 # Register your models here.
 @admin.register(Chapters)
 class ChaptersAdmin(unfold.admin.ModelAdmin):
