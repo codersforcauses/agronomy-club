@@ -93,36 +93,30 @@ TEMPLATES = [
 
 UNFOLD = {
     "COLORS":{
-         "base": {
+        "base": {
             "50": "#fcfbf7",
             "100": "#fcfbf7",
-            "200": "#166534",
-            "300": "#166534",
-            "600": "#166534",
-            
-            
+            "200": "#d7e2d4",
+            "300": "#3F7D27",
+            "600": "#3F7D27",
         },
          "primary":{
-            "50": "#166534",
-            "100": "#166534",
-            "200": "#166534",
-            "300": "#166534",
-            "400": "#166534",
+            "50": "#fcfbf7",
+            "100": "#fcfbf7",
+            "200": "#d7e2d4",
+            "300": "#3F7D27",
+            "400": "#3F7D27",
             "500": "#166534",
             "600": "#166534",
             "700": "#166534",
-            "800": "#166534",
-            "900": "#166534",
-            "950": "#166534",
         },
         "font":{
-            "subtle-light": "#4a301d",  # text-base-500
-            "subtle-dark": "#4a301d",  # text-base-400
-            "default-light": "#4a301d1",  # text-base-600
-            "default-dark": "#4a301d",  # text-base-300
+            "subtle-light": "#d7e2d4",  # text-base-500
+            "subtle-dark": "#d7e2d4",  # text-base-400
+            "default-light": "#3F7D27",  # text-base-600
+            "default-dark": "#3F7D27",  # text-base-300
             "light-important": "#166534",  # text-base-700
             "dark-important": "#166534",  # text-base-200
-
         }
     }
 }
