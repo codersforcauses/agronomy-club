@@ -18,6 +18,7 @@ python-dotenv = "^1.0.1"
 django-extensions = "^3.2.3"
 django-colorfield = "^0.14.0"
 mozilla-django-oidc = "^4.0.1"
+pillow = "^12.3.0"
 
 
 [tool.poetry.group.dev.dependencies]

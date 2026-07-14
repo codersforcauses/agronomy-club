@@ -19,6 +19,8 @@ import os
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from agronomy_club.auth_views import admin_login_via_oidc
 
