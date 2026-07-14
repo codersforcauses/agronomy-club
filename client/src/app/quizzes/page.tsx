@@ -110,17 +110,10 @@ export default async function QuizzesPage() {
           </div>
         </div>
         <h2 className="mb-6 text-3xl font-bold">Quizzes</h2>
-        <QuizListItem
-          quizName="Name of Quiz"
-          chapter="Name of Chapter"
-          chapterColor="#800851"
-          uploadDate="27/6/2026"
-          downloadUrl=""
-        />
         <div>
           {quizzes?.length > 0 ? (
             quizzes.map((quiz) => (
-              <div key={quiz.id}>
+              <div className="mb-2" key={quiz.id}>
                 <QuizListItem
                   quizName={quiz.name}
                   chapter={quiz.chapterName}
@@ -134,6 +127,13 @@ export default async function QuizzesPage() {
             <p>No quizzes available.</p>
           )}
         </div>
+        <QuizListItem
+          quizName="Name of Quiz"
+          chapter="Name of Chapter"
+          chapterColor="#800851"
+          uploadDate="27/6/2026"
+          downloadUrl=""
+        />
       </div>
     </main>
   );
