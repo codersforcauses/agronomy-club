@@ -7,6 +7,7 @@ from agronomy_club.models import ChapterMemberships, User, Quiz, Chapter, Resour
 class ChaptersAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'abbrev', 'location', 'email')
     search_fields = ('id', 'name', 'abbrev', 'location')
+    pass
 
 
 @admin.register(Quiz)

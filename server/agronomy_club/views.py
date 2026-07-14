@@ -4,10 +4,20 @@ from django.db.models import QuerySet
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .serializers import (
+    QuizSerializer,
+    QuizDataSerializer,
+    ResourceSerializer,
+    ResourceTypeTagSerializer,
+    EventListSerializer,
+    AlumniSerializer,
+    UserSignupSerializer,
+    UserLoginSerializer,
+    NormalUserSerializer,
+)
+from .models import Resource, ResourceTypeTag, User, Event, Quiz
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
-from .serializers import (QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializerUserSignupSerializer, UserLoginSerializer, NormalUserSerializer,)  # noqa: E501
-from .models import Resource, ResourceTypeTag, Users, Event, Quiz, Chapters
 
 
 # Create your views here.
@@ -43,14 +53,6 @@ class ResourceListAPIView(generics.ListAPIView):
                 queryset = queryset.filter(type_tags__id__in=tag_ids).distinct()
 
         return queryset
-
-
-class IndividualChapterAPIView(generics.RetrieveAPIView):
-    serializer_class = ChapterSerializer
-    lookup_field = "id"
-
-    def get_queryset(self):
-        return Chapters.objects.all()
 
 
 class AlumniListAPIView(generics.ListAPIView):

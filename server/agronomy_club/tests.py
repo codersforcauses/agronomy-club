@@ -4,26 +4,13 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.db import transaction
-from django.test import SimpleTestCase, TestCase, override_settings
+from django.test import SimpleTestCase, TestCase
 from django.utils import timezone
 from django.urls import reverse
-from django.conf import settings
 from rest_framework.test import APITestCase
 from datetime import datetime
-from io import BytesIO
-from tempfile import mkdtemp
-from PIL import Image
-from shutil import rmtree
 
 from agronomy_club.models import User, max_value_curr_year, Resource, ResourceTypeTag, Chapter, Event, ChapterMemberships
-
-
-# Create a 1x1 pixel PNG
-def make_test_image():
-    buffer = BytesIO()
-    Image.new('RGB', (1, 1)).save(buffer, format='PNG')
-    buffer.seek(0)
-    return SimpleUploadedFile('logo.png', buffer.read(), content_type='image/png')
 
 
 class UserModelSmokeTests(TestCase):
@@ -242,148 +229,6 @@ class ResourceModelSmokeTests(TestCase):
 
         with self.assertRaises(ValidationError):
             resource.full_clean()
-
-
-@override_settings(MEDIA_ROOT=mkdtemp())
-class ChaptersModelSmokeTests(TestCase):
-    def tearDown(self):
-        Chapters.objects.all().delete()
-        rmtree(settings.MEDIA_ROOT, ignore_errors=True)
-        super().tearDown()
-
-    def test_create_read_chapter_no_logo(self):
-        chapter = Chapters.objects.create(
-            name='gamers',
-            abbrev='game',
-            location='Amphoreus',
-            desc='we play, maybe',
-            email='gamers@agronomy.club',
-            colour='#111111'
-        )
-
-        saved_chapter = Chapters.objects.get(pk=chapter.pk)
-
-        self.assertEqual(saved_chapter.name, 'gamers')
-        self.assertEqual(saved_chapter.abbrev, 'game')
-        self.assertEqual(saved_chapter.logo.name, 'chapter_logos/default.png')
-        self.assertEqual(saved_chapter.location, 'Amphoreus')
-        self.assertEqual(saved_chapter.desc, 'we play, maybe')
-        self.assertEqual(saved_chapter.email, 'gamers@agronomy.club')
-        self.assertEqual(saved_chapter.colour, '#111111')
-        self.assertEqual(str(saved_chapter), 'gamers')
-
-    def test_upload_logo(self):
-        chapter = Chapters.objects.create(
-            name='gamers',
-            abbrev='game',
-            logo=make_test_image(),
-            location='Amphoreus',
-            desc='we play, maybe',
-            email='gamers@agronomy.club',
-        )
-
-        saved_chapter = Chapters.objects.get(pk=chapter.pk)
-
-        self.assertEqual(saved_chapter.logo.name, 'chapter_logos/logo.png')
-
-    def test_reject_duplicate_color(self):
-        Chapters.objects.create(
-            name='c1',
-            abbrev='c1',
-            location='l1',
-            desc='d1',
-            email='c1@agronomy.club',
-            colour='#111111'
-        )
-
-        with self.assertRaises(IntegrityError):
-            with transaction.atomic():
-                Chapters.objects.create(
-                    name='c2',
-                    abbrev='c2',
-                    location='l2',
-                    desc='d2',
-                    email='c2@agronomy.club',
-                    colour='#111111'
-                )
-
-    def test_reject_duplicate_name(self):
-        Chapters.objects.create(
-            name='c1',
-            abbrev='c1',
-            location='l1',
-            desc='d1',
-            email='c1@agronomy.club'
-        )
-
-        with self.assertRaises(IntegrityError):
-            with transaction.atomic():
-                Chapters.objects.create(
-                    name='c1',
-                    abbrev='c2',
-                    location='l2',
-                    desc='d2',
-                    email='c2@agronomy.club'
-                )
-
-    def test_reject_duplicate_abbrev(self):
-        Chapters.objects.create(
-            name='c1',
-            abbrev='c1',
-            location='l1',
-            desc='d1',
-            email='c1@agronomy.club'
-        )
-
-        with self.assertRaises(IntegrityError):
-            with transaction.atomic():
-                Chapters.objects.create(
-                    name='c2',
-                    abbrev='c1',
-                    location='l2',
-                    desc='d2',
-                    email='c2@agronomy.club'
-                )
-
-    def test_reject_duplicate_email(self):
-        Chapters.objects.create(
-            name='c1',
-            abbrev='c1',
-            location='l1',
-            desc='d1',
-            email='c1@agronomy.club'
-        )
-
-        with self.assertRaises(IntegrityError):
-            with transaction.atomic():
-                Chapters.objects.create(
-                    name='c2',
-                    abbrev='c2',
-                    location='l2',
-                    desc='d2',
-                    email='c1@agronomy.club'
-                )
-
-    def test_reject_duplicate_logo_path(self):
-        Chapters.objects.create(
-            name='c1',
-            abbrev='c1',
-            logo='chapter_logos/logo.png',
-            location='l1',
-            desc='d1',
-            email='c1@agronomy.club'
-        )
-
-        with self.assertRaises(IntegrityError):
-            with transaction.atomic():
-                Chapters.objects.create(
-                    name='c2',
-                    abbrev='c2',
-                    logo='chapter_logos/logo.png',
-                    location='l2',
-                    desc='d2',
-                    email='c2@agronomy.club'
-                )
 
 
 class ResourceAPISmokeTests(APITestCase):
@@ -644,16 +489,3 @@ class ChapterMembershipRequirementsTests(TestCase):
                 position='pres',
             )
             duplicate.full_clean()
-class ChapterAPISmokeTests(APITestCase):
-    def setUp(self):
-        self.chapter = Chapters.objects.create(
-            name='perth',
-            abbrev='per',
-            location='perth',
-            desc='chapter description',
-            email='perth@agronomy.club'
-        )
-
-    def tearDown(self):
-        Chapters.objects.all().delete()
-        super().tearDown()

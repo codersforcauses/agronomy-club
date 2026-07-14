@@ -1,5 +1,6 @@
 "use client";
 
+import { StringToBoolean } from "class-variance-authority/types";
 import React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import {
   ItemActions,
   ItemContent,
   ItemDescription,
+  ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
 
