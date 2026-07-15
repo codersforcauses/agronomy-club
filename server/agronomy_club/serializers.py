@@ -122,7 +122,6 @@ class QuizSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "chapterName",
-            "chapterColour",
             "upload_date",
             "chapterColour",
         ]
