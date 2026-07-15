@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('agronomy_club', '0008_alter_chapters_abbrev_alter_chapters_email_and_more'),
+        ('agronomy_club', '0009_alter_chapters_abbrev_alter_chapters_email_and_more'),
     ]
 
     operations = [
