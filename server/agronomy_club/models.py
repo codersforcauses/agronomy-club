@@ -1,7 +1,7 @@
 from django.db import models  # noqa
 from colorfield.fields import ColorField  # noqa
 import datetime  # noqa
-from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator  # noqa
+from django.core.validators import MaxValueValidator, MinValueValidator  # noqa
 from django import forms
 
 # Model for chapters information such as logo, location, description and email. Chapter members should be stored in a seperate model.
@@ -84,7 +84,7 @@ class Quiz(models.Model):
     public = models.BooleanField()
     chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
-    quiz_data = models.FileField(upload_to='quiz_data/', blank=False, null=False, validators=[FileExtensionValidator(allowed_extensions=['json'])])
+    quiz_data = models.JSONField()
 
     def __str__(self):
         return f"{self.name} - {self.chapter}"
