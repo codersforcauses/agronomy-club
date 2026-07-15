@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import (
+    ChapterSerializer,
     QuizSerializer,
     QuizDataSerializer,
     ResourceSerializer,
@@ -15,7 +16,7 @@ from .serializers import (
     UserLoginSerializer,
     NormalUserSerializer,
 )
-from .models import Resource, ResourceTypeTag, User, Event, Quiz
+from .models import Chapter, Resource, ResourceTypeTag, User, Event, Quiz
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
 
@@ -152,3 +153,11 @@ class UserLoginAPIView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+
+
+class IndividualChapterAPIView(generics.RetrieveAPIView):
+    serializer_class = ChapterSerializer
+    lookup_field = "id"
+
+    def get_queryset(self) -> QuerySet[Chapter]:  # type: ignore[override]
+        return Chapter.objects.all()
