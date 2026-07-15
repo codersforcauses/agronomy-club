@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-
 load_dotenv()
 
 
@@ -37,10 +36,10 @@ ALLOWED_HOSTS = (
     else []
 )
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -89,6 +88,36 @@ TEMPLATES = [
         },
     },
 ]
+
+UNFOLD = {
+    "COLORS": {
+        "base": {
+            "50": "#fcfbf7",
+            "100": "#fcfbf7",
+            "200": "#d7e2d4",
+            "300": "#3F7D27",
+            "600": "#3F7D27",
+        },
+        "primary": {
+            "50": "#fcfbf7",
+            "100": "#fcfbf7",
+            "200": "#d7e2d4",
+            "300": "#3F7D27",
+            "400": "#3F7D27",
+            "500": "#166534",
+            "600": "#166534",
+            "700": "#166534",
+        },
+        "font": {
+            "subtle-light": "#d7e2d4",  # text-base-500
+            "subtle-dark": "#d7e2d4",  # text-base-400
+            "default-light": "#3F7D27",  # text-base-600
+            "default-dark": "#fcfbf7",  # text-base-300
+            "light-important": "#166534",  # text-base-700
+            "dark-important": "#166534",  # text-base-200
+        }
+    }
+}
 
 WSGI_APPLICATION = "api.wsgi.application"
 
@@ -148,11 +177,11 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(
 STATIC_URL = "/static/"
 
 # STATIC_ROOT is where the static files get copied to when "collectstatic" is run.
-STATIC_ROOT = "static_files"
+STATIC_ROOT = BASE_DIR / "static_files"
 
 # This is where to _find_ static files when 'collectstatic' is run.
 # These files are then copied to the STATIC_ROOT location.
-STATICFILES_DIRS = ("static",)
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # The directory to store images and other media
 MEDIA_ROOT = BASE_DIR/"media"
