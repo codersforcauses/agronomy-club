@@ -21,6 +21,7 @@ class ResourceTypeTagAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'name', 'lucide_name')
     search_fields = ('name', 'lucide_name')
 
+    # Make resource type tag immutable in admin dashboard
     def has_add_permission(self, request):
         return False
 
