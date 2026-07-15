@@ -7,6 +7,7 @@ export type ApiQuizList = {
   id: number;
   name: string;
   chapterName: string;
+  chapterColour: string;
   upload_date: string;
 };
 
