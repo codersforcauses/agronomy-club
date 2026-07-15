@@ -69,6 +69,9 @@ class ListedChapterSerializer(serializers.ModelSerializer):
             'location',
             'desc',
             'colour',
+        ]
+
+
 class CommitteeSerializer(serializers.ModelSerializer):
     full_name = serializers.CharField(source="user_id.full_name")
     email = serializers.CharField(source="user_id.email")
