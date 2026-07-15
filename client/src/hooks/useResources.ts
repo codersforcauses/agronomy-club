@@ -3,17 +3,19 @@ import { AxiosError } from "axios";
 
 import api from "@/lib/api";
 
+export type ApiResourceTypeTag = {
+  id: number;
+  name: string;
+  color: string;
+};
+
 export type ApiResource = {
   id: number;
   chapter_name: string;
   name: string;
   link: string;
   upload_date: string;
-  type_tags?: {
-    id: number;
-    name: string;
-    color: string;
-  };
+  type_tags: ApiResourceTypeTag[];
 };
 
 export function useResource() {
