@@ -43,7 +43,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-1 text-sm font-medium lg:flex">
+        <nav className="ml-auto hidden items-center gap-1 text-xs font-medium lg:flex xl:text-sm">
           {navigationItems.map((item) => (
             <Link
               key={item.href}
@@ -61,13 +61,13 @@ export default function Navbar() {
           <div className="ml-4 flex items-center gap-3 border-l border-brand-green-light pl-4">
             <Link
               href="/auth/signin"
-              className="hover:brand-surface text-sm text-brand-surface transition-colors"
+              className="hover:brand-surface whitespace-nowrap text-xs text-brand-surface transition-colors xl:text-sm"
             >
               Sign in
             </Link>
             <Link
               href="/auth/signup"
-              className="rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-surface"
+              className="whitespace-nowrap rounded-full bg-brand-surface px-4 py-1.5 text-xs font-semibold text-brand-green-dark transition-colors hover:bg-brand-surface xl:text-sm"
             >
               Join the club
             </Link>
