@@ -21,6 +21,15 @@ class ResourceTypeTagAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'name', 'lucide_name')
     search_fields = ('name', 'lucide_name')
 
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request):
+        return False
+
 
 @admin.register(Resource)
 class ResourceAdmin(unfold.admin.ModelAdmin):
