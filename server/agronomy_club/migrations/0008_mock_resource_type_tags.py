@@ -2,20 +2,20 @@ from django.db import migrations
 
 # Light, saturated colours chosen to stay legible on a dark green background.
 RESOURCE_TYPE_TAGS = [
-    {"name": "Guide"},
-    {"name": "Template"},
-    {"name": "Calculator"},
-    {"name": "Video"},
-    {"name": "Lecture Deck"},
-    {"name": "Data Sheet"},
-    {"name": "Lab Protocol"},
-    {"name": "Case Study"},
-    {"name": "Video Game"},
-    {"name": "Simulation"},
-    {"name": "DataBase"},
-    {"name": "Article"},
-    {"name": "Tool/Software"},
-    {"name": "Website"},
+    {"name": "Guide", "lucide_name": "compass"},
+    {"name": "Template", "lucide_name": "layout-template"},
+    {"name": "Calculator", "lucide_name": "calculator"},
+    {"name": "Video", "lucide_name": "video"},
+    {"name": "Lecture Deck", "lucide_name": "presentation"},
+    {"name": "Data Sheet", "lucide_name": "file-spreadsheet"},
+    {"name": "Lab Protocol", "lucide_name": "flask-conical"},
+    {"name": "Case Study", "lucide_name": "file-search"},
+    {"name": "Video Game", "lucide_name": "gamepad-2"},
+    {"name": "Simulation", "lucide_name": "boxes"},
+    {"name": "DataBase", "lucide_name": "database"},
+    {"name": "Article", "lucide_name": "file-text"},
+    {"name": "Tool/Software", "lucide_name": "wrench"},
+    {"name": "Website", "lucide_name": "globe"}
 
 ]
 
