@@ -6,6 +6,12 @@ export type PasswordRequirement = {
 export type PasswordStrength = "weak" | "fair" | "strong" | "very-strong";
 
 /**
+ * ASCII printable special characters (mirrors Python's string.punctuation and
+ * the backend StrongPasswordValidator character set).
+ */
+const SPECIAL_CHAR_PATTERN = /[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/;
+
+/**
  * Evaluates each industry-standard password requirement against the given password.
  * Requirements mirror the backend StrongPasswordValidator plus minimum length.
  */
@@ -31,7 +37,7 @@ export function getPasswordRequirements(
     },
     {
       label: "At least one special character (!@#$%…)",
-      met: /[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/.test(password),
+      met: SPECIAL_CHAR_PATTERN.test(password),
     },
   ];
 }

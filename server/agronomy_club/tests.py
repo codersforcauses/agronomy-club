@@ -552,7 +552,10 @@ class StrongPasswordValidatorTests(SimpleTestCase):
 
     def test_accepts_various_special_characters(self):
         for special in "!@#$%^&*()_+-=[]{}|;':\",./<>?":
-            self.validator.validate(f"SecurePass1{special}")
+            try:
+                self.validator.validate(f"SecurePass1{special}")
+            except Exception as e:
+                self.fail(f"validate() raised unexpectedly for special char {special!r}: {e}")
 
     def test_get_help_text_returns_string(self):
         self.assertIsInstance(self.validator.get_help_text(), str)
