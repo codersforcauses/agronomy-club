@@ -76,5 +76,7 @@ class QuizListAPIView(generics.ListAPIView):
 
 
 class ChapterListAPIView(generics.ListAPIView):
-    queryset = Chapters.objects.all()
     serializer_class = ListedChapterSerializer
+
+    def get_queryset(self):
+        return Chapters.objects.all()
