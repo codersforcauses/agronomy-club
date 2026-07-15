@@ -6,6 +6,7 @@ urlpatterns = [
     path("ping/", views.ping, name="ping"),
 
     # Chapters
+    path("chapters/", views.ChapterListAPIView.as_view(), name='chapter-list'),
     path("chapters/<int:id>/", views.IndividualChapterAPIView.as_view(), name="individual-chapter"),
 
     # Quiz
@@ -25,9 +26,6 @@ urlpatterns = [
 
     # Quiz List
     path("quizzes/", views.QuizListAPIView.as_view(), name="quiz-list"),
-
-    # Chapters
-    path("chapters/", views.ChapterListAPIView.as_view(), name='chapter-list')
 ]
 
 # Override styling of the admin dashboard here
