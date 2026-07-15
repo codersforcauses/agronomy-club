@@ -1,5 +1,5 @@
 from rest_framework import generics
-from .serializers import (QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer, ListedChapterSerializer)  # noqa: E501
+from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer, ListedChapterSerializer  # noqa: E501
 from .models import Resource, ResourceTypeTag, Users, Event, Quiz, Chapters
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
