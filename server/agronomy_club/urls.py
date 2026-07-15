@@ -5,6 +5,9 @@ from . import views
 urlpatterns = [
     path("ping/", views.ping, name="ping"),
 
+    # Chapters
+    path("chapters/<int:id>/", views.IndividualChapterAPIView.as_view(), name="individual-chapter"),
+
     # Quiz
     path("quizzes/download/<int:id>/", views.QuizDataAPIView.as_view(), name="quiz-download"),
 
