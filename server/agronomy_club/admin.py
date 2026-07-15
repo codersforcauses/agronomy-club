@@ -5,7 +5,7 @@ from agronomy_club.models import ChapterMemberships, User, Quiz, Chapter, Resour
 
 # Register your models here.
 @admin.register(Chapter)
-class ChaptersAdmin(unfold.admin.ModelAdmin):
+class ChapterAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'name', 'abbrev', 'location', 'email')
     search_fields = ('id', 'name', 'abbrev', 'location')
 

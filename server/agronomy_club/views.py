@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Chapter, Resource, ResourceTypeTag, User, Event, Quiz
-from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer, ListedChapterSerializer  # noqa: E501
+from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer, ListedChapterSerializer, NormalUserSerializer, UserSignupSerializer, UserLoginSerializer  # noqa: E501
 
 
 # Create your views here.

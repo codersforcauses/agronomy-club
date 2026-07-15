@@ -60,7 +60,7 @@ class EventListSerializer(serializers.ModelSerializer):
 
 class ListedChapterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Chapters
+        model = Chapter
         fields = [
             'id',
             'name',
