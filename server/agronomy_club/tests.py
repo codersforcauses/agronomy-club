@@ -16,6 +16,7 @@ from PIL import Image
 from shutil import rmtree
 
 from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters, Event
+from agronomy_club.validators import StrongPasswordValidator
 
 
 # Create a 1x1 pixel PNG
@@ -506,3 +507,52 @@ class ChapterAPISmokeTests(APITestCase):
     def tearDown(self):
         Chapters.objects.all().delete()
         super().tearDown()
+
+
+class StrongPasswordValidatorTests(SimpleTestCase):
+    def setUp(self):
+        self.validator = StrongPasswordValidator()
+
+    def test_accepts_strong_password(self):
+        # Should not raise for a password meeting all requirements
+        self.validator.validate("SecurePass1!")
+
+    def test_rejects_missing_uppercase(self):
+        with self.assertRaises(ValidationError) as ctx:
+            self.validator.validate("securepass1!")
+        codes = [e.code for e in ctx.exception.error_list]
+        self.assertIn("password_no_upper", codes)
+
+    def test_rejects_missing_lowercase(self):
+        with self.assertRaises(ValidationError) as ctx:
+            self.validator.validate("SECUREPASS1!")
+        codes = [e.code for e in ctx.exception.error_list]
+        self.assertIn("password_no_lower", codes)
+
+    def test_rejects_missing_digit(self):
+        with self.assertRaises(ValidationError) as ctx:
+            self.validator.validate("SecurePassAB!")
+        codes = [e.code for e in ctx.exception.error_list]
+        self.assertIn("password_no_digit", codes)
+
+    def test_rejects_missing_special_character(self):
+        with self.assertRaises(ValidationError) as ctx:
+            self.validator.validate("SecurePass12")
+        codes = [e.code for e in ctx.exception.error_list]
+        self.assertIn("password_no_special", codes)
+
+    def test_reports_all_violations_at_once(self):
+        # All-lowercase, no digit, no special character
+        with self.assertRaises(ValidationError) as ctx:
+            self.validator.validate("alllowercase")
+        codes = [e.code for e in ctx.exception.error_list]
+        self.assertIn("password_no_upper", codes)
+        self.assertIn("password_no_digit", codes)
+        self.assertIn("password_no_special", codes)
+
+    def test_accepts_various_special_characters(self):
+        for special in "!@#$%^&*()_+-=[]{}|;':\",./<>?":
+            self.validator.validate(f"SecurePass1{special}")
+
+    def test_get_help_text_returns_string(self):
+        self.assertIsInstance(self.validator.get_help_text(), str)
