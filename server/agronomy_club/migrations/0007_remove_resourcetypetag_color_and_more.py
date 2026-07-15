@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="resourcetypetag",
             name="lucide_name",
-            field=models.CharField(blank=True, max_length=100),
+            field=models.CharField(max_length=100),
         ),
     ]
