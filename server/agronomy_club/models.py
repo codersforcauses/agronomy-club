@@ -3,8 +3,9 @@ from colorfield.fields import ColorField  # noqa
 import datetime  # noqa
 from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator  # noqa
 from django import forms
+from django.contrib.auth.hashers import check_password, make_password
 
-# Model for chapters information such as logo, location, description and email. Chapter members should be stored in a seperate model.
+# Model for Chapter information such as logo, location, description and email. Chapter members should be stored in a seperate model.
 # This model uses django-colorfield to store the colour of the chapter as well as provide a color picker widget in admin panel.
 # Documentation can be found here: https://github.com/fabiocaccamo/django-colorfield#readme
 
@@ -21,7 +22,7 @@ def random_color():
         new_color = generate_random_hex()
 
         # If color does not exist yet in database then return it, otherwise generate a new one
-        if not Chapters.objects.filter(colour=new_color).exists():
+        if not Chapter.objects.filter(colour=new_color).exists():
             return new_color
 
 
@@ -34,7 +35,7 @@ def max_value_curr_year(value):
     return MaxValueValidator(current_year() + 12)(value)
 
 
-class Chapters(models.Model):
+class Chapter(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     name = models.CharField(max_length=255, unique=True)
     abbrev = models.CharField(max_length=255, unique=True)
@@ -50,6 +51,7 @@ class Chapters(models.Model):
 
     # Custom unique logo validation, ignoring the default path
     class Meta:
+        db_table = 'agronomy_club_chapters'
         constraints = [
             models.UniqueConstraint(
                 fields=['logo'],
@@ -73,7 +75,7 @@ class Event(models.Model):
     location = models.CharField(max_length=255)
     date = models.DateTimeField()
     thumbnail = models.ImageField(upload_to="event_thumbnails/", null=True, blank=True)
-    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="events")
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name="events")
 
     def __str__(self):
         return f"{self.title} - {self.chapter}"
@@ -82,7 +84,7 @@ class Event(models.Model):
 class Quiz(models.Model):
     name = models.CharField(max_length=100)
     public = models.BooleanField()
-    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE)
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
     quiz_data = models.FileField(upload_to='quiz_data/', blank=False, null=False, validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
@@ -101,7 +103,7 @@ class ResourceTypeTag(models.Model):
 
 class Resource(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="resources")
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name="resources")
     name = models.CharField(max_length=100)
     link = models.URLField(max_length=255)
     upload_date = models.DateTimeField(auto_now_add=True)
@@ -111,52 +113,73 @@ class Resource(models.Model):
         return f"{self.name} - {self.chapter}"
 
 
-class Users(models.Model):
+class User(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     full_name = models.CharField(max_length=100)
     grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
     discipline = models.CharField(max_length=100)
     email = models.EmailField(max_length=255, unique=True)
     global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
+    password_hash = models.CharField(max_length=255, blank=True, default='')
+
+    class Meta:
+        db_table = 'agronomy_club_users'
 
     def __str__(self):
         return f"{self.full_name} - {self.global_role}"
 
+    def set_password(self, raw_password):
+        self.password_hash = make_password(raw_password)
+
+    def check_password(self, raw_password):
+        if not self.password_hash:
+            return False
+        return check_password(raw_password, self.password_hash)
+
 
 class ChapterMemberships(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    user_id = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='user_memberships')
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_memberships')
     chapter_role = models.CharField(max_length=100, choices=[('member', 'Member'), ('admin', 'Admin'), ('owner', 'Owner')], default='member')
-    chapter_id = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name='chapter_memberships')
+    chapter_id = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='chapter_memberships')
     position = models.CharField(max_length=100, choices=[('pres', 'President'), ('vpres', 'Vice President'),
                                                          ('sec', 'Secretary'), ('treas', 'Treasurer'), ('mark', 'Marketing Officer'),
-                                                         ('ocm', 'Ordinary Committee Member')], default='pres', blank=True)
+                                                         ('ocm', 'Ordinary Committee Member')], default='', blank=True)
 
     def __str__(self):
         return f"{self.user_id.full_name} - {self.chapter_id.name} - {self.chapter_role}"
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user_id', 'chapter_id'],
+                name='unique_user_membership_per_chapter',
+            )
+        ]
 
     # runs after a change to an object is submitted on the dashboard, performing validation checks
     # it has been overridden to include more validation for the different chapter roles
     # admins and owners must have a valid position, whereas members cannot have a position
     def clean(self):
         super().clean()
-        if self.chapter_role not in ('admin', 'owner'):
-            if self.chapter_role != 'member':
-                raise forms.ValidationError("Invalid Chapter Role")
-            if self.position != '':
+
+        valid_roles = {'member', 'admin', 'owner'}
+        valid_positions = {'pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'}
+
+        if self.chapter_role not in valid_roles:
+            raise forms.ValidationError("Invalid Chapter Role")
+
+        if self.chapter_role == 'member':
+            if self.position not in ('', None):
                 raise forms.ValidationError("Chapter Members cannot have a Committee Position. They must be an Admin or Owner to have one.")
             self.position = ''
-        else:
-            if self.position not in ('pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'):
-                raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
-        super().clean()
+            return
+
+        if self.position not in valid_positions:
+            raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
 
     # runs after clean() and immediately before the database is written to, in essence the 'last line of defense' for validation checks
     # has been overridden to include sanitisation of the position field as a last check
     def save(self, *args, **kwargs):
-        if self.chapter_role not in ('admin', 'owner'):
-            self.position = ''
-        else:
-            if self.position not in ('pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'):
-                raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
+        self.full_clean()
         return super().save(*args, **kwargs)

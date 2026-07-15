@@ -15,10 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+import os
+
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+
+from agronomy_club.auth_views import admin_login_via_oidc
+
+
+AUTH_SOURCE = os.environ.get("AUTH_SOURCE", "local").lower()
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -26,5 +31,6 @@ urlpatterns = [
     path("api/", include(("agronomy_club.urls"))),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if AUTH_SOURCE == "keycloak":
+    urlpatterns.insert(0, path("oidc/", include("mozilla_django_oidc.urls")))
+    urlpatterns.insert(0, path("admin/login/", admin_login_via_oidc, name="admin-login-via-oidc"))

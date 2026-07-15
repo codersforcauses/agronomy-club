@@ -199,7 +199,139 @@ python manage.py migrate # apply migrations
 
 If you run into migration conflicts that you can't be bothered to fix, run `nuke.sh` to clear your database. Then, run migrations again.
 
+### User Self-Service Auth API
+
+The backend provides frontend-facing endpoints for normal user signup and login.
+
+Base URL (dev): `http://localhost:8000/api`
+
+1. Signup
+
+Endpoint:
+`POST /auth/signup/`
+
+Request body:
+```json
+{
+   "full_name": "Jane Example",
+   "grad_yr": 2031,
+   "discipline": "Agronomy",
+   "email": "jane@example.com",
+   "password": "StrongPass#2026"
+}
+```
+
+Success response (`201 Created`):
+```json
+{
+   "message": "Signup successful.",
+   "user": {
+      "id": 1,
+      "full_name": "Jane Example",
+      "grad_yr": 2031,
+      "discipline": "Agronomy",
+      "email": "jane@example.com",
+      "global_role": "user"
+   }
+}
+```
+
+Common error responses:
+- `400 Bad Request` for invalid payload, weak/short password, duplicate email, or invalid graduation year.
+
+2. Login
+
+Endpoint:
+`POST /auth/login/`
+
+Request body:
+```json
+{
+   "email": "jane@example.com",
+   "password": "StrongPass#2026"
+}
+```
+
+Success response (`200 OK`):
+```json
+{
+   "message": "Login successful.",
+   "user": {
+      "id": 1,
+      "full_name": "Jane Example",
+      "grad_yr": 2031,
+      "discipline": "Agronomy",
+      "email": "jane@example.com",
+      "global_role": "user"
+   }
+}
+```
+
+Common error responses:
+- `401 Unauthorized` when email/password is incorrect.
+- `400 Bad Request` for malformed payload.
+
+Notes:
+- These endpoints are intended for normal users (not Django admin/Keycloak admin).
+- Passwords are stored as hashes in backend storage.
+
 ## Other
+
+### Keycloak Deployment
+
+This repository now includes a Keycloak deployment path and a realm skeleton.
+
+1. Bootstrap environment variables (creates missing values and secrets):
+```bash
+./scripts/bootstrap-keycloak-env.sh ./.env
+```
+
+2. Start dev docker services (db + keycloak):
+```bash
+docker compose -f docker-compose.yml up -d
+```
+
+3. One-command helper (bootstraps env, copies realm skeleton into import folder, starts compose):
+```bash
+./scripts/deploy-with-keycloak.sh
+```
+
+First login credentials are unified as one account for both Keycloak and Django admin (set these in root `.env`):
+
+- `FIRST_PLATFORM_ADMIN_USERNAME`
+- `FIRST_PLATFORM_ADMIN_EMAIL`
+- `FIRST_PLATFORM_ADMIN_PASSWORD`
+
+This same account is used for:
+- Keycloak admin panel (`http://localhost:8080/admin`)
+- Django admin panel with Keycloak auth (`http://localhost:8000/admin`)
+
+These are propagated by `./scripts/bootstrap-keycloak-env.sh` into:
+- `KC_BOOTSTRAP_ADMIN_*` and `KEYCLOAK_ADMIN_*` for Keycloak admin API/auth
+- `KEYCLOAK_TEST_ADMIN_*` (and `DJANGO_SUPERUSER_*`) for Django admin test/bootstrap login
+- `FIRST_KEYCLOAK_ADMIN_*` and `FIRST_DJANGO_ADMIN_*` as synchronized aliases
+
+Legacy variables `FIRST_KEYCLOAK_ADMIN_*` and `FIRST_DJANGO_ADMIN_*` are still supported as fallbacks for backwards compatibility.
+
+To force an already-running Keycloak instance to use your configured first admin password:
+```bash
+./scripts/sync-keycloak-first-admin-password.sh ./.env
+```
+
+`./scripts/deploy-with-keycloak.sh` runs this sync automatically after Keycloak starts.
+
+4. Production helper:
+```bash
+./scripts/deploy-with-keycloak.sh --prod
+```
+
+Realm skeleton source:
+- `keycloak/agronomy-club-realm-skeleton.json`
+
+Realm import path used by docker compose:
+- `keycloak/import/agronomy-club-realm-skeleton.json`
+
+Note: chapter access scope groups are templated with `__CHAPTER_ID__` and should be generated for real chapter IDs.
 
 ### Update Dependencies
 

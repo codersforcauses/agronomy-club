@@ -1,10 +1,10 @@
 from django.contrib import admin
 import unfold
-from agronomy_club.models import ChapterMemberships, Users, Quiz, Chapters, Resource, ResourceTypeTag, Event  # noqa
+from agronomy_club.models import ChapterMemberships, User, Quiz, Chapter, Resource, ResourceTypeTag, Event  # noqa
 
 
 # Register your models here.
-@admin.register(Chapters)
+@admin.register(Chapter)
 class ChaptersAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'name', 'abbrev', 'location', 'email')
     search_fields = ('id', 'name', 'abbrev', 'location')
@@ -36,7 +36,7 @@ class EventAdmin(unfold.admin.ModelAdmin):
     list_filter = ('chapter',)
 
 
-@admin.register(Users)
+@admin.register(User)
 class UsersAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'full_name', 'grad_yr', 'discipline', 'email', 'global_role')
     search_fields = ('id', 'full_name', 'discipline',)
