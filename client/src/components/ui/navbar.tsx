@@ -31,9 +31,9 @@ export default function Navbar() {
       <div className="flex flex-1 items-center">
         <Link
           href="/"
-          className="mr-6 flex items-center gap-2 text-xl font-bold lg:text-lg xl:text-xl"
+          className="mr-6 flex items-center gap-2 text-lg font-bold xl:text-xl"
         >
-          <Sprout className="size-8 text-[#54c612] lg:size-7 xl:size-8" />
+          <Sprout className="size-7 text-[#54c612] xl:size-8" />
           <span className="sr-only text-brand-surface">Agronomy Club</span>
           <span
             aria-hidden="true"
@@ -43,7 +43,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-1 text-sm font-medium lg:flex">
+        <nav className="ml-auto hidden items-center gap-1 text-sm font-medium xl:flex">
           {navigationItems.map((item) => (
             <Link
               key={item.href}
@@ -76,7 +76,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div className="flex items-center lg:hidden">
+      <div className="flex items-center xl:hidden">
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
