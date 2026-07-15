@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Quiz, Resource, ResourceTypeTag, Event, Users, Chapters
+from .models import Quiz, Resource, ResourceTypeTag, Event, Users, Chapters, ChapterMemberships
 
 
 class QuizDataSerializer(serializers.ModelSerializer):
@@ -61,10 +61,25 @@ class EventListSerializer(serializers.ModelSerializer):
         ]
 
 
+class CommitteeSerializer(serializers.ModelSerializer):
+    full_name = serializers.CharField(source="user_id.full_name")
+    email = serializers.CharField(source="user_id.email")
+
+    class Meta:
+        model = ChapterMemberships
+        fields = [
+            "id",
+            "full_name",
+            "email",
+            "position",
+        ]
+
+
 class ChapterSerializer(serializers.ModelSerializer):
     # resources serializer for read request
     # (show all resources owned by chapter)
     resources = ResourceSerializer(many=True, read_only=True)
+    committee = serializers.SerializerMethodField()
 
     class Meta:
         model = Chapters
@@ -78,7 +93,12 @@ class ChapterSerializer(serializers.ModelSerializer):
             "email",
             "colour",
             "resources",
+            "committee",
         ]
+
+    def get_committee(self, obj):
+        executives = obj.chapter_memberships.filter(position__in=["pres", "vpres", "sec", "treas"])
+        return CommitteeSerializer(executives, many=True).data
 
 
 class QuizSerializer(serializers.ModelSerializer):
