@@ -71,6 +71,7 @@ class ListedChapterSerializer(serializers.ModelSerializer):
             'logo',
             'location',
             'desc',
+            'colour',
         ]
 
 
