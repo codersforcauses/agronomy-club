@@ -1,10 +1,12 @@
-import { Mail,MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
+import { CommitteeMemberCard } from "@/components/committee-member-card";
 import { Button } from "@/components/ui/button";
 
+type CommitteeMember = { name: string; position: string; photo: string };
 type Chapter = {
   id: string;
   name: string;
@@ -12,9 +14,10 @@ type Chapter = {
   bannerColour: string;
   location: string;
   contactEmail: string;
+  committee: CommitteeMember[];
 };
 
-// ── Temporary mock data  ──
+// ── Temporary mock data ──
 const MOCK_CHAPTERS: Record<string, Chapter> = {
   "1": {
     id: "1",
@@ -24,6 +27,11 @@ const MOCK_CHAPTERS: Record<string, Chapter> = {
     bannerColour: "#3F7D27",
     location: "Perth, Western Australia",
     contactEmail: "hello@agronomyclub.org",
+    committee: [
+      { name: "Ben Jerry", position: "President", photo: "" },
+      { name: "Lily Chen", position: "Vice-President", photo: "" },
+      { name: "David Smith", position: "Tech Lead", photo: "" },
+    ],
   },
 };
 
@@ -61,7 +69,7 @@ export default async function ChapterPage({
   const chapter = await getChapter(id);
   if (!chapter) notFound();
 
-  // Initials for the logo placeholder, e.g. "UWA Agronomy Club" -> "UA"
+  // Initials for the logo placeholder
   const initials = chapter.name
     .split(" ")
     .map((word) => word[0])
@@ -128,10 +136,17 @@ export default async function ChapterPage({
             <SectionHeading colour={chapter.bannerColour}>
               Committee
             </SectionHeading>
-            {/* committee component */}
-            <p className="text-sm text-brand-text-light">
-              Committee cards coming soon.
-            </p>
+            {/* committee-member-card component */}
+            <div className="flex flex-wrap gap-4">
+              {chapter.committee.map((member) => (
+                <CommitteeMemberCard
+                  key={member.name}
+                  name={member.name}
+                  position={member.position}
+                  photo={member.photo}
+                />
+              ))}
+            </div>
           </section>
         </div>
       </div>
