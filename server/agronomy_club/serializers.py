@@ -22,15 +22,12 @@ class ResourceSerializer(serializers.ModelSerializer):
     # type tag serializer for read request (show name and color)
     type_tags = ResourceTypeTagSerializer(many=True, read_only=True)
 
-    # TODO : add chapter serializer (easier frontend)
-
     chapter_name = serializers.CharField(source="chapter.name")
 
     class Meta:
         model = Resource
         fields = [
             'id',
-            'chapter',
             'chapter_name',
             'name',
             'link',
@@ -58,6 +55,20 @@ class EventListSerializer(serializers.ModelSerializer):
             "date",
             "thumbnail",
             "chapterName",
+        ]
+
+
+class ListedChapterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chapters
+        fields = [
+            'id',
+            'name',
+            'abbrev',
+            'logo',
+            'location',
+            'desc',
+            'colour',
         ]
 
 

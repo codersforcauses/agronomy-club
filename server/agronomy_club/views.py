@@ -1,24 +1,14 @@
 from rest_framework import generics
+from rest_framework.decorators import api_view
 from typing import Any, cast
 from django.db.models import QuerySet
 from rest_framework import status
+from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import (
-    ChapterSerializer,
-    QuizSerializer,
-    QuizDataSerializer,
-    ResourceSerializer,
-    ResourceTypeTagSerializer,
-    EventListSerializer,
-    AlumniSerializer,
-    UserSignupSerializer,
-    UserLoginSerializer,
-    NormalUserSerializer,
-)
+
 from .models import Chapter, Resource, ResourceTypeTag, User, Event, Quiz
-from rest_framework.decorators import api_view
-from django.http import HttpResponse
+from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer, ListedChapterSerializer  # noqa: E501
 
 
 # Create your views here.
@@ -160,4 +150,11 @@ class IndividualChapterAPIView(generics.RetrieveAPIView):
     lookup_field = "id"
 
     def get_queryset(self) -> QuerySet[Chapter]:  # type: ignore[override]
+        return Chapter.objects.all()
+
+
+class ChapterListAPIView(generics.ListAPIView):
+    serializer_class = ListedChapterSerializer
+
+    def get_queryset(self):
         return Chapter.objects.all()
