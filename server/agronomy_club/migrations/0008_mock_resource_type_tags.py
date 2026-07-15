@@ -23,7 +23,7 @@ RESOURCE_TYPE_TAGS = [
 def seed_resource_type_tags(apps, schema_editor):
     ResourceTypeTag = apps.get_model("agronomy_club", "ResourceTypeTag")
     for tag in RESOURCE_TYPE_TAGS:
-        ResourceTypeTag.objects.get_or_create(name=tag["name"])
+        ResourceTypeTag.objects.get_or_create(name=tag["name"], lucide_name=tag["lucide_name"])
 
 
 def unseed_resource_type_tags(apps, schema_editor):
