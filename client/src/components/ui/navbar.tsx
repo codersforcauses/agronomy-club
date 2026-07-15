@@ -31,9 +31,9 @@ export default function Navbar() {
       <div className="flex flex-1 items-center">
         <Link
           href="/"
-          className="mr-6 flex items-center gap-2 text-xl font-bold"
+          className="mr-6 flex items-center gap-2 text-xl font-bold lg:text-lg xl:text-xl"
         >
-          <Sprout className="h-8 w-8 text-[#54c612]" />
+          <Sprout className="size-8 text-[#54c612] lg:size-7 xl:size-8" />
           <span className="sr-only text-brand-surface">Agronomy Club</span>
           <span
             aria-hidden="true"
@@ -43,7 +43,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-1 text-xs font-medium lg:flex xl:text-sm">
+        <nav className="ml-auto hidden items-center gap-1 text-sm font-medium lg:flex">
           {navigationItems.map((item) => (
             <Link
               key={item.href}
@@ -61,13 +61,13 @@ export default function Navbar() {
           <div className="ml-4 flex items-center gap-3 border-l border-brand-green-light pl-4">
             <Link
               href="/auth/signin"
-              className="hover:brand-surface whitespace-nowrap text-xs text-brand-surface transition-colors xl:text-sm"
+              className="hover:brand-surface whitespace-nowrap text-sm text-brand-surface transition-colors"
             >
               Sign in
             </Link>
             <Link
               href="/auth/signup"
-              className="whitespace-nowrap rounded-full bg-brand-surface px-4 py-1.5 text-xs font-semibold text-brand-green-dark transition-colors hover:bg-brand-surface xl:text-sm"
+              className="whitespace-nowrap rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-surface"
             >
               Join the club
             </Link>
