@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 type CommitteeMember = { name: string; position: string; photo: string };
 type Chapter = {
   id: string;
+  abbreviation: string;
   name: string;
   description: string;
   bannerColour: string;
@@ -21,6 +22,7 @@ type Chapter = {
 const MOCK_CHAPTERS: Record<string, Chapter> = {
   "1": {
     id: "1",
+    abbreviation: "UWA AG",
     name: "UWA Agronomy Club",
     description:
       "A student-led group helping students feel prepared for the agricultural industry through learning resources, events, and opportunities to connect with peers and alumni across the agronomy community. This paragraph is intentionally a little long so you can check how the text wraps and how the section stretches at different widths.",
@@ -102,8 +104,10 @@ export default async function ChapterPage({
               <div className="-mt-10 flex h-16 w-16 items-center justify-center rounded-xl border-4 border-white bg-brand-green text-sm font-semibold text-white">
                 {initials}
               </div>
-
-              <p className="mt-3 font-semibold text-brand-text-dark">
+              <p className="mt-3 text-xl font-bold text-brand-text-dark">
+                {chapter.abbreviation}
+              </p>
+              <p className="mt-1 font-semibold text-brand-text-dark">
                 {chapter.name}
               </p>
               <p className="mt-3 flex items-start gap-1.5 text-sm text-brand-text">
