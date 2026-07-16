@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 
 import { QuizInstructionModal } from "@/components/quiz-instruction-modal";
-import { QuizListItem } from "@/components/quiz-list-item";
+import QuizList from "@/components/quiz-list";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
@@ -99,13 +99,7 @@ export default function QuizzesPage() {
           </div>
         </div>
         <h2 className="mb-6 text-3xl font-bold">Quizzes</h2>
-        <QuizListItem
-          quizName="Name of Quiz"
-          chapter="Name of Chapter"
-          chapterColor="#800851"
-          uploadDate="27/6/2026"
-          downloadUrl=""
-        />
+        <QuizList />
       </div>
     </main>
   );
