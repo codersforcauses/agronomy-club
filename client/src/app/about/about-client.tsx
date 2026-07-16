@@ -1,7 +1,7 @@
 import { CommitteeMemberCard } from "@/components/committee-member-card";
-import { ApiChapter,ApiCommitteeMember, useChapter } from "@/hooks/useChapter";
+import { ApiChapter, ApiCommitteeMember, useChapter } from "@/hooks/useChapter";
 
-"use client";
+("use client");
 
 const AGRONOMY_CHAPTER_ID = 1;
 
