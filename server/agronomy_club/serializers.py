@@ -14,7 +14,7 @@ class ResourceTypeTagSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
-            'color'
+            'lucide_name'
             ]
 
 
