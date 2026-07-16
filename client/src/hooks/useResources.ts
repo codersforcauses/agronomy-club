@@ -6,7 +6,7 @@ import api from "@/lib/api";
 export type ApiResourceTypeTag = {
   id: number;
   name: string;
-  color: string;
+  lucide_name: string;
 };
 
 export type ApiResource = {
@@ -16,6 +16,7 @@ export type ApiResource = {
   link: string;
   upload_date: string;
   type_tags: ApiResourceTypeTag[];
+  chapter_colour: string;
 };
 
 export function useResource() {
