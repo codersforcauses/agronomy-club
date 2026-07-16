@@ -14,7 +14,7 @@ class ResourceTypeTagSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
-            'color'
+            'lucide_name'
             ]
 
 
@@ -55,6 +55,20 @@ class EventListSerializer(serializers.ModelSerializer):
             "date",
             "thumbnail",
             "chapterName",
+        ]
+
+
+class ListedChapterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chapters
+        fields = [
+            'id',
+            'name',
+            'abbrev',
+            'logo',
+            'location',
+            'desc',
+            'colour',
         ]
 
 
