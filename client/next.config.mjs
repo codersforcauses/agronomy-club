@@ -18,6 +18,13 @@ const nextConfig = {
         return config;
       }
     : undefined,
-};
 
-export default nextConfig;
+  async rewrites() {
+    return [
+      {
+        source: "/quizzes/download/:id",
+        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/quizzes/download/:id/`,
+      },
+    ];
+  },
+};
