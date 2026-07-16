@@ -21,10 +21,12 @@ const nextConfig = {
 
   async rewrites() {
     return [
-      {
-        source: "/quizzes/download/:id",
-        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/quizzes/download/:id/`,
-      },
-    ];
+        {
+          source: "/quizzes/download/:id",
+          destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}/quizzes/download/:id/`,
+        },
+      ];
   },
 };
+
+export default nextConfig;
