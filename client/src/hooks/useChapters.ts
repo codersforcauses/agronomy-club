@@ -22,7 +22,8 @@ export const useChapters = (
   return useQuery<ApiChapterList[], AxiosError>({
     ...args,
     queryKey: ["chapters"],
-    queryFn: () => api.get("/chapters/").then((res) => res.data),
+    queryFn: () =>
+      api.get<ApiChapterList[]>("/chapters/").then((res) => res.data),
     retry: (failureCount, error) => {
       if (error?.response?.status === 404) {
         return false;
