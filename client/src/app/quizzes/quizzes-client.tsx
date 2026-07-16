@@ -6,18 +6,19 @@ import { useQuizzes } from "@/hooks/useQuizzes";
 export default function QuizzesClient() {
   const { data: quizzes = [], isLoading, isError, error } = useQuizzes();
 
-  if(isLoading){
-    return(
-      <p>Quizzes are loading...</p>
-    )
+  if (isLoading) {
+    return <p>Quizzes are loading...</p>;
   }
 
-  if(isError){
-    console.log(error)
+  if (isError) {
+    console.log(error);
 
-    return(
-      <p>Error loading quizzes. If refreshing doesn't work, please contact an administrator.</p>
-    )
+    return (
+      <p>
+        Error loading quizzes. If refreshing doesn't work, please contact an
+        administrator.
+      </p>
+    );
   }
 
   return (
@@ -38,5 +39,5 @@ export default function QuizzesClient() {
         <p>No quizzes available.</p>
       )}
     </div>
-  )
+  );
 }
