@@ -16,13 +16,13 @@ const committeeMembers = [
 ];
 export default function AboutPage() {
   return (
-    <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-5xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
       <div className="space-y-6">
-        <div className="rounded-xl bg-white p-8 shadow-md shadow-brand-shadow">
+        <div className="rounded-xl bg-white p-6 shadow-md shadow-brand-shadow sm:p-8">
           <p className="text-sm/5 font-semibold uppercase tracking-widest text-brand-green">
             Our purpose
           </p>
-          <h1 className="mt-2 text-2xl/6 font-bold text-brand-text-dark">
+          <h1 className="mt-2 text-xl/6 font-bold text-brand-text-dark sm:text-2xl/7">
             Growing resilient food systems through collaboration
           </h1>
           <p className="mt-4 text-base/5 font-normal text-brand-text">
@@ -36,7 +36,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="rounded-xl bg-white p-8 shadow-md shadow-brand-shadow">
+        <div className="rounded-xl bg-white p-6 shadow-md shadow-brand-shadow sm:p-8">
           <p className="text-sm/5 font-semibold uppercase tracking-widest text-brand-green">
             Crop Adviser Competencies
           </p>
@@ -116,7 +116,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="rounded-xl bg-white p-8 shadow-md shadow-brand-shadow">
+        <div className="rounded-xl bg-white p-6 shadow-md shadow-brand-shadow sm:p-8">
           <p className="text-sm/5 font-semibold uppercase tracking-widest text-brand-green">
             Current Agronomy Club Committee
           </p>
@@ -124,7 +124,7 @@ export default function AboutPage() {
             Meet the current committee supporting the club, its members, and
             student-led activities.
           </p>
-          <div className="mt-6 flex justify-evenly">
+          <div className="mt-6 grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {committeeMembers.map((member) => (
               <CommitteeMemberCard
                 key={member.name}
@@ -136,7 +136,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-6 rounded-xl bg-white p-8 shadow-md shadow-brand-shadow md:flex-row">
+        <div className="flex flex-col items-center justify-between gap-6 rounded-xl bg-white p-6 shadow-md shadow-brand-shadow sm:p-8 md:flex-row">
           <div className="max-w-xl">
             <p className="text-sm/5 font-semibold uppercase tracking-widest text-brand-green">
               CONTACT
