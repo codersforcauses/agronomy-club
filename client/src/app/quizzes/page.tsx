@@ -8,8 +8,9 @@ import {
 } from "lucide-react";
 
 import { QuizInstructionModal } from "@/components/quiz-instruction-modal";
-import { QuizListItem } from "@/components/quiz-list-item";
 import { Button } from "@/components/ui/button";
+
+import QuizzesClient from "./quizzes-client";
 
 export const metadata = {
   title: "Quizzes | Agronomy Club",
@@ -99,13 +100,7 @@ export default function QuizzesPage() {
           </div>
         </div>
         <h2 className="mb-6 text-3xl font-bold">Quizzes</h2>
-        <QuizListItem
-          quizName="Name of Quiz"
-          chapter="Name of Chapter"
-          chapterColor="#800851"
-          uploadDate="27/6/2026"
-          downloadUrl=""
-        />
+        <QuizzesClient />
       </div>
     </main>
   );
