@@ -30,7 +30,8 @@ const MOCK_CHAPTERS: Record<string, Chapter> = {
     committee: [
       { name: "Ben Jerry", position: "President", photo: "" },
       { name: "Lily Chen", position: "Vice-President", photo: "" },
-      { name: "David Smith", position: "Tech Lead", photo: "" },
+      { name: "David Smith", position: "Treaserer", photo: "" },
+      { name: "David Kith", position: "Treasurer", photo: "" },
     ],
   },
 };
@@ -87,17 +88,17 @@ export default async function ChapterPage({
       </Link>
 
       {/* Responsive */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[260px_1fr]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[330px_1fr]">
         {/* identity card + reserved join button */}
         <div className="flex flex-col gap-4">
-          <div className="overflow-hidden rounded-2xl border">
+          <div className="overflow-hidden rounded-2xl border shadow-md shadow-brand-shadow">
             {/* coloured banner strip */}
             <div
               className="h-16 w-full"
               style={{ backgroundColor: chapter.bannerColour }}
             />
 
-            <div className="flex flex-col items-center bg-brand-surface px-6 pb-6 text-center">
+            <div className="flex min-w-0 flex-col items-center bg-brand-surface px-6 pb-6 text-center">
               <div className="-mt-10 flex h-16 w-16 items-center justify-center rounded-xl border-4 border-white bg-brand-green text-sm font-semibold text-white">
                 {initials}
               </div>
@@ -105,14 +106,16 @@ export default async function ChapterPage({
               <p className="mt-3 font-semibold text-brand-text-dark">
                 {chapter.name}
               </p>
-              <p className="mt-3 flex items-center gap-1.5 text-sm text-brand-text">
-                <MapPin size={14} /> {chapter.location}
+              <p className="mt-3 flex items-start gap-1.5 text-sm text-brand-text">
+                <MapPin size={16} className="mt-0.5 shrink-0" />{" "}
+                {chapter.location}
               </p>
               <a
                 href={`mailto:${chapter.contactEmail}`}
-                className="mt-1 flex items-center gap-1.5 text-sm text-brand-green hover:text-brand-green-dark"
+                className="mt-1 flex min-w-0 items-start gap-1.5 text-sm text-brand-green hover:text-brand-green-dark"
               >
-                <Mail size={14} /> {chapter.contactEmail}
+                <Mail size={16} className="mt-0.5 shrink-0" />
+                <span className="break-all">{chapter.contactEmail}</span>
               </a>
             </div>
           </div>
