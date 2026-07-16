@@ -2,7 +2,7 @@ from rest_framework import generics
 from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer, ListedChapterSerializer  # noqa: E501
 from .models import Resource, ResourceTypeTag, Users, Event, Quiz, Chapters
 from rest_framework.decorators import api_view
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 
 
 # Create your views here.
@@ -17,6 +17,14 @@ class QuizDataAPIView(generics.RetrieveAPIView):
 
     def get_queryset(self):
         return Quiz.objects.filter(public=True)
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        fileHandle = instance.quiz_data.open()
+
+        response = FileResponse(fileHandle, as_attachment=True, filename=f"{instance.name}.json")
+        return response
 
 
 class ResourceTypeTagListAPIView(generics.ListAPIView):

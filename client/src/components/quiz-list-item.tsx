@@ -91,7 +91,9 @@ function QuizListItem({
             asChild
             className="bg-brand-green text-brand-surface transition-opacity hover:bg-brand-green hover:text-white hover:opacity-80"
           >
-            <a href={downloadUrl}>Download</a>
+            <a href={downloadUrl} download>
+              Download
+            </a>
           </Button>
         </ItemActions>
       </Item>
