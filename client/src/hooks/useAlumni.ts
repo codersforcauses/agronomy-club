@@ -17,7 +17,7 @@ export const useAlumni = (
   return useQuery<ApiAlumni[], AxiosError>({
     ...args,
     queryKey: ["alumni"],
-    queryFn: () => api.get("/alumni/").then((res) => res.data),
+    queryFn: () => api.get<ApiAlumni[]>("/alumni/").then((res) => res.data),
     retry: (failureCount, error) => {
       if (error?.response?.status === 404) {
         return false;
