@@ -1,11 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { ResourceListItem } from "@/components/ui/ResourceListItem";
+
 export const metadata: Metadata = {
   title: "Study Materials | Agronomy Club",
   description:
     "Access agronomy study guides, toolkits, and multimedia resources curated by experts.",
 };
+
+const resources = [
+  {
+    ResourceName: "Field Guide",
+    ChapterName: "University of Queensland",
+    UploadDate: "2/7/2026",
+    type: "Article" as const,
+    chapterColour: "#166534",
+  },
+  {
+    ResourceName: "Soil Management Simulator",
+    ChapterName: "University of Western Australia",
+    UploadDate: "1/7/2026",
+    type: "Video Game" as const,
+    chapterColour: "#7b2d2d",
+  },
+  {
+    ResourceName: "Crop Rotation Toolkit",
+    ChapterName: "University of Melbourne",
+    UploadDate: "28/6/2026",
+    type: "Website" as const,
+    chapterColour: "#8b5a3c",
+  },
+];
 
 export default function ResourcesPage() {
   return (
@@ -47,8 +73,8 @@ export default function ResourcesPage() {
           </h2>
           <p className="mt-3 text-sm text-gray-700">
             Chapters and partners can upload resources once authentication
-            launches. We&apos;ll review submissions for accuracy, accessibility,
-            and licensing.
+            launches. We'll review submissions for accuracy, accessibility, and
+            licensing.
           </p>
           <Link
             href="/account"
@@ -56,6 +82,55 @@ export default function ResourcesPage() {
           >
             Join the contributor waitlist →
           </Link>
+        </div>
+      </div>
+
+      <div className="mt-12 flex gap-8">
+        \
+        <div className="w-48 shrink-0 space-y-6">
+          <div>
+            <p className="font-semibold text-soil-900">Sort By</p>
+            <select className="border-brand-green-light text-brand-text-dark mt-2 w-full rounded-md border px-3 py-2 text-sm">
+              <option>Latest Upload</option>
+              <option>Oldest Upload</option>
+            </select>
+          </div>
+          <div>
+            <p className="font-semibold text-soil-900">Resource Type</p>
+            <select className="border-brand-green-light text-brand-text-dark mt-2 w-full rounded-md border px-3 py-2 text-sm">
+              <option>All</option>
+              <option>Article</option>
+              <option>Video Game</option>
+              <option>Website</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        \
+        <div className="flex-1">
+          {/* Header row */}
+          <div className="border-brand-green-light text-brand-text-dark flex items-center justify-between border-b pb-3 text-sm">
+            <div className="flex w-1/3 items-center gap-3">
+              <span>🎮</span>
+              <span>Resource Name</span>
+            </div>
+            <div className="flex w-1/3 items-center gap-2">
+              <div className="h-5 w-1 rounded-sm bg-brand-600" />
+              <span>Chapter Name</span>
+            </div>
+            <span className="w-1/3 text-right">Upload Date</span>
+          </div>
+
+          {resources.map((resource) => (
+            <ResourceListItem
+              key={resource.ResourceName}
+              ResourceName={resource.ResourceName}
+              ChapterName={resource.ChapterName}
+              UploadDate={resource.UploadDate}
+              type={resource.type}
+              chapterColour={resource.chapterColour}
+            />
+          ))}
         </div>
       </div>
     </section>
