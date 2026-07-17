@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-brand-green-dark px-6 pb-20 pt-16 text-brand-surface sm:px-16 sm:pb-10 sm:pt-20">
-      <div className="mx-auto max-w-6xl space-y-16 sm:space-y-20">
+    <footer className="bg-brand-green-dark px-6 pb-20 pt-14 text-brand-surface sm:px-16 sm:pb-10">
+      <div className="mx-auto max-w-6xl space-y-14">
         <div className="grid gap-10 md:grid-cols-[2fr_1fr_1fr]">
           <div>
             <h2 className="text-2xl font-bold text-brand-surface">
@@ -21,10 +21,34 @@ export function Footer() {
             <ul className="mt-4 space-y-2">
               <li>
                 <Link
+                  href="/about"
+                  className="text-sm/6 text-brand-surface hover:text-brand-yellow"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/chapters"
                   className="text-sm/6 text-brand-surface hover:text-brand-yellow"
                 >
                   Chapters
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/events"
+                  className="text-sm/6 text-brand-surface hover:text-brand-yellow"
+                >
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/quizzes"
+                  className="text-sm/6 text-brand-surface hover:text-brand-yellow"
+                >
+                  Quizzes
                 </Link>
               </li>
               <li>
@@ -41,14 +65,6 @@ export function Footer() {
                   className="text-sm/6 text-brand-surface hover:text-brand-yellow"
                 >
                   Alumni
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/events"
-                  className="text-sm/6 text-brand-surface hover:text-brand-yellow"
-                >
-                  Events
                 </Link>
               </li>
             </ul>
@@ -69,10 +85,10 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-brand-surface/30 pt-8">
+        <div className="border-t border-brand-surface/30 pt-4">
           <div className="flex flex-col gap-6 text-sm/6 md:flex-row md:items-center md:justify-between">
             <p className="text-brand-surface">
-              © 2026 Agronomy University Club. Cultivating Excellence.
+              © 2026 Agronomy Club. Cultivating Excellence.
             </p>
             <ul className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
               <li>
