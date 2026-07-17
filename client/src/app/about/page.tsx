@@ -13,6 +13,7 @@ const committeeMembers = [
   { name: "Member 2", position: "Vice-President", photo: "" },
   { name: "Member 3", position: "Secretary", photo: "" },
   { name: "Member 4", position: "Treasurer", photo: "" },
+  { name: "Member 5", position: "OCM", photo: "" },
 ];
 export default function AboutPage() {
   return (
@@ -25,7 +26,7 @@ export default function AboutPage() {
           <h1 className="mt-2 text-xl/6 font-bold text-brand-text-dark sm:text-2xl/7">
             Growing resilient food systems through collaboration
           </h1>
-          <p className="mt-4 text-base/5 font-normal text-brand-text">
+          <p className="mt-4 text-base font-normal text-brand-text">
             The Agronomy Club is a student-led community supporting excellence
             in agronomic sciences. Through study tours, competitions, coaching,
             case study discussions, study groups, learning resources, and
@@ -124,7 +125,7 @@ export default function AboutPage() {
             Meet the current committee supporting the club, its members, and
             student-led activities.
           </p>
-          <div className="mt-6 grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-6 flex flex-wrap justify-center gap-4">
             {committeeMembers.map((member) => (
               <CommitteeMemberCard
                 key={member.name}
