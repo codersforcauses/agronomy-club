@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { ResourceListItem } from "@/components/ui/ResourceListItem";
+import { ResourceListItem } from "@/components/ui/resource-list-item";
 
 export const metadata: Metadata = {
   title: "Study Materials | Agronomy Club",
@@ -86,7 +86,6 @@ export default function ResourcesPage() {
       </div>
 
       <div className="mt-12 flex gap-8">
-        \
         <div className="w-48 shrink-0 space-y-6">
           <div>
             <p className="font-semibold text-soil-900">Sort By</p>
@@ -106,7 +105,6 @@ export default function ResourcesPage() {
             </select>
           </div>
         </div>
-        \
         <div className="flex-1">
           {/* Header row */}
           <div className="border-brand-green-light text-brand-text-dark flex items-center justify-between border-b pb-3 text-sm">
