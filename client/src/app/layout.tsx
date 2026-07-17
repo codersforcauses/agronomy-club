@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Merriweather, Roboto_Slab } from "next/font/google";
 
 import Providers from "@/components/main/providers";
+import { Footer } from "@/components/ui/footer";
 import Navbar from "@/components/ui/navbar";
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function RootLayout({
           <Providers>
             <Navbar />
             {children}
+            <Footer />
           </Providers>
         </main>
       </body>
