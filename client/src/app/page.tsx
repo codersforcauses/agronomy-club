@@ -40,10 +40,11 @@ export default function Home() {
           </h1>
 
           <p className="max-w-xl pt-9 font-serif text-lg text-brand-brown">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Grow your knowledge, connect with fellow plant enthusiasts, and
+            discover the science behind the food, landscapes, and ecosystems
+            that shape our world. Through hands-on experiences, shared ideas,
+            and a welcoming community, the Agronomy Club helps you cultivate
+            practical skills and a more sustainable future.
           </p>
 
           <div className="mt-4 flex gap-6">
@@ -72,7 +73,7 @@ export default function Home() {
               <path d="M12 2a5 5 0 00-5 5v10a5 5 0 005 5h0a5 5 0 005-5V7a5 5 0 00-5-5z" />
               <path d="M12 6v4" />
             </svg>
-            <span className="pt-1 text-sm font-medium tracking-wide">
+            <span className="pt-1 text-sm font-medium italic tracking-wide">
               Scroll to Explore
             </span>
           </div>
@@ -123,19 +124,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <section className="relative z-10 flex flex-col items-center justify-center gap-4 py-24 font-sans">
-        <h1 className="text-3xl font-bold text-gray-900">Test title</h1>
-        <Button
-          onClick={() => setClicked(true)}
-          className="bg-gray-900 text-white hover:bg-gray-800"
-        >
-          {isLoading ? "Loading" : "Ping"}
-        </Button>
-        <p className="text-gray-600">
-          Response from server: <span>{data as string}</span>
-        </p>
-      </section>
     </main>
   );
 }
