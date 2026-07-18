@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Quiz, Resource, ResourceTypeTag, Event, Users, Chapters, ChapterMemberships
+from .models import Quiz, Resource, ResourceTypeTag, Event, User, ChapterMemberships, Chapter
 
 
 class QuizDataSerializer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class ResourceTypeTagSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
-            'lucide_name'
+            'color'
             ]
 
 
@@ -23,7 +23,6 @@ class ResourceSerializer(serializers.ModelSerializer):
     type_tags = ResourceTypeTagSerializer(many=True, read_only=True)
 
     chapter_name = serializers.CharField(source="chapter.name")
-    chapter_colour = serializers.CharField(source="chapter.colour")
 
     class Meta:
         model = Resource
@@ -33,14 +32,13 @@ class ResourceSerializer(serializers.ModelSerializer):
             'name',
             'link',
             'upload_date',
-            'type_tags',
-            'chapter_colour',
+            'type_tags'
             ]
 
 
 class AlumniSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Users
+        model = User
         exclude = ['global_role']
 
 
@@ -62,7 +60,7 @@ class EventListSerializer(serializers.ModelSerializer):
 
 class ListedChapterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Chapters
+        model = Chapter
         fields = [
             'id',
             'name',
@@ -95,7 +93,7 @@ class ChapterSerializer(serializers.ModelSerializer):
     committee = serializers.SerializerMethodField()
 
     class Meta:
-        model = Chapters
+        model = Chapter
         fields = [
             "id",
             "name",
@@ -127,3 +125,28 @@ class QuizSerializer(serializers.ModelSerializer):
             "upload_date",
             "chapterColour",
         ]
+
+
+class NormalUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "full_name", "grad_yr", "discipline", "email", "global_role"]
+
+
+class UserSignupSerializer(serializers.Serializer):
+    full_name = serializers.CharField(max_length=100)
+    grad_yr = serializers.IntegerField()
+    discipline = serializers.CharField(max_length=100)
+    email = serializers.EmailField(max_length=255)
+    password = serializers.CharField(write_only=True, min_length=8, trim_whitespace=False)
+
+    def validate_email(self, value):
+        lowered = value.strip().lower()
+        if User.objects.filter(email__iexact=lowered).exists():
+            raise serializers.ValidationError("A user with this email already exists.")
+        return lowered
+
+
+class UserLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField(max_length=255)
+    password = serializers.CharField(write_only=True, trim_whitespace=False)

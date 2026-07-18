@@ -1,11 +1,11 @@
 from django.contrib import admin
 import unfold
-from agronomy_club.models import ChapterMemberships, Users, Quiz, Chapters, Resource, ResourceTypeTag, Event  # noqa
+from agronomy_club.models import ChapterMemberships, User, Quiz, Chapter, Resource, ResourceTypeTag, Event  # noqa
 
 
 # Register your models here.
-@admin.register(Chapters)
-class ChaptersAdmin(unfold.admin.ModelAdmin):
+@admin.register(Chapter)
+class ChapterAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'name', 'abbrev', 'location', 'email')
     search_fields = ('id', 'name', 'abbrev', 'location')
 
@@ -18,18 +18,8 @@ class QuizAdmin(unfold.admin.ModelAdmin):
 
 @admin.register(ResourceTypeTag)
 class ResourceTypeTagAdmin(unfold.admin.ModelAdmin):
-    list_display = ('id', 'name', 'lucide_name')
-    search_fields = ('name', 'lucide_name')
-
-    # Make resource type tag immutable in admin dashboard
-    def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
+    list_display = ('id', 'name', 'color')
+    search_fields = ('name',)
 
 
 @admin.register(Resource)
@@ -46,7 +36,7 @@ class EventAdmin(unfold.admin.ModelAdmin):
     list_filter = ('chapter',)
 
 
-@admin.register(Users)
+@admin.register(User)
 class UsersAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'full_name', 'grad_yr', 'discipline', 'email', 'global_role')
     search_fields = ('id', 'full_name', 'discipline',)

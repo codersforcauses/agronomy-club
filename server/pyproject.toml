@@ -19,6 +19,7 @@ django-extensions = "^3.2.3"
 django-colorfield = "^0.14.0"
 pillow = "^12.3.0"
 django-unfold = "^0.99.0"
+mozilla-django-oidc = "^4.0.1"
 
 
 [tool.poetry.group.dev.dependencies]
