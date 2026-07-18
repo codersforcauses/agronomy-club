@@ -2,10 +2,6 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { QuizListItem } from "@/components/quiz-list-item";
-import { QuizInstructionModal } from "@/components/quiz-instruction-modal";
-import { Button } from "@/components/ui/button";
-
-import QuizzesClient from "./quizzes-client";
 
 export const metadata = {
   title: "Quizzes | Agronomy Club",
@@ -168,8 +164,32 @@ export default function QuizzesPage() {
             </div>
           </div>
         </div>
-        <h2 className="mb-6 text-3xl font-bold">Quizzes</h2>
-        <QuizzesClient />
+
+        {/* Tips */}
+        <div className="border-green-light rounded-lg border-2 bg-brand-green-light p-8">
+          <h3 className="mb-4 text-xl font-bold text-brand-text">💡 Tips</h3>
+          <ul className="space-y-2 text-brand-text">
+            <li>
+              • <strong>For Hosts:</strong> Set a time limit for each question
+              to increase engagement
+            </li>
+            <li>
+              • <strong>For Players:</strong> Answer as quickly and accurately
+              as possible to win
+            </li>
+            <li>
+              • <strong>Everyone:</strong> Check out the leaderboard to see how
+              you compare
+            </li>
+          </ul>
+        </div>
+        <QuizListItem
+          quizName="Name of Quiz"
+          chapter="Name of Chapter"
+          chapterColor="#800851"
+          uploadDate="27/6/2026"
+          downloadUrl=""
+        />
       </div>
     </main>
   );

@@ -14,7 +14,7 @@ class ResourceTypeTagSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
-            'lucide_name'
+            'color'
             ]
 
 
@@ -23,7 +23,6 @@ class ResourceSerializer(serializers.ModelSerializer):
     type_tags = ResourceTypeTagSerializer(many=True, read_only=True)
 
     chapter_name = serializers.CharField(source="chapter.name")
-    chapter_colour = serializers.CharField(source="chapter.colour")
 
     class Meta:
         model = Resource
@@ -33,8 +32,7 @@ class ResourceSerializer(serializers.ModelSerializer):
             'name',
             'link',
             'upload_date',
-            'type_tags',
-            'chapter_colour',
+            'type_tags'
             ]
 
 

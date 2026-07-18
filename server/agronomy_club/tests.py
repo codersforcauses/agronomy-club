@@ -177,6 +177,19 @@ class ResourceModelSmokeTests(TestCase):
             with transaction.atomic():
                 ResourceTypeTag.objects.create(name='webpage')
 
+    def test_reject_duplicate_tag_color(self):
+        ResourceTypeTag.objects.create(
+            name='webpage',
+            color='#111111'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                ResourceTypeTag.objects.create(
+                    name='video',
+                    color='#111111'
+                )
+
     def test_cascade_delete_chapter_on_resource(self):
         resource = Resource.objects.create(
             chapter=self.chapter,
