@@ -7,14 +7,14 @@ export default function ChaptersClient() {
   const { data: chapters = [], isLoading, isError, error } = useChapters();
 
   if (isLoading) {
-    return <p>Loading all Chapters...</p>;
+    return <p className="mt-12">Loading all Chapters...</p>;
   }
 
   if (isError) {
     console.log(error);
 
     return (
-      <p>
+      <p className="mt-12">
         Error loading chapters. If refreshing doesn't work, please contact an
         administrator.
       </p>
@@ -53,7 +53,7 @@ export default function ChaptersClient() {
           }
         })
       ) : (
-        <p>No Chapters available for viewing.</p>
+        <p className="mt-12">No Chapters available for viewing.</p>
       )}
     </div>
   );
