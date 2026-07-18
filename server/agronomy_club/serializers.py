@@ -56,6 +56,7 @@ class EventListSerializer(serializers.ModelSerializer):
             "location",
             "date",
             "thumbnail",
+            "link",
             "chapterName",
         ]
 

@@ -15,7 +15,7 @@ export type EventCardProps = {
   chapter: string;
   chapterColor: string;
   thumbnailUrl?: string;
-  eventUrl?: string;
+  link?: string;
 };
 
 export default function EventCard({
@@ -26,7 +26,7 @@ export default function EventCard({
   chapter,
   chapterColor,
   thumbnailUrl,
-  eventUrl,
+  link,
 }: EventCardProps) {
   return (
     <Card className="relative h-full max-w-[364px] overflow-hidden rounded-xl border-0 pt-0 shadow-md shadow-brand-shadow">
@@ -69,7 +69,7 @@ export default function EventCard({
           </div>
           <div className="flex flex-row">
             <LinkIcon className="max-h-[24px] flex-initial" />{" "}
-            <Link href={`${eventUrl}`} className="pl-2 text-brand-brown">
+            <Link href={`${link}`} className="pl-2 text-brand-brown">
               Event Details
             </Link>
           </div>
