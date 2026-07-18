@@ -33,7 +33,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col justify-center pt-12 md:flex-row md:items-center md:pt-0">
+      <div className="relative z-10 flex flex-1 flex-col justify-center pt-12 md:flex-row md:items-center md:pt-8">
         <div className="flex w-full flex-col gap-6 px-6 py-12 sm:px-12 md:w-3/5 md:py-0 md:pl-12 lg:pl-16 lg:pr-8 xl:pl-24">
           <h1 className="font-serif text-6xl font-bold text-brand-green-dark lg:text-7xl xl:text-8xl">
             Agronomy Club<span className="text-brand-yellow">.</span>
@@ -60,7 +60,6 @@ export default function Home() {
 
           <div className="flex w-fit items-center gap-3 self-start text-brand-text">
             <svg
-              className="animate-bounce"
               viewBox="0 0 40 24"
               width="32"
               height="32"
