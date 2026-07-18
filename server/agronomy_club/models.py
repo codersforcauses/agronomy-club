@@ -118,9 +118,19 @@ class Users(models.Model):
     discipline = models.CharField(max_length=100)
     email = models.EmailField(max_length=255, unique=True)
     global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
+    photo = models.ImageField(upload_to='users/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.full_name} - {self.global_role}"
+
+    def save(self, *args, **kwargs):
+        if self.photo:
+            photo_name = str(self.photo).split('/')[-1]
+            self.photo = f'users/{self.id}/{photo_name}'
+        else:
+            self.photo = None
+
+        return super().save(*args, **kwargs)
 
 
 class ChapterMemberships(models.Model):
