@@ -89,7 +89,7 @@ class UserModelSmokeTests(TestCase):
         )
 
         saved_user = Users.objects.get(pk=user.pk)
-        self.assertTrue(saved_user.photo, f'/users/{saved_user.id}/photo.png')
+        self.assertTrue(saved_user.photo, f'/users/{saved_user.grad_yr}/photo.png')
 
 
 class EventModelSmokeTests(TestCase):
