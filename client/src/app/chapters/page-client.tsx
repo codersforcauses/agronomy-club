@@ -34,6 +34,7 @@ export default function ChaptersClient() {
                 location={chapter.location}
                 description={chapter.desc}
                 color={chapter.colour}
+                onView={() => (location.href = `/chapters/${chapter.id}`)}
               />
             );
           } else {
@@ -46,6 +47,7 @@ export default function ChaptersClient() {
                 description={chapter.desc}
                 color={chapter.colour}
                 imageUrl={chapter.logo}
+                onView={() => (location.href = `/chapters/${chapter.id}`)}
               />
             );
           }
