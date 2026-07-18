@@ -12,6 +12,7 @@ export type ApiEventList = {
   thumbnail: string | null;
   chapterName: string;
   chapterColour: string;
+  link: string | null;
 };
 
 export const useEvents = (
