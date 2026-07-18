@@ -57,6 +57,26 @@ export default function Home() {
               Explore
             </Button>
           </div>
+
+          <div className="flex w-fit items-center gap-3 self-start text-brand-text">
+            <svg
+              className="animate-bounce"
+              viewBox="0 0 40 24"
+              width="32"
+              height="32"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 2a5 5 0 00-5 5v10a5 5 0 005 5h0a5 5 0 005-5V7a5 5 0 00-5-5z" />
+              <path d="M12 6v4" />
+            </svg>
+            <span className="pt-1 text-sm font-medium tracking-wide">
+              Scroll to Explore
+            </span>
+          </div>
         </div>
 
         <div className="relative mt-12 flex w-full justify-end md:w-2/5">
@@ -102,25 +122,6 @@ export default function Home() {
               </svg>
             </div>
           </div>
-        </div>
-
-        <div className="absolute bottom-8 left-6 z-0 flex items-center gap-3 text-brand-surface sm:text-brand-text md:text-brand-text lg:left-16 xl:left-24">
-          <svg
-            viewBox="0 0 40 24"
-            width="32"
-            height="32"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M12 2a5 5 0 00-5 5v10a5 5 0 005 5h0a5 5 0 005-5V7a5 5 0 00-5-5z" />
-            <path d="M12 6v4" />
-          </svg>
-          <span className="pt-1 text-sm font-medium tracking-wide">
-            Scroll to Explore
-          </span>
         </div>
       </div>
 
