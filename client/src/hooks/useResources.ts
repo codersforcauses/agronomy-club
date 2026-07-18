@@ -19,11 +19,15 @@ export type ApiResource = {
   chapter_colour: string;
 };
 
-export function useResource() {
+export function useResource(tags?: number[]) {
   return useQuery<ApiResource[], AxiosError>({
-    queryKey: ["resources"],
+    queryKey: ["resources", { tags }],
     queryFn: async () => {
-      const response = await api.get<ApiResource[]>("/resources/");
+      const response = await api.get<ApiResource[]>("/resources/", {
+        params: {
+          tags: tags?.length ? tags.join(",") : undefined,
+        },
+      });
       return response.data;
     },
     retry: (failureCount, error) => {
