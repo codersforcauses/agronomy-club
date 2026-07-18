@@ -18,8 +18,18 @@ class QuizAdmin(unfold.admin.ModelAdmin):
 
 @admin.register(ResourceTypeTag)
 class ResourceTypeTagAdmin(unfold.admin.ModelAdmin):
-    list_display = ('id', 'name', 'color')
-    search_fields = ('name',)
+    list_display = ('id', 'name', 'lucide_name')
+    search_fields = ('name', 'lucide_name')
+
+    # Make resource type tag immutable in admin dashboard
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Resource)
