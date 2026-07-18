@@ -11,6 +11,7 @@ export type ApiEventList = {
   date: string;
   thumbnail: string | null;
   chapterName: string;
+  chapterColour: string;
 };
 
 export const useEvents = (
