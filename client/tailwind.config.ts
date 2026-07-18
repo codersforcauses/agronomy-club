@@ -21,6 +21,13 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+        content: [
+          "var(--font-merriweather)",
+          "Merriweather",
+          "system-ui",
+          "serif",
+        ],
+        ui: ["var(--font-roboto-slab)", "Roboto-Slab", "system-ui", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -28,24 +35,34 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+
         brand: {
-          50: "#f5f9f2",
-          100: "#e5f1df",
-          200: "#c7dfbb",
-          300: "#a4ca92",
-          400: "#7db464",
-          500: "#5a9a3d",
-          600: "#3f7d27",
-          700: "#2f601d",
-          800: "#234919",
-          900: "#183313",
+          green: {
+            DEFAULT: "#3F7D27",
+            dark: "#166534",
+            light: "#d7e2d4",
+          },
+
+          text: {
+            DEFAULT: "#4a301d",
+            dark: "#1d110a",
+            light: "#98765e",
+          },
+
+          yellow: {
+            DEFAULT: "#f4b643",
+            light: "#fbf0d5",
+          },
+
+          brown: {
+            DEFAULT: "#8b5a3c",
+          },
+
+          surface: "#fcfbf7",
+
+          shadow: "rgba(22, 101, 52, 0.10)", // 10% opacity of #166534
         },
-        soil: {
-          700: "#4a301d",
-          800: "#321f13",
-          900: "#1d110a",
-        },
-        surface: "#fcfbf7",
+
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

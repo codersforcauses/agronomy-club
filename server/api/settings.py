@@ -12,9 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-
 from dotenv import load_dotenv
-
 load_dotenv()
 
 
@@ -38,23 +36,26 @@ ALLOWED_HOSTS = (
     else []
 )
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "colorfield",
     "django_extensions",
     "rest_framework",
     "corsheaders",
     "api.healthcheck",
+    "agronomy_club"
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -62,11 +63,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:3003",
     "http://127.0.0.1:3000",
     FRONTEND_URL
 ]
@@ -88,6 +89,36 @@ TEMPLATES = [
         },
     },
 ]
+
+UNFOLD = {
+    "COLORS": {
+        "base": {
+            "50": "#fcfbf7",
+            "100": "#fcfbf7",
+            "200": "#d7e2d4",
+            "300": "#3F7D27",
+            "600": "#3F7D27",
+        },
+        "primary": {
+            "50": "#fcfbf7",
+            "100": "#fcfbf7",
+            "200": "#d7e2d4",
+            "300": "#3F7D27",
+            "400": "#3F7D27",
+            "500": "#166534",
+            "600": "#166534",
+            "700": "#166534",
+        },
+        "font": {
+            "subtle-light": "#d7e2d4",  # text-base-500
+            "subtle-dark": "#d7e2d4",  # text-base-400
+            "default-light": "#3F7D27",  # text-base-600
+            "default-dark": "#fcfbf7",  # text-base-300
+            "light-important": "#166534",  # text-base-700
+            "dark-important": "#166534",  # text-base-200
+        }
+    }
+}
 
 WSGI_APPLICATION = "api.wsgi.application"
 
@@ -129,7 +160,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en-au"
 
 TIME_ZONE = "UTC"
 
@@ -147,11 +178,17 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(
 STATIC_URL = "/static/"
 
 # STATIC_ROOT is where the static files get copied to when "collectstatic" is run.
-STATIC_ROOT = "static_files"
+STATIC_ROOT = BASE_DIR / "static_files"
 
 # This is where to _find_ static files when 'collectstatic' is run.
 # These files are then copied to the STATIC_ROOT location.
-STATICFILES_DIRS = ("static",)
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# The directory to store images and other media
+MEDIA_ROOT = BASE_DIR/"media"
+
+# The path to serve images and other media
+MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
