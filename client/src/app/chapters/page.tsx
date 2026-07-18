@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import ChapterCard from "@/components/chapter-card";
+import ChaptersClient from "./page-client";
 
 export const metadata: Metadata = {
   title: "Chapters | Agronomy Club",
@@ -19,55 +19,7 @@ export default function ChaptersPage() {
       </header>
 
       {/* TEMP TEST BLOCK CARD COMPONENT */}
-      <div className="mt-12 grid justify-items-center gap-10 sm:grid-cols-2 xl:grid-cols-3">
-        <ChapterCard
-          abbreviation="Chapter Abbreviation"
-          name="Midwest Tennessee Chapter"
-          location="Midwest, Tennessee, USA"
-          description="A one-line description of this chapter."
-          color="#2e7d32"
-        />
-
-        <ChapterCard
-          abbreviation="Chapter Abbreviation"
-          name="Midwest Tennessee Chapter"
-          location="Midwest, Tennessee, USA"
-          description="A one-line description of this chapter."
-          color="#2e7d32"
-        />
-
-        <ChapterCard
-          abbreviation="Chapter Abbreviation"
-          name="Midwest Tennessee Chapter"
-          location="Midwest, Tennessee, USA"
-          description="A one-line description of this chapter."
-          color="#2e7d32"
-        />
-
-        <ChapterCard
-          abbreviation="Chapter Abbreviation"
-          name="Midwest Tennessee Chapter"
-          location="Midwest, Tennessee, USA"
-          description="A one-line description of this chapter."
-          color="#2e7d32"
-        />
-
-        <ChapterCard
-          abbreviation="Chapter Abbreviation"
-          name="Midwest Tennessee Chapter"
-          location="Midwest, Tennessee, USA"
-          description="A one-line description of this chapter."
-          color="#2e7d32"
-        />
-
-        <ChapterCard
-          abbreviation="Chapter Abbreviation"
-          name="Midwest Tennessee Chapter"
-          location="Midwest, Tennessee, USA"
-          description="A one-line description of this chapter."
-          color="#2e7d32"
-        />
-      </div>
+      <ChaptersClient />
       {/* END TEMP TEST BLOCK */}
     </section>
   );
