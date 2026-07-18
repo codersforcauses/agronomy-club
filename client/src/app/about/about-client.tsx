@@ -41,7 +41,7 @@ export default function AboutClient() {
   const committeeMembers = chapter.committee;
 
   return (
-    <div className="mt-6 flex justify-evenly">
+    <div className="mt-6 flex flex-wrap justify-center gap-4">
       {committeeMembers.map((member) => {
         const fullPosition = roleDictionary[member.position];
 

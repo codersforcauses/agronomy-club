@@ -121,16 +121,7 @@ export default function AboutPage() {
             Meet the current committee supporting the club, its members, and
             student-led activities.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-4">
-            {committeeMembers.map((member) => (
-              <CommitteeMemberCard
-                key={member.name}
-                name={member.name}
-                position={member.position}
-                photo={member.photo}
-              />
-            ))}
-          </div>
+          <AboutClient />
         </div>
 
         <div className="flex flex-col items-center justify-between gap-6 rounded-xl bg-white p-6 shadow-md shadow-brand-shadow sm:p-8 md:flex-row">
@@ -146,7 +137,6 @@ export default function AboutPage() {
               committee? Reach out to learn more about activities, chapters,
               resources, and opportunities to get involved.
             </p>
-            <AboutClient />
           </div>
 
           <div className="w-full rounded-xl bg-brand-yellow-light p-5 md:w-96">
