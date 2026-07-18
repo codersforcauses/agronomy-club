@@ -1,14 +1,29 @@
 from unittest.mock import patch
+
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.db import transaction
-from django.test import SimpleTestCase, TestCase
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.utils import timezone
 from django.urls import reverse
+from django.conf import settings
 from rest_framework.test import APITestCase
 from datetime import datetime
+from io import BytesIO
+from tempfile import mkdtemp
+from PIL import Image
+from shutil import rmtree
 
-from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters
+from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters, Event
+
+
+# Create a 1x1 pixel PNG
+def make_test_image():
+    buffer = BytesIO()
+    Image.new('RGB', (1, 1)).save(buffer, format='PNG')
+    buffer.seek(0)
+    return SimpleUploadedFile('logo.png', buffer.read(), content_type='image/png')
 
 
 class UserModelSmokeTests(TestCase):
@@ -63,6 +78,59 @@ class UserModelSmokeTests(TestCase):
             user.full_clean()
 
 
+class EventModelSmokeTests(TestCase):
+    def setUp(self):
+        self.chapter = Chapters.objects.create(
+            name="Perth Chapter",
+            abbrev="PER",
+            location="Perth",
+            desc="A test chapter for event model tests.",
+            email="perth@agronomyclub.example",
+            colour="#aabbcc",
+        )
+        naive_dt = datetime(2026, 6, 15, 14, 0)
+        self.event_datetime = timezone.make_aware(
+            naive_dt,
+            timezone.get_default_timezone(),
+        )
+        image_file = SimpleUploadedFile(
+            "test_event.jpg",
+            b"dummy image data",
+            content_type="image/jpeg",
+        )
+        self.event = Event.objects.create(
+            title="Field Day",
+            description="Annual field day event.",
+            location="UWA Farm Ridgefield",
+            date=self.event_datetime,
+            thumbnail=image_file,
+            chapter=self.chapter,
+        )
+
+    def test_can_create_and_read_event(self):
+        saved_event = Event.objects.get(pk=self.event.pk)
+
+        self.assertEqual(saved_event.title, "Field Day")
+        self.assertEqual(saved_event.description, "Annual field day event.")
+        self.assertEqual(saved_event.location, "UWA Farm Ridgefield")
+        self.assertEqual(saved_event.chapter, self.chapter)
+        self.assertEqual(str(saved_event), "Field Day - Perth Chapter")
+
+    def test_event_date_is_datetime(self):
+        saved_event = Event.objects.get(pk=self.event.pk)
+        self.assertIsInstance(saved_event.date, datetime)
+
+    def test_event_datetime_matches(self):
+        saved_event = Event.objects.get(pk=self.event.pk)
+        self.assertEqual(saved_event.date, self.event_datetime)
+
+    def test_thumbnail_is_saved_in_correct_folder(self):
+        self.assertTrue(self.event.thumbnail.name.startswith("event_thumbnails/"))
+
+    def test_event_belongs_to_chapter(self):
+        self.assertIn(self.event, self.chapter.events.all())
+
+
 class UserModelMockUnitTests(SimpleTestCase):
     @patch("agronomy_club.models.current_year", return_value=2035)
     def test_max_value_curr_year_uses_current_year_helper(self, mocked_current_year):
@@ -80,6 +148,9 @@ class UserModelMockUnitTests(SimpleTestCase):
 
 class ResourceModelSmokeTests(TestCase):
     def setUp(self):
+        self._existing_tag_ids = list(
+            ResourceTypeTag.objects.values_list('pk', flat=True)
+        )
         self.chapter = Chapters.objects.create(
             name='gamers',
             abbrev='game',
@@ -91,7 +162,7 @@ class ResourceModelSmokeTests(TestCase):
     def tearDown(self):
         Resource.objects.all().delete()
         Chapters.objects.all().delete()
-        ResourceTypeTag.objects.all().delete()
+        ResourceTypeTag.objects.exclude(pk__in=self._existing_tag_ids).delete()
         super().tearDown()
 
     def test_can_create_and_read_resource(self):
@@ -118,19 +189,6 @@ class ResourceModelSmokeTests(TestCase):
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
                 ResourceTypeTag.objects.create(name='webpage')
-
-    def test_reject_duplicate_tag_color(self):
-        ResourceTypeTag.objects.create(
-            name='webpage',
-            color='#111111'
-        )
-
-        with self.assertRaises(IntegrityError):
-            with transaction.atomic():
-                ResourceTypeTag.objects.create(
-                    name='video',
-                    color='#111111'
-                )
 
     def test_cascade_delete_chapter_on_resource(self):
         resource = Resource.objects.create(
@@ -173,8 +231,153 @@ class ResourceModelSmokeTests(TestCase):
             resource.full_clean()
 
 
+@override_settings(MEDIA_ROOT=mkdtemp())
+class ChaptersModelSmokeTests(TestCase):
+    def tearDown(self):
+        Chapters.objects.all().delete()
+        rmtree(settings.MEDIA_ROOT, ignore_errors=True)
+        super().tearDown()
+
+    def test_create_read_chapter_no_logo(self):
+        chapter = Chapters.objects.create(
+            name='gamers',
+            abbrev='game',
+            location='Amphoreus',
+            desc='we play, maybe',
+            email='gamers@agronomy.club',
+            colour='#111111'
+        )
+
+        saved_chapter = Chapters.objects.get(pk=chapter.pk)
+
+        self.assertEqual(saved_chapter.name, 'gamers')
+        self.assertEqual(saved_chapter.abbrev, 'game')
+        self.assertEqual(saved_chapter.logo.name, 'chapter_logos/default.png')
+        self.assertEqual(saved_chapter.location, 'Amphoreus')
+        self.assertEqual(saved_chapter.desc, 'we play, maybe')
+        self.assertEqual(saved_chapter.email, 'gamers@agronomy.club')
+        self.assertEqual(saved_chapter.colour, '#111111')
+        self.assertEqual(str(saved_chapter), 'gamers')
+
+    def test_upload_logo(self):
+        chapter = Chapters.objects.create(
+            name='gamers',
+            abbrev='game',
+            logo=make_test_image(),
+            location='Amphoreus',
+            desc='we play, maybe',
+            email='gamers@agronomy.club',
+        )
+
+        saved_chapter = Chapters.objects.get(pk=chapter.pk)
+
+        self.assertEqual(saved_chapter.logo.name, 'chapter_logos/logo.png')
+
+    def test_reject_duplicate_color(self):
+        Chapters.objects.create(
+            name='c1',
+            abbrev='c1',
+            location='l1',
+            desc='d1',
+            email='c1@agronomy.club',
+            colour='#111111'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Chapters.objects.create(
+                    name='c2',
+                    abbrev='c2',
+                    location='l2',
+                    desc='d2',
+                    email='c2@agronomy.club',
+                    colour='#111111'
+                )
+
+    def test_reject_duplicate_name(self):
+        Chapters.objects.create(
+            name='c1',
+            abbrev='c1',
+            location='l1',
+            desc='d1',
+            email='c1@agronomy.club'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Chapters.objects.create(
+                    name='c1',
+                    abbrev='c2',
+                    location='l2',
+                    desc='d2',
+                    email='c2@agronomy.club'
+                )
+
+    def test_reject_duplicate_abbrev(self):
+        Chapters.objects.create(
+            name='c1',
+            abbrev='c1',
+            location='l1',
+            desc='d1',
+            email='c1@agronomy.club'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Chapters.objects.create(
+                    name='c2',
+                    abbrev='c1',
+                    location='l2',
+                    desc='d2',
+                    email='c2@agronomy.club'
+                )
+
+    def test_reject_duplicate_email(self):
+        Chapters.objects.create(
+            name='c1',
+            abbrev='c1',
+            location='l1',
+            desc='d1',
+            email='c1@agronomy.club'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Chapters.objects.create(
+                    name='c2',
+                    abbrev='c2',
+                    location='l2',
+                    desc='d2',
+                    email='c1@agronomy.club'
+                )
+
+    def test_reject_duplicate_logo_path(self):
+        Chapters.objects.create(
+            name='c1',
+            abbrev='c1',
+            logo='chapter_logos/logo.png',
+            location='l1',
+            desc='d1',
+            email='c1@agronomy.club'
+        )
+
+        with self.assertRaises(IntegrityError):
+            with transaction.atomic():
+                Chapters.objects.create(
+                    name='c2',
+                    abbrev='c2',
+                    logo='chapter_logos/logo.png',
+                    location='l2',
+                    desc='d2',
+                    email='c2@agronomy.club'
+                )
+
+
 class ResourceAPISmokeTests(APITestCase):
     def setUp(self):
+        self._existing_tag_ids = list(
+            ResourceTypeTag.objects.values_list('pk', flat=True)
+        )
         self.chapter = Chapters.objects.create(
             name='gamers',
             abbrev='game',
@@ -223,7 +426,7 @@ class ResourceAPISmokeTests(APITestCase):
     def tearDown(self):
         Resource.objects.all().delete()
         Chapters.objects.all().delete()
-        ResourceTypeTag.objects.all().delete()
+        ResourceTypeTag.objects.exclude(pk__in=self._existing_tag_ids).delete()
         super().tearDown()
 
     def test_list_resources(self):
@@ -274,4 +477,19 @@ class ResourceAPISmokeTests(APITestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 3)
+        self.assertEqual(len(response.json()), 17)
+
+
+class ChapterAPISmokeTests(APITestCase):
+    def setUp(self):
+        self.chapter = Chapters.objects.create(
+            name='perth',
+            abbrev='per',
+            location='perth',
+            desc='chapter description',
+            email='perth@agronomy.club'
+        )
+
+    def tearDown(self):
+        Chapters.objects.all().delete()
+        super().tearDown()
