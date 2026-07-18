@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("agronomy_club", "0007_mock_resource_type_tags"),
+        ("agronomy_club", "0008_mock_resource_type_tags"),
     ]
 
     operations = [

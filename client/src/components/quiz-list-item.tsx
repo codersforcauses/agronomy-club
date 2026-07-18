@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -47,6 +47,17 @@ function QuizListItem({
   uploadDate,
   downloadUrl,
 }: QuizListItemProps) {
+  const [displayDate, setDisplayDate] = useState("");
+
+  useEffect(() => {
+    setDisplayDate(
+      new Date(uploadDate).toLocaleString(undefined, {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }),
+    );
+  }, [uploadDate]);
+
   return (
     <div className="flex w-full flex-col rounded-md bg-white shadow-md shadow-brand-shadow">
       <Item size="default" className="w-full p-0">
@@ -65,7 +76,7 @@ function QuizListItem({
             </span>
             <span className="text-nowrap text-left text-muted-foreground lg:self-end lg:text-right">
               <span className="italic">uploaded on </span>
-              {uploadDate}
+              {displayDate}
             </span>
           </ItemDescription>
         </ItemContent>
@@ -80,7 +91,9 @@ function QuizListItem({
             asChild
             className="bg-brand-green text-brand-surface transition-opacity hover:bg-brand-green hover:text-white hover:opacity-80"
           >
-            <a href={downloadUrl}>Download</a>
+            <a href={downloadUrl} download>
+              Download
+            </a>
           </Button>
         </ItemActions>
       </Item>
