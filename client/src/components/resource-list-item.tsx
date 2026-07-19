@@ -6,6 +6,7 @@ type ResourceListItemProps = {
   UploadDate: string;
   type: "Video Game" | "Article" | "Website" | "Other";
   chapterColour: string;
+  link: string;
 };
 
 const Icon = {
@@ -21,11 +22,17 @@ export function ResourceListItem({
   UploadDate,
   type,
   chapterColour,
+  link,
 }: ResourceListItemProps) {
   const ResourceIcon = Icon[type];
 
   return (
-    <div className="flex flex-col border-b border-brand-green-light py-4 sm:flex-row sm:items-center sm:justify-between">
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex flex-col border-b border-brand-green-light py-4 transition-colors hover:bg-brand-green-light/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green-light sm:flex-row sm:items-center sm:justify-between"
+    >
       <div className="flex w-full items-center gap-3 sm:w-1/2">
         <ResourceIcon className="h-5 w-5 shrink-0 text-brand-text-dark" />
         <span className="truncate font-medium text-brand-text-dark">
@@ -46,6 +53,6 @@ export function ResourceListItem({
       <span className="mt-2 w-full text-brand-text sm:mt-0 sm:w-1/4 sm:text-right">
         {UploadDate}
       </span>
-    </div>
+    </a>
   );
 }

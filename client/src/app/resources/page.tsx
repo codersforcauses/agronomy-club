@@ -14,6 +14,7 @@ type Resource = {
   type: string;
   uploadDate: string;
   color: string;
+  link: string;
 };
 
 const resourceTypes = ["Field Guide", "Video Game", "Simulation", "Database"];
@@ -24,8 +25,9 @@ const resources: Resource[] = [
     name: "Resource Name",
     chapter: "Chapter Name",
     type: "Video Game",
-    uploadDate: "2026-07-02",
+    uploadDate: "2026-02-02",
     color: "#3F7D27",
+    link: "https://codersforcauses.org/",
   },
   {
     id: 2,
@@ -34,6 +36,7 @@ const resources: Resource[] = [
     type: "Field Guide",
     uploadDate: "2026-07-02",
     color: "#9B2C2C",
+    link: "https://codersforcauses.org/",
   },
   {
     id: 3,
@@ -42,6 +45,7 @@ const resources: Resource[] = [
     type: "Simulation",
     uploadDate: "2026-07-02",
     color: "#9B2C2C",
+    link: "https://codersforcauses.org/",
   },
   {
     id: 4,
@@ -50,6 +54,7 @@ const resources: Resource[] = [
     type: "Database",
     uploadDate: "2026-07-02",
     color: "#9B2C2C",
+    link: "https://codersforcauses.org/",
   },
 ];
 
@@ -182,6 +187,7 @@ export default function ResourcesPage() {
                   key={resource.id}
                   ResourceName={resource.name}
                   ChapterName={resource.chapter}
+                  link={resource.link}
                   UploadDate={new Date(resource.uploadDate).toLocaleDateString(
                     "en-AU",
                   )}
