@@ -23,19 +23,19 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col justify-center md:flex-row md:items-center">
-        <div className="flex w-full flex-col gap-6 px-6 py-12 sm:px-12 md:w-3/5 md:py-0 md:pl-12 lg:pl-16 lg:pr-8 xl:pl-24">
+      <div className="relative z-10 flex flex-1 flex-col justify-center md:flex-row md:items-start">
+        <div className="flex w-full flex-col gap-6 px-6 py-12 sm:px-12 md:w-3/5 md:py-14 md:pl-12 lg:pl-16 lg:pr-8 xl:pl-24">
           <h1 className="font-serif text-6xl font-bold text-brand-green-dark lg:text-7xl xl:text-8xl">
             Agronomy Club<span className="text-brand-yellow">.</span>
           </h1>
 
-          <p className="max-w-xl pt-9 text-lg text-brand-brown">
+          <p className="max-w-xl pt-8 text-lg text-brand-brown">
             We equip students, researchers, and professionals with the tools,
             community, and inspiration to transform global food systems through
             precision and passion.
           </p>
 
-          <div className="mt-4 flex gap-6">
+          <div className="mt-2 flex gap-6">
             <Button className="h-12 bg-brand-green px-8 text-base font-semibold text-brand-surface hover:bg-brand-yellow hover:text-brand-brown">
               Sign Up
             </Button>
