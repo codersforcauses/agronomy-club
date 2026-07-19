@@ -1,20 +1,10 @@
 "use client";
 
-import { Inter as FontSans } from "next/font/google";
 import Image from "next/image";
-import { useState } from "react";
-
-import { usePings } from "@/hooks/pings";
-import { cn } from "@/lib/utils";
 
 import { Button } from "../components/ui/button";
 
 export default function Home() {
-  const [clicked, setClicked] = useState(false);
-  const { data, isLoading } = usePings({
-    enabled: clicked,
-  });
-
   return (
     <main className="relative flex min-h-screen w-full flex-col overflow-hidden bg-brand-surface">
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
@@ -33,49 +23,28 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col justify-center pt-12 md:flex-row md:items-center md:pt-8">
+      <div className="relative z-10 flex flex-1 flex-col justify-center md:flex-row md:items-center">
         <div className="flex w-full flex-col gap-6 px-6 py-12 sm:px-12 md:w-3/5 md:py-0 md:pl-12 lg:pl-16 lg:pr-8 xl:pl-24">
           <h1 className="font-serif text-6xl font-bold text-brand-green-dark lg:text-7xl xl:text-8xl">
             Agronomy Club<span className="text-brand-yellow">.</span>
           </h1>
 
-          <p className="max-w-xl pt-9 font-serif text-lg text-brand-brown">
-            Grow your knowledge, connect with fellow plant enthusiasts, and
-            discover the science behind the food, landscapes, and ecosystems
-            that shape our world. Through hands-on experiences, shared ideas,
-            and a welcoming community, the Agronomy Club helps you cultivate
-            practical skills and a more sustainable future.
+          <p className="max-w-xl pt-9 text-lg text-brand-brown">
+            We equip students, researchers, and professionals with the tools,
+            community, and inspiration to transform global food systems through
+            precision and passion.
           </p>
 
           <div className="mt-4 flex gap-6">
-            <Button className="h-12 rounded-xl bg-brand-green-dark px-8 font-serif text-base font-semibold text-brand-surface hover:bg-brand-yellow hover:text-brand-brown">
+            <Button className="h-12 bg-brand-green px-8 text-base font-semibold text-brand-surface hover:bg-brand-yellow hover:text-brand-brown">
               Sign Up
             </Button>
             <Button
               variant="outline"
-              className="h-12 rounded-xl border-2 border-brand-green-dark bg-transparent px-8 font-serif text-base font-semibold text-brand-green hover:bg-brand-green/30 hover:text-brand-green"
+              className="h-12 border-2 border-brand-green bg-transparent px-8 text-base font-semibold text-brand-green hover:bg-brand-green/30 hover:text-brand-green"
             >
               Explore
             </Button>
-          </div>
-
-          <div className="flex w-fit items-center gap-3 self-start text-brand-text">
-            <svg
-              viewBox="0 0 40 24"
-              width="32"
-              height="32"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2a5 5 0 00-5 5v10a5 5 0 005 5h0a5 5 0 005-5V7a5 5 0 00-5-5z" />
-              <path d="M12 6v4" />
-            </svg>
-            <span className="pt-1 text-sm font-medium italic tracking-wide">
-              Scroll to Explore
-            </span>
           </div>
         </div>
 
