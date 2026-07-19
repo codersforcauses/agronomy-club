@@ -67,7 +67,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="/auth/signup"
-              className="whitespace-nowrap rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-surface"
+              className="rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-yellow hover:text-brand-text"
             >
               Join the club
             </Link>
