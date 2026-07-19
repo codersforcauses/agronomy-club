@@ -14,7 +14,7 @@ type Resource = {
   color: string;
 };
 
-const resourceTypes = ["Field Guide", "Video Game"];
+const resourceTypes = ["Field Guide", "Video Game", "Simulation", "Database"];
 
 const resources: Resource[] = [
   {
@@ -33,15 +33,41 @@ const resources: Resource[] = [
     uploadDate: "2026-07-02",
     color: "#9B2C2C",
   },
+  {
+    id: 3,
+    name: "Simulator1",
+    chapter: "University of Queensland",
+    type: "Simulation",
+    uploadDate: "2026-07-02",
+    color: "#9B2C2C",
+  },
+  {
+    id: 4,
+    name: "Super long name testghbifwfkghifq;fgq4gi4pq",
+    chapter: "University of Queensland",
+    type: "Database",
+    uploadDate: "2026-07-02",
+    color: "#9B2C2C",
+  },
 ];
 
 export default function ResourcesPage() {
   const [sortOrder, setSortOrder] = useState<SortOrder>("latest");
-  const [selectedType, setSelectedType] = useState("");
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+
+  const addType = (type: string) => {
+    if (!type || selectedTypes.includes(type)) return;
+
+    setSelectedTypes((current) => [...current, type]);
+  };
+
+  const removeType = (type: string) => {
+    setSelectedTypes((current) => current.filter((item) => item !== type));
+  };
 
   const visibleResources = useMemo(() => {
-    const filteredResources = selectedType
-      ? resources.filter((resource) => resource.type === selectedType)
+    const filteredResources = selectedTypes.length
+      ? resources.filter((resource) => selectedTypes.includes(resource.type))
       : resources;
 
     return [...filteredResources].sort((first, second) => {
@@ -52,14 +78,14 @@ export default function ResourcesPage() {
         ? secondDate - firstDate
         : firstDate - secondDate;
     });
-  }, [selectedType, sortOrder]);
+  }, [selectedTypes, sortOrder]);
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="overflow-hidden rounded-xl border border-brand-green-light bg-white shadow-sm">
+      <div className="overflow-hidden rounded-xl bg-white shadow-md shadow-brand-shadow">
         <div className="flex flex-col lg:flex-row">
           {/* Sidebar */}
-          <aside className="w-full border-b border-brand-green-light p-6 lg:w-[230px] lg:border-b-0 lg:border-r">
+          <aside className="w-full border-b border-brand-green-light p-6 lg:w-[250px] lg:border-b-0 lg:border-r">
             <div className="space-y-6">
               <div className="space-y-2">
                 <label
@@ -100,14 +126,18 @@ export default function ResourcesPage() {
                 <div className="relative">
                   <select
                     id="resource-type"
-                    value={selectedType}
-                    onChange={(event) => setSelectedType(event.target.value)}
+                    value=""
+                    onChange={(event) => addType(event.target.value)}
                     className="h-10 w-full appearance-none rounded-md border border-brand-green-light bg-white px-3 pr-10 text-sm text-brand-text-dark outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green-light"
                   >
-                    <option value="">All</option>
+                    <option value="">Select type</option>
 
                     {resourceTypes.map((resourceType) => (
-                      <option key={resourceType} value={resourceType}>
+                      <option
+                        key={resourceType}
+                        value={resourceType}
+                        disabled={selectedTypes.includes(resourceType)}
+                      >
                         {resourceType}
                       </option>
                     ))}
@@ -120,15 +150,20 @@ export default function ResourcesPage() {
                 </div>
               </div>
 
-              {selectedType && (
-                <button
-                  type="button"
-                  onClick={() => setSelectedType("")}
-                  className="inline-flex items-center gap-2 rounded-md bg-brand-green-light px-3 py-2 text-sm text-brand-text-dark transition hover:opacity-80"
-                >
-                  <X className="h-4 w-4" aria-hidden="true" />
-                  {selectedType}
-                </button>
+              {selectedTypes.length > 0 && (
+                <div className="flex flex-wrap items-start gap-2 xl:flex-col">
+                  {selectedTypes.map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => removeType(type)}
+                      className="inline-flex w-fit items-center gap-2 rounded-md bg-brand-green-light px-3 py-2 text-sm text-brand-text-dark transition hover:opacity-80"
+                    >
+                      <X className="h-4 w-4" aria-hidden="true" />
+                      {type}
+                    </button>
+                  ))}
+                </div>
               )}
             </div>
           </aside>
