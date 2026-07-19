@@ -1,7 +1,9 @@
 "use client";
 
-import { ChevronDown, FileText, Gamepad2, X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { useMemo, useState } from "react";
+
+import { ResourceListItem } from "@/components/resource-list-item";
 
 type SortOrder = "latest" | "oldest";
 
@@ -12,6 +14,7 @@ type Resource = {
   type: string;
   uploadDate: string;
   color: string;
+  link: string;
 };
 
 const resourceTypes = ["Field Guide", "Video Game", "Simulation", "Database"];
@@ -22,8 +25,9 @@ const resources: Resource[] = [
     name: "Resource Name",
     chapter: "Chapter Name",
     type: "Video Game",
-    uploadDate: "2026-07-02",
+    uploadDate: "2026-02-02",
     color: "#3F7D27",
+    link: "https://codersforcauses.org/",
   },
   {
     id: 2,
@@ -32,6 +36,7 @@ const resources: Resource[] = [
     type: "Field Guide",
     uploadDate: "2026-07-02",
     color: "#9B2C2C",
+    link: "https://codersforcauses.org/",
   },
   {
     id: 3,
@@ -40,6 +45,7 @@ const resources: Resource[] = [
     type: "Simulation",
     uploadDate: "2026-07-02",
     color: "#9B2C2C",
+    link: "https://codersforcauses.org/",
   },
   {
     id: 4,
@@ -48,6 +54,7 @@ const resources: Resource[] = [
     type: "Database",
     uploadDate: "2026-07-02",
     color: "#9B2C2C",
+    link: "https://codersforcauses.org/",
   },
 ];
 
@@ -176,36 +183,25 @@ export default function ResourcesPage() {
 
             <div className="mt-4 border-t border-brand-green-light">
               {visibleResources.map((resource) => (
-                <div
+                <ResourceListItem
                   key={resource.id}
-                  className="grid gap-3 border-b border-brand-green-light py-4 sm:grid-cols-[1.4fr_1.3fr_120px] sm:items-center"
-                >
-                  <div className="flex items-center gap-3 font-semibold text-brand-text-dark">
-                    {resource.type === "Video Game" ? (
-                      <Gamepad2 className="h-5 w-5" aria-hidden="true" />
-                    ) : (
-                      <FileText className="h-5 w-5" aria-hidden="true" />
-                    )}
-
-                    <span>{resource.name}</span>
-                  </div>
-
-                  <div className="flex items-center gap-3 text-brand-text">
-                    <span
-                      className="h-8 w-2"
-                      style={{ backgroundColor: resource.color }}
-                      aria-hidden="true"
-                    />
-                    <span>{resource.chapter}</span>
-                  </div>
-
-                  <time
-                    dateTime={resource.uploadDate}
-                    className="text-brand-text"
-                  >
-                    {new Date(resource.uploadDate).toLocaleDateString("en-AU")}
-                  </time>
-                </div>
+                  ResourceName={resource.name}
+                  ChapterName={resource.chapter}
+                  link={resource.link}
+                  UploadDate={new Date(resource.uploadDate).toLocaleDateString(
+                    "en-AU",
+                  )}
+                  type={
+                    resource.type === "Video Game"
+                      ? "Video Game"
+                      : resource.type === "Field Guide"
+                        ? "Article"
+                        : resource.type === "Database"
+                          ? "Website"
+                          : "Other"
+                  }
+                  chapterColour={resource.color}
+                />
               ))}
 
               {visibleResources.length === 0 && (
