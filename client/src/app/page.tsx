@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "../components/ui/button";
 
@@ -36,14 +37,19 @@ export default function Home() {
           </p>
 
           <div className="mt-2 flex gap-6">
-            <Button className="h-12 bg-brand-green px-8 text-base font-semibold text-brand-surface hover:bg-brand-yellow hover:text-brand-brown">
-              Sign Up
+            <Button
+              asChild
+              className="h-12 bg-brand-green px-8 text-base font-semibold text-brand-surface hover:bg-brand-yellow hover:text-brand-brown"
+            >
+              <Link href="/signup">Sign Up</Link>
             </Button>
             <Button
               variant="outline"
               className="h-12 border-2 border-brand-green bg-transparent px-8 text-base font-semibold text-brand-green hover:bg-brand-green/30 hover:text-brand-green"
             >
-              Explore
+              <Link href="/about" className="text-brand-green">
+                Explore
+              </Link>
             </Button>
           </div>
         </div>
