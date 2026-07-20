@@ -26,11 +26,7 @@ export default function ChaptersClient() {
       {chapters?.length > 0 ? (
         chapters.map((chapter) => {
           console.log(chapter.logo);
-          if (
-            chapter.logo == null ||
-            chapter.logo ===
-              "http://localhost:8000/media/chapter_logos/default.png"
-          ) {
+          if (!chapter.logo) {
             // Initials for the logo placeholder
             const initials = chapter.name
               .split(" ")
