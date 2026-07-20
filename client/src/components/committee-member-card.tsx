@@ -20,7 +20,7 @@ export function CommitteeMemberCard({
 }: CommitteeMemberCardProps) {
   return (
     <Card className="w-[220px] shrink-0 overflow-hidden rounded-xl border-0 pt-0 shadow-md shadow-brand-shadow">
-      <div className="relative aspect-square w-full bg-green-100">
+      <div className="relative aspect-square w-full bg-brand-green-light">
         {photo && (
           <Image src={photo} alt={name} fill className="object-cover" />
         )}
