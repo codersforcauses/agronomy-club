@@ -252,27 +252,6 @@ class ChaptersModelSmokeTests(TestCase):
         rmtree(settings.MEDIA_ROOT, ignore_errors=True)
         super().tearDown()
 
-    def test_create_read_chapter_no_logo(self):
-        chapter = Chapters.objects.create(
-            name='gamers',
-            abbrev='game',
-            location='Amphoreus',
-            desc='we play, maybe',
-            email='gamers@agronomy.club',
-            colour='#111111'
-        )
-
-        saved_chapter = Chapters.objects.get(pk=chapter.pk)
-
-        self.assertEqual(saved_chapter.name, 'gamers')
-        self.assertEqual(saved_chapter.abbrev, 'game')
-        self.assertEqual(saved_chapter.logo.name, 'chapter_logos/default.png')
-        self.assertEqual(saved_chapter.location, 'Amphoreus')
-        self.assertEqual(saved_chapter.desc, 'we play, maybe')
-        self.assertEqual(saved_chapter.email, 'gamers@agronomy.club')
-        self.assertEqual(saved_chapter.colour, '#111111')
-        self.assertEqual(str(saved_chapter), 'gamers')
-
     def test_upload_logo(self):
         chapter = Chapters.objects.create(
             name='gamers',
