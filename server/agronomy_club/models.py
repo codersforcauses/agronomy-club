@@ -34,6 +34,23 @@ def max_value_curr_year(value):
     return MaxValueValidator(current_year() + 12)(value)
 
 
+# Enums for Chapter Membersips model's role and position
+class Role(models.TextChoices):
+    MEMBER = 'member', 'Member'
+    ADMIN = 'admin', 'Admin'
+    OWNER = 'owner', 'Owner'
+
+
+class Position(models.TextChoices):
+    PRESIDENT = 'pres', 'President'
+    VICE_PRESIDENT = 'vpres', 'Vice President'
+    SECRETARY = 'sec', 'Secretary'
+    TREASURER = 'treas', 'Treasurer'
+    MARKETING_OFFICER = 'mark', 'Marketing Oficcer'
+    OCM = 'ocm', 'Ordinary Comittee Member'
+    __empty__ = 'Unspecified'
+
+
 class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     name = models.CharField(max_length=255, unique=True)
@@ -126,14 +143,33 @@ class Users(models.Model):
 class ChapterMemberships(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='user_memberships')
-    chapter_role = models.CharField(max_length=100, choices=[('member', 'Member'), ('admin', 'Admin'), ('owner', 'Owner')], default='member')
+    chapter_role = models.CharField(max_length=100, choices=Role, default=Role.MEMBER)
     chapter_id = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name='chapter_memberships')
-    position = models.CharField(max_length=100, choices=[('pres', 'President'), ('vpres', 'Vice President'),
-                                                         ('sec', 'Secretary'), ('treas', 'Treasurer'), ('mark', 'Marketing Officer'),
-                                                         ('ocm', 'Ordinary Committee Member')], default='pres', blank=True)
+    position = models.CharField(max_length=100, choices=Position, default=Position.PRESIDENT, blank=True)
 
     def __str__(self):
         return f"{self.user_id.full_name} - {self.chapter_id.name} - {self.chapter_role}"
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(chapter_role__in=Role),
+                name='valid_role'
+            ),
+            models.CheckConstraint(
+                condition=models.Q(position__in=Position),
+                name='valid_position'
+            ),
+            models.UniqueConstraint(
+                fields=['user_id', 'chapter_id'],
+                name='unique_user_chapter'
+            ),
+            models.UniqueConstraint(
+                fields=['chapter_id', 'position'],
+                condition=~models.Q(position__in=[Position.OCM, Position.MARKETING_OFFICER]),
+                name='unique_chapter_position'
+            )
+        ]
 
     # runs after a change to an object is submitted on the dashboard, performing validation checks
     # it has been overridden to include more validation for the different chapter roles
