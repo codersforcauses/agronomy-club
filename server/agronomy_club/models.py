@@ -129,12 +129,17 @@ class Resource(models.Model):
 
 
 class Users(models.Model):
+    # Create a path for stored photos
+    def create_photo_path(instance, filename):
+        return f'users/{instance.grad_yr}/{filename}'
+
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     full_name = models.CharField(max_length=100)
     grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
     discipline = models.CharField(max_length=100)
     email = models.EmailField(max_length=255, unique=True)
     global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
+    photo = models.ImageField(null=True, blank=True, upload_to=create_photo_path)
 
     def __str__(self):
         return f"{self.full_name} - {self.global_role}"

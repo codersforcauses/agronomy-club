@@ -26,9 +26,11 @@ def make_test_image():
     return SimpleUploadedFile('logo.png', buffer.read(), content_type='image/png')
 
 
+@override_settings(MEDIA_ROOT=mkdtemp())
 class UserModelSmokeTests(TestCase):
     def tearDown(self):
         Users.objects.all().delete()
+        rmtree(settings.MEDIA_ROOT, ignore_errors=True)
         super().tearDown()
 
     def test_can_create_and_read_user(self):
@@ -76,6 +78,18 @@ class UserModelSmokeTests(TestCase):
 
         with self.assertRaises(ValidationError):
             user.full_clean()
+
+    def test_upload_photo(self):
+        user = Users.objects.create(
+            full_name="Ada Lovelace",
+            grad_yr=2030,
+            discipline="Agronomy",
+            email="ada@example.com",
+            photo=make_test_image()
+        )
+
+        saved_user = Users.objects.get(pk=user.pk)
+        self.assertTrue(saved_user.photo, f'/users/{saved_user.grad_yr}/photo.png')
 
 
 class EventModelSmokeTests(TestCase):
