@@ -25,7 +25,20 @@ export default function ChaptersClient() {
     <div className="mt-12 grid flex-row justify-items-center gap-10 sm:grid-cols-2 xl:grid-cols-3">
       {chapters?.length > 0 ? (
         chapters.map((chapter) => {
-          if (!chapter.logo) {
+          console.log(chapter.logo);
+          if (
+            chapter.logo == null ||
+            chapter.logo ===
+              "http://localhost:8000/media/chapter_logos/default.png"
+          ) {
+            // Initials for the logo placeholder
+            const initials = chapter.name
+              .split(" ")
+              .map((word) => word[0])
+              .slice(0, 2)
+              .join("")
+              .toUpperCase();
+
             return (
               <ChapterCard
                 key={chapter.id}
@@ -34,6 +47,7 @@ export default function ChaptersClient() {
                 location={chapter.location}
                 description={chapter.desc}
                 color={chapter.colour}
+                initials={initials}
                 onView={() => (location.href = `/chapters/${chapter.id}`)}
               />
             );

@@ -13,6 +13,7 @@ export type ChapterCardProps = {
   description: string;
   color: string;
   imageUrl?: string;
+  initials?: string;
   onJoin?: () => void;
   onView?: () => void;
 };
@@ -24,6 +25,7 @@ export default function ChapterCard({
   description,
   color,
   imageUrl,
+  initials,
   onJoin,
   onView,
 }: ChapterCardProps) {
@@ -41,7 +43,9 @@ export default function ChapterCard({
             className="rounded-md object-cover"
           />
         ) : (
-          <ImageIcon className="h-[70px] w-[70px] text-brand-text-dark" />
+          <div className="-mt-2 flex h-16 w-16 items-center justify-center rounded-xl border-4 border-white bg-brand-green text-sm font-semibold text-white">
+            {initials}
+          </div>
         )}
 
         <div className="mt-[10px] space-y-[10px]">
