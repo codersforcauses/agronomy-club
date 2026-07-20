@@ -10,12 +10,13 @@ from django.urls import reverse
 from django.conf import settings
 from rest_framework.test import APITestCase
 from datetime import datetime
+from django.forms import ValidationError as FormValidationError
 from io import BytesIO
 from tempfile import mkdtemp
 from PIL import Image
 from shutil import rmtree
 
-from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters, Event
+from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters, Event, ChapterMemberships
 
 
 # Create a 1x1 pixel PNG
@@ -478,6 +479,196 @@ class ResourceAPISmokeTests(APITestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 17)
+
+
+class ChapterMembershipsModelSmokeTests(TestCase):
+    def setUp(self):
+        self.Chapter = Chapters.objects.create(
+            name='gamers',
+            abbrev='game',
+            location='Amphoreus',
+            desc='we play, maybe',
+            email='gamers@agronomy.club',
+            colour='#aabbcc'
+        )
+        self.User = Users.objects.create(
+            full_name='John Doe',
+            grad_yr=2030,
+            discipline='Agronomy',
+            email='john.doe@example.com',
+            global_role='user'
+        )
+
+    def tearDown(self):
+        ChapterMemberships.objects.all().delete()
+        Chapters.objects.all().delete()
+        Users.objects.all().delete()
+        super().tearDown()
+
+    def test_can_create_and_read_chapter_membership(self):
+        chapter_membership = ChapterMemberships.objects.create(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='member',
+        )
+
+        saved = ChapterMemberships.objects.get(pk=chapter_membership.pk)
+
+        self.assertEqual(saved.user_id, self.User)
+        self.assertEqual(saved.chapter_id, self.Chapter)
+        self.assertEqual(saved.chapter_role, 'member')
+        self.assertEqual(saved.position, "")
+        self.assertEqual(str(saved), 'John Doe - gamers - member')
+
+    def test_can_create_admin_with_position(self):
+        membership = ChapterMemberships.objects.create(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='admin',
+            position='pres',
+        )
+
+        saved = ChapterMemberships.objects.get(pk=membership.pk)
+
+        self.assertEqual(saved.chapter_role, 'admin')
+        self.assertEqual(saved.position, 'pres')
+
+    def test_can_create_owner_with_position(self):
+        membership = ChapterMemberships.objects.create(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='owner',
+            position='sec',
+        )
+
+        saved = ChapterMemberships.objects.get(pk=membership.pk)
+
+        self.assertEqual(saved.chapter_role, 'owner')
+        self.assertEqual(saved.position, 'sec')
+
+    def test_membership_linked_via_reverse_relations(self):
+        membership = ChapterMemberships.objects.create(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='member',
+        )
+
+        self.assertIn(membership, self.User.user_memberships.all())
+        self.assertIn(membership, self.Chapter.chapter_memberships.all())
+
+    # clean() / full_clean() validation
+
+    def test_member_cannot_have_position_on_full_clean(self):
+        membership = ChapterMemberships(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='member',
+            position='pres',
+        )
+
+        with self.assertRaises(FormValidationError):
+            membership.full_clean()
+
+    def test_member_with_empty_position_passes_full_clean(self):
+        membership = ChapterMemberships(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='member',
+            position="",
+        )
+
+        membership.full_clean()
+        self.assertEqual(membership.position, "")
+
+    def test_admin_requires_valid_position_on_full_clean(self):
+        membership = ChapterMemberships(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='admin',
+            position='invalid',
+        )
+
+        with self.assertRaises(FormValidationError):
+            membership.full_clean()
+
+    def test_owner_requires_valid_position_on_full_clean(self):
+        membership = ChapterMemberships(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='owner',
+            position="",
+        )
+
+        with self.assertRaises(FormValidationError):
+            membership.full_clean()
+
+    def test_admin_with_valid_position_passes_full_clean(self):
+        membership = ChapterMemberships(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='admin',
+            position='treas',
+        )
+
+        membership.full_clean()
+        self.assertEqual(membership.position, 'treas')
+
+    # save() validation and sanitation
+
+    def test_save_clears_position_for_member(self):
+        membership = ChapterMemberships.objects.create(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='member',
+            position='pres',
+        )
+
+        membership.save()
+        self.assertEqual(membership.position, "")
+
+    def test_save_rejects_invalid_position_for_admin(self):
+        membership = ChapterMemberships(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='admin',
+            position='invalid',
+        )
+
+        with self.assertRaises(FormValidationError):
+            membership.save()
+
+    def test_save_allows_valid_admin_with_position(self):
+        membership = ChapterMemberships(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='admin',
+            position='mark',
+        )
+
+        membership.save()
+        self.assertEqual(membership.position, 'mark')
+
+    # Cascade Deletes
+
+    def test_cascade_delete_user_deletes_memberships(self):
+        membership = ChapterMemberships.objects.create(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='member',
+        )
+
+        self.User.delete()
+        self.assertEqual(ChapterMemberships.objects.filter(pk=membership.pk).count(), 0)
+
+    def test_cascade_delete_chapter_deletes_memberships(self):
+        membership = ChapterMemberships.objects.create(
+            user_id=self.User,
+            chapter_id=self.Chapter,
+            chapter_role='member',
+        )
+
+        self.Chapter.delete()
+        self.assertEqual(ChapterMemberships.objects.filter(pk=membership.pk).count(), 0)
 
 
 class ChapterAPISmokeTests(APITestCase):
