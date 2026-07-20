@@ -54,8 +54,8 @@ class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     name = models.CharField(max_length=255, unique=True)
     abbrev = models.CharField(max_length=255, unique=True)
-    # Store chapter logos in media/chapter_logos/ directory. When no logo is uploaded, default to chapter_logos/default.png.
-    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png')
+    # Store chapter logos in media/chapter_logos/ directory.
+    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True)
     location = models.CharField(max_length=255)
     desc = models.TextField(max_length=5000)
     email = models.EmailField(max_length=255, unique=True)
@@ -69,16 +69,13 @@ class Chapters(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['logo'],
-                condition=~models.Q(logo='chapter_logos/default.png'),
-                name='unique_logo_except_default'
+                condition=models.Q(logo__isnull=False),
+                name='unique_logo_except_null'
             )
         ]
 
     # Make null or empty path to default path
     def save(self, *args, **kwargs):
-        if not self.logo:
-            self.logo = 'chapter_logos/default.png'
-
         return super().save(*args, **kwargs)
 
 
