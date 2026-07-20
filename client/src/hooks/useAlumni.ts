@@ -9,6 +9,9 @@ export type ApiAlumni = {
   grad_yr: number;
   discipline: string;
   email: string;
+  chapter_colour: string;
+  chapter_abbrev: string;
+  photo: string | null;
 };
 
 export const useAlumni = (
