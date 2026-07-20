@@ -26,7 +26,7 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
   return (
     <Card className="w-[220px] overflow-hidden border-0 pt-0 shadow-md shadow-brand-shadow">
       {/* Avatar area */}
-      <div className="flex justify-center bg-brand-green-light py-6">
+      <div className="relative flex aspect-square w-full items-center justify-center bg-brand-green-light py-6">
         <Avatar className="h-16 w-16">
           <AvatarFallback className="bg-brand-green text-white">
             {initials}
