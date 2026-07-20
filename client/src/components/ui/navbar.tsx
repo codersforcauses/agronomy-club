@@ -31,9 +31,9 @@ export default function Navbar() {
       <div className="flex flex-1 items-center">
         <Link
           href="/"
-          className="mr-6 flex items-center gap-2 text-xl font-bold"
+          className="mr-6 flex items-center gap-2 text-lg font-bold xl:text-xl"
         >
-          <Sprout className="h-8 w-8 text-[#54c612]" />
+          <Sprout className="size-7 text-[#54c612] xl:size-8" />
           <span className="sr-only text-brand-surface">Agronomy Club</span>
           <span
             aria-hidden="true"
@@ -43,7 +43,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-1 text-sm font-medium lg:flex">
+        <nav className="ml-auto hidden items-center gap-1 text-sm font-medium xl:flex">
           {navigationItems.map((item) => (
             <Link
               key={item.href}
@@ -61,13 +61,13 @@ export default function Navbar() {
           <div className="ml-4 flex items-center gap-3 border-l border-brand-green-light pl-4">
             <Link
               href="/auth/signin"
-              className="hover:brand-surface text-sm text-brand-surface transition-colors"
+              className="hover:brand-surface whitespace-nowrap text-sm text-brand-surface transition-colors"
             >
               Sign in
             </Link>
             <Link
               href="/auth/signup"
-              className="rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-surface"
+              className="rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-yellow hover:text-brand-text"
             >
               Join the club
             </Link>
@@ -76,7 +76,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div className="flex items-center lg:hidden">
+      <div className="flex items-center xl:hidden">
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}

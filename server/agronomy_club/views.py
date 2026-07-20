@@ -1,8 +1,8 @@
 from rest_framework import generics
-from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer
-from .models import Resource, ResourceTypeTag, Users, Event, Quiz
+from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer, ListedChapterSerializer  # noqa: E501
+from .models import Resource, ResourceTypeTag, Users, Event, Quiz, Chapters
 from rest_framework.decorators import api_view
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 
 
 # Create your views here.
@@ -18,6 +18,14 @@ class QuizDataAPIView(generics.RetrieveAPIView):
     def get_queryset(self):
         return Quiz.objects.filter(public=True)
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        fileHandle = instance.quiz_data.open()
+
+        response = FileResponse(fileHandle, as_attachment=True, filename=f"{instance.name}.json")
+        return response
+
 
 class ResourceTypeTagListAPIView(generics.ListAPIView):
     queryset = ResourceTypeTag.objects.all()
@@ -28,14 +36,22 @@ class ResourceListAPIView(generics.ListAPIView):
     serializer_class = ResourceSerializer
 
     def get_queryset(self):
-        self.queryset = Resource.objects.all().order_by("-upload_date")
+        queryset = Resource.objects.all().order_by("-upload_date")
         tags = self.request.GET.get("tags")
         if tags:
             tag_ids = [t for t in tags.split(",") if t.strip().isdigit()]
             if tag_ids:
-                self.queryset = self.queryset.filter(type_tags__id__in=tag_ids).distinct()
+                queryset = queryset.filter(type_tags__id__in=tag_ids).distinct()
 
-        return self.queryset
+        return queryset
+
+
+class IndividualChapterAPIView(generics.RetrieveAPIView):
+    serializer_class = ChapterSerializer
+    lookup_field = "id"
+
+    def get_queryset(self):
+        return Chapters.objects.all()
 
 
 class AlumniListAPIView(generics.ListAPIView):
@@ -65,3 +81,10 @@ class QuizListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return Quiz.objects.filter(public=True).order_by("-upload_date")
+
+
+class ChapterListAPIView(generics.ListAPIView):
+    serializer_class = ListedChapterSerializer
+
+    def get_queryset(self):
+        return Chapters.objects.all()
