@@ -15,7 +15,7 @@ from tempfile import mkdtemp
 from PIL import Image
 from shutil import rmtree
 
-from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters, Event
+from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters, Event, Quiz
 
 
 # Create a 1x1 pixel PNG
@@ -507,3 +507,63 @@ class ChapterAPISmokeTests(APITestCase):
     def tearDown(self):
         Chapters.objects.all().delete()
         super().tearDown()
+
+
+class QuizModelSmokeTests(TestCase):
+    def setUp(self):
+        self.chapter = Chapters.objects.create(  # creates a real Chapter in the test database
+            name='gamers',
+            abbrev='game',
+            location='Amphoreus',
+            desc='we play, maybe',
+            email='gamers@agronomy.club'
+        )
+
+    def test_can_create_and_read_quiz(self):
+        saved_quiz = Quiz.objects.create(
+            name='slitherio',
+            public=True,
+            chapter=self.chapter,
+            quiz_data='{"test": "data"}'
+        )
+
+        saved_quiz = Quiz.objects.get(pk=saved_quiz.pk)
+
+        self.assertEqual(saved_quiz.name, 'slitherio')
+        self.assertEqual(saved_quiz.public, True)
+        self.assertEqual(saved_quiz.chapter.location, 'Amphoreus')
+        self.assertEqual(saved_quiz.quiz_data, '{"test": "data"}')
+
+    def test_upload_date_not_none(self):
+        saved_quiz = Quiz.objects.create(
+            name='slitherio',
+            public=True,
+            chapter=self.chapter,
+            quiz_data='{"test": "data"}'
+        )
+
+        self.assertIsInstance(saved_quiz.upload_date, datetime)
+
+    def test_quiz_set_to_false(self):
+        saved_quiz = Quiz.objects.create(
+            name='slitherio',
+            public=False,
+            chapter=self.chapter,
+            quiz_data='{"test": "data"}'
+        )
+
+        self.assertEqual(saved_quiz.public, False)
+
+    def test_cascade_delete_chapter_on_quiz(self):
+        saved_quiz = Quiz.objects.create(
+            name='slitherio',
+            public=False,
+            chapter=self.chapter,
+            quiz_data='{"test": "data"}'
+        )
+
+        self.assertEqual(Quiz.objects.filter(pk=saved_quiz.pk).count(), 1)
+
+        self.chapter.delete()
+
+        self.assertEqual(Quiz.objects.filter(pk=saved_quiz.pk).count(), 0)
