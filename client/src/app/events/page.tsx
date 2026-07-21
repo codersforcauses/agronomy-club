@@ -25,7 +25,7 @@ export default function EventsPage() {
         location="32 Street, Big Suburb, Wisconsisn, UK"
         date={new Date("2026-07-02T16:00:00")}
         chapterColor="#2e7d32"
-        link="#"
+        link=""
       />
     </section>
   );

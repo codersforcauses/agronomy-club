@@ -29,7 +29,7 @@ export default function EventCard({
   link,
 }: EventCardProps) {
   return (
-    <Card className="relative h-full max-w-[364px] overflow-hidden rounded-xl border-0 pt-0 shadow-md shadow-brand-shadow">
+    <Card className="relative mr-4 mt-4 h-full max-w-[364px] overflow-hidden rounded-xl border-0 pt-0 shadow-md shadow-brand-shadow">
       <div className="h-3 w-full" style={{ backgroundColor: chapterColor }} />
       <CardContent className="flex flex-col gap-3 p-4">
         <div className="relative h-56 items-center justify-center">
@@ -67,12 +67,14 @@ export default function EventCard({
             <MapPinned className="max-h-[24px] flex-initial" />{" "}
             <p className="pl-2">{location}</p>
           </div>
-          <div className="flex flex-row">
-            <LinkIcon className="max-h-[24px] flex-initial" />{" "}
-            <Link href={`${link}`} className="pl-2 text-brand-brown">
-              Event Details
-            </Link>
-          </div>
+          {!link?.trim() || (
+            <div className="flex flex-row">
+              <LinkIcon className="max-h-[24px] flex-initial" />{" "}
+              <Link href={`${link}`} className="pl-2 text-brand-brown">
+                Event Details
+              </Link>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
