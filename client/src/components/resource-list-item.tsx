@@ -1,7 +1,5 @@
 import { DynamicIcon } from "lucide-react/dynamic";
 
-import { resourceType,resourceTypes } from "@/hooks/useResources";
-
 type ResourceListItemProps = {
   ResourceName: string;
   ChapterName: string;

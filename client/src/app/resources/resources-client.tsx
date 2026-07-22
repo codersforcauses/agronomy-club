@@ -35,14 +35,7 @@ export default function ResourcesClient() {
   } = useResources(selectedTypes.map((type) => typenameToId[type]));
 
   const visibleResources = useMemo(() => {
-    const filteredResources = selectedTypes.length
-      ? resources.filter((resource) =>
-          resource.type_tags.some((tag) =>
-            selectedTypes.includes(tag.name as resourceType),
-          ),
-        )
-      : resources;
-
+    const filteredResources = resources;
     return [...filteredResources].sort((first, second) => {
       const firstDate = new Date(first.upload_date).getTime();
       const secondDate = new Date(second.upload_date).getTime();
@@ -51,7 +44,7 @@ export default function ResourcesClient() {
         ? secondDate - firstDate
         : firstDate - secondDate;
     });
-  }, [selectedTypes, sortOrder, resources]);
+  }, [sortOrder, resources]);
 
   if (isLoading) {
     return <p className="p-6">Resources are loading...</p>;
