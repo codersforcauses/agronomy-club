@@ -54,14 +54,13 @@ export default function ResourcesClient() {
   }, [selectedTypes, sortOrder, resources]);
 
   if (isLoading) {
-    return <p>Resources are loading...</p>;
+    return <p className="p-6">Resources are loading...</p>;
   }
 
   if (isError) {
     console.log(error);
-
     return (
-      <p>
+      <p className="p-6">
         Error loading resources. If refreshing doesn't work, please contact an
         administrator.
       </p>
@@ -173,8 +172,6 @@ export default function ResourcesClient() {
               type={
                 resource.type_tags.length > 0
                   ? resource.type_tags[0].lucide_name
-                    ? resource.type_tags[0].lucide_name
-                    : "grid-3x3"
                   : "grid-3x3"
               }
               chapterColour={resource.chapter_colour}
