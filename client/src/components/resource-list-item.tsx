@@ -1,4 +1,4 @@
-import { DynamicIcon } from "lucide-react/dynamic";
+import { DynamicIcon, IconName } from "lucide-react/dynamic";
 
 type ResourceListItemProps = {
   ResourceName: string;
@@ -27,7 +27,7 @@ export function ResourceListItem({
       <div className="flex w-full items-center gap-3 sm:w-1/2">
         <DynamicIcon
           className="h-5 w-5 shrink-0 text-brand-text-dark"
-          name={type ? type : "grid-3x3"}
+          name={type ? (type as IconName) : "grid-3x3"}
         />
         <span className="truncate font-medium text-brand-text-dark">
           {ResourceName}
