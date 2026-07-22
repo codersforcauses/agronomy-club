@@ -1,6 +1,6 @@
 import { Mail } from "lucide-react";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback,AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -12,6 +12,7 @@ export type Alumni = {
   email: string;
   gradYear: number;
   chapterColour?: string;
+  imageURL?: string | null;
 };
 
 export function AlumniCard({ alumni }: { alumni: Alumni }) {
@@ -28,6 +29,10 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
       {/* Avatar area */}
       <div className="relative flex aspect-square w-full items-center justify-center bg-brand-green-light py-6">
         <Avatar className="h-16 w-16">
+          <AvatarImage
+            src={alumni.imageURL ?? undefined}
+            alt={`${alumni.name}'s profile picture`}
+          />
           <AvatarFallback className="bg-brand-green text-white">
             {initials}
           </AvatarFallback>

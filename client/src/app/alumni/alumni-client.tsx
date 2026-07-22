@@ -17,6 +17,7 @@ export default function AlumniClient() {
           email: item.email,
           gradYear: item.grad_yr,
           chapterColour: item.chapter_colour,
+          imageURL: item.photo,
         }))
       : [];
 
