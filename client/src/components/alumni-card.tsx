@@ -1,6 +1,6 @@
 import { Mail } from "lucide-react";
+import Image from "next/image";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -27,16 +27,19 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
   return (
     <Card className="w-[220px] overflow-hidden border-0 pt-0 shadow-md shadow-brand-shadow">
       {/* Avatar area */}
-      <div className="relative flex aspect-square w-full items-center justify-center bg-brand-green-light py-6">
-        <Avatar className="h-16 w-16">
-          <AvatarImage
-            src={alumni.imageURL ?? undefined}
+      <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden bg-brand-green-light">
+        {alumni.imageURL ? (
+          <Image
+            src={alumni.imageURL}
             alt={`${alumni.name}'s profile picture`}
+            fill
+            className="object-cover"
           />
-          <AvatarFallback className="bg-brand-green text-white">
+        ) : (
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-green font-semibold text-white">
             {initials}
-          </AvatarFallback>
-        </Avatar>
+          </div>
+        )}
       </div>
 
       <CardContent className="bg-white p-4">
