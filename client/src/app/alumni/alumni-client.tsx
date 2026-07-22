@@ -1,6 +1,6 @@
 "use client";
 
-import { type Alumni, AlumniCard } from "@/components/alumnicard";
+import { type Alumni, AlumniCard } from "@/components/alumni-card";
 import { type ApiAlumni, useAlumni } from "@/hooks/useAlumni";
 
 export default function AlumniClient() {
