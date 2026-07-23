@@ -52,12 +52,12 @@ class Position(models.TextChoices):
 
 class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    name = models.CharField(max_length=255, unique=True)
-    abbrev = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=100, unique=True)
+    abbrev = models.CharField(max_length=10, unique=True)
     # Store chapter logos in media/chapter_logos/ directory.
     logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True)
-    location = models.CharField(max_length=255)
-    desc = models.TextField(max_length=5000)
+    location = models.CharField(max_length=100)
+    desc = models.TextField(max_length=150)
     email = models.EmailField(max_length=255, unique=True)
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
 
