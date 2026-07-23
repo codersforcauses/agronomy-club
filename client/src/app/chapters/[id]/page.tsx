@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 
 import { CommitteeMemberCard } from "@/components/committee-member-card";
 import { Button } from "@/components/ui/button";
-import { type ApiCommitteeMember,useChapter } from "@/hooks/useChapter";
+import { type ApiCommitteeMember, useChapter } from "@/hooks/useChapter";
 
 const POSITION_LABELS: Record<ApiCommitteeMember["position"], string> = {
   pres: "President",
