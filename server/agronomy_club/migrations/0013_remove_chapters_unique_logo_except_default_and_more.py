@@ -21,6 +21,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='chapters',
-            constraint=models.UniqueConstraint(condition=models.Q(models.Q(('logo__isnull', True), _negated=True), models.Q(('logo', ''), _negated=True)), fields=('logo',), name='unique_logo_except_null'),
+            constraint=models.UniqueConstraint(condition=models.Q(models.Q(('logo__isnull', True), _negated=True),
+                                                                  models.Q(('logo', ''), _negated=True)), fields=('logo',),
+                                               name='unique_logo_except_null'),
         ),
     ]
