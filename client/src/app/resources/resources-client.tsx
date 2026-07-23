@@ -46,24 +46,14 @@ export default function ResourcesClient() {
     });
   }, [sortOrder, resources]);
 
-  if (isLoading) {
-    return <p className="p-6">Resources are loading...</p>;
-  }
-
   if (isError) {
     console.log(error);
-    return (
-      <p className="p-6">
-        Error loading resources. If refreshing doesn't work, please contact an
-        administrator.
-      </p>
-    );
   }
 
   return (
     <>
       {/* Sidebar */}
-      <aside className="w-full border-b border-brand-green-light p-6 lg:w-[250px] lg:border-b-0 lg:border-r">
+      <aside className="min-h-[17.25rem] w-full border-b border-brand-green-light p-6 lg:w-[250px] lg:border-b-0 lg:border-r">
         <div className="space-y-6">
           <div className="space-y-2">
             <label
@@ -151,29 +141,41 @@ export default function ResourcesClient() {
       {/* Resource table */}
       <main className="min-w-0 flex-1 p-6 lg:p-8">
         <h1 className="text-3xl font-bold text-brand-text-dark">Resources</h1>
-
         <div className="mt-4 border-t border-brand-green-light">
-          {visibleResources.map((resource) => (
-            <ResourceListItem
-              key={resource.id}
-              ResourceName={resource.name}
-              ChapterName={resource.chapter_name}
-              link={resource.link}
-              UploadDate={new Date(resource.upload_date).toLocaleDateString(
-                "en-AU",
-              )}
-              type={
-                resource.type_tags.length > 0
-                  ? resource.type_tags[0].lucide_name
-                  : "grid-3x3"
-              }
-              chapterColour={resource.chapter_colour}
-            />
-          ))}
+          {!isLoading && !isError ? (
+            <>
+              {visibleResources.map((resource) => (
+                <ResourceListItem
+                  key={resource.id}
+                  ResourceName={resource.name}
+                  ChapterName={resource.chapter_name}
+                  link={resource.link}
+                  UploadDate={new Date(resource.upload_date).toLocaleDateString(
+                    "en-AU",
+                  )}
+                  type={
+                    resource.type_tags.length > 0
+                      ? resource.type_tags[0].lucide_name
+                      : "grid-3x3"
+                  }
+                  chapterColour={resource.chapter_colour}
+                />
+              ))}
 
-          {visibleResources.length === 0 && (
+              {visibleResources.length === 0 && (
+                <p className="py-6 text-sm text-brand-text">
+                  No resources match the selected filter.
+                </p>
+              )}
+            </>
+          ) : isLoading ? (
             <p className="py-6 text-sm text-brand-text">
-              No resources match the selected filter.
+              Resources are loading...
+            </p>
+          ) : (
+            <p className="py-6 text-sm text-brand-text">
+              Error loading resources. If refreshing doesn't work, please
+              contact an administrator.
             </p>
           )}
         </div>
