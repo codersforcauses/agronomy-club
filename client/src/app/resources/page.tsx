@@ -1,5 +1,10 @@
 import ResourcesClient from "./resources-client";
 
+export const metadata = {
+  title: "Resources | Agronomy Club",
+  description: "Resources to boost and reinforce your agricultural knowledge",
+};
+
 export default function ResourcesPage() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
