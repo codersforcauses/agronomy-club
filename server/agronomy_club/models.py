@@ -64,19 +64,15 @@ class Chapters(models.Model):
     def __str__(self):
         return str(self.name)
 
-    # Custom unique logo validation, ignoring the default path
+    # Custom unique logo validation, excluding empty string and null
     class Meta:
         constraints = [
             models.UniqueConstraint(
                 fields=['logo'],
-                condition=models.Q(logo__isnull=False),
+                condition=~models.Q(logo__isnull=True) & ~models.Q(logo=''),
                 name='unique_logo_except_null'
             )
         ]
-
-    # Make null or empty path to default path
-    def save(self, *args, **kwargs):
-        return super().save(*args, **kwargs)
 
 
 class Event(models.Model):
