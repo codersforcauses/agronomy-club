@@ -12,7 +12,7 @@ RESOURCE_TYPE_TAGS = [
     {"name": "Case Study", "lucide_name": "file-search"},
     {"name": "Video Game", "lucide_name": "gamepad-2"},
     {"name": "Simulation", "lucide_name": "boxes"},
-    {"name": "DataBase", "lucide_name": "database"},
+    {"name": "Database", "lucide_name": "database"},
     {"name": "Article", "lucide_name": "file-text"},
     {"name": "Tool/Software", "lucide_name": "wrench"},
     {"name": "Website", "lucide_name": "globe"}
