@@ -58,7 +58,7 @@ class AlumniSerializer(serializers.ModelSerializer):
         for membership in obj.user_memberships.all():
             chapter_data.append({
                 'abbrev': membership.chapter_id.abbrev,
-                'color': membership.chapter_id.colour
+                'colour': membership.chapter_id.colour
             })
 
         return chapter_data

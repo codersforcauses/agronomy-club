@@ -15,7 +15,7 @@ export type ApiAlumni = {
   discipline: string;
   email: string;
   photo: string | null;
-  chapters: ApiChapter;
+  chapters: ApiChapter[];
 };
 
 export const useAlumni = (

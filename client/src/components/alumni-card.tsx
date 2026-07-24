@@ -8,16 +8,14 @@ export type Alumni = {
   id: string;
   name: string;
   degree: string;
-  chapter: string;
+  chapterAbbrev: string[];
+  chapterColour: string[];
   email: string;
   gradYear: number;
-  chapterColour?: string;
   imageURL?: string | null;
 };
 
 export function AlumniCard({ alumni }: { alumni: Alumni }) {
-  const colour = alumni.chapterColour ?? "#3F7D27";
-
   const initials = alumni.name
     .split(" ")
     .map((word) => word[0])
@@ -55,18 +53,25 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
           </a>
         </div>
 
-        {/* Discipline + chapter */}
+        {/* Discipline + chapters */}
         <div className="mt-2 flex flex-col items-start gap-1.5">
           <Badge className="bg-brand-green text-white hover:bg-brand-green">
             {alumni.degree}
           </Badge>
-          <Badge
-            variant="outline"
-            className="border-2 text-brand-text-dark"
-            style={{ borderColor: colour }}
-          >
-            {alumni.chapter}
-          </Badge>
+          <div className="flex flex-wrap gap-1.5">
+            {alumni.chapterAbbrev.map((chapter, index) => (
+              <Badge
+                key={chapter}
+                variant="outline"
+                className="border-2 text-brand-text-dark"
+                style={{
+                  borderColor: alumni.chapterColour[index],
+                }}
+              >
+                {chapter}
+              </Badge>
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>
