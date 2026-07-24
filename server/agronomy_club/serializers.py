@@ -49,7 +49,6 @@ class AlumniSerializer(serializers.ModelSerializer):
             'grad_yr',
             'discipline',
             'email',
-            'global_role',
             'photo',
             'chapters',
         ]
