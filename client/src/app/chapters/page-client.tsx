@@ -22,7 +22,7 @@ export default function ChaptersClient() {
   }
 
   return (
-    <div className="mt-12 grid flex-row justify-items-center gap-10 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="mt-12 grid items-start justify-items-center gap-10 sm:grid-cols-2 xl:grid-cols-3">
       {chapters?.length > 0 ? (
         chapters.map((chapter) => {
           console.log(chapter.logo);

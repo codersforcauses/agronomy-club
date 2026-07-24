@@ -59,8 +59,8 @@ export default function ChapterCard({
         </div>
 
         <div className="mt-[10px] flex items-center gap-2 text-brand-green">
-          <MapPinned className="h-4 w-4" />
-          <span className="text-sm">{location}</span>
+          <MapPinned className="h-4 w-4 shrink-0" />
+          <span className="line-clamp-1 text-sm">{location}</span>
         </div>
 
         <p className="mt-[10px] line-clamp-2 text-sm leading-5 text-brand-text">
