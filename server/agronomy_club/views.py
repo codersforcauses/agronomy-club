@@ -58,7 +58,7 @@ class AlumniListAPIView(generics.ListAPIView):
     serializer_class = AlumniSerializer
 
     def get_queryset(self):
-        return Users.objects.filter(global_role="alumni").order_by("-grad_yr")
+        return Users.objects.filter(global_role="alumni").prefetch_related("user_memberships__chapter_id").order_by("-grad_yr")
 
 
 class EventListAPIView(generics.ListAPIView):

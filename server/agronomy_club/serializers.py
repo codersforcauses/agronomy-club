@@ -39,9 +39,30 @@ class ResourceSerializer(serializers.ModelSerializer):
 
 
 class AlumniSerializer(serializers.ModelSerializer):
+    chapters = serializers.SerializerMethodField()
+
     class Meta:
         model = Users
-        exclude = ['global_role']
+        fields = [
+            'id',
+            'full_name',
+            'grad_yr',
+            'discipline',
+            'email',
+            'global_role',
+            'photo',
+            'chapters',
+        ]
+
+    def get_chapters(self, obj: Users):
+        chapter_data = []
+        for membership in obj.user_memberships.all():
+            chapter_data.append({
+                'abbrev': membership.chapter_id.abbrev,
+                'color': membership.chapter_id.colour
+            })
+
+        return chapter_data
 
 
 class EventListSerializer(serializers.ModelSerializer):
