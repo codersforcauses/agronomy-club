@@ -1,19 +1,12 @@
-import { FileText, Gamepad2, Globe, Package } from "lucide-react";
+import { DynamicIcon, IconName } from "lucide-react/dynamic";
 
 type ResourceListItemProps = {
   ResourceName: string;
   ChapterName: string;
   UploadDate: string;
-  type: "Video Game" | "Article" | "Website" | "Other";
+  type: string;
   chapterColour: string;
   link: string;
-};
-
-const Icon = {
-  "Video Game": Gamepad2,
-  Article: FileText,
-  Website: Globe,
-  Other: Package,
 };
 
 export function ResourceListItem({
@@ -24,8 +17,6 @@ export function ResourceListItem({
   chapterColour,
   link,
 }: ResourceListItemProps) {
-  const ResourceIcon = Icon[type];
-
   return (
     <a
       href={link}
@@ -34,7 +25,10 @@ export function ResourceListItem({
       className="flex flex-col border-b border-brand-green-light py-4 transition-colors hover:bg-brand-green-light/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green-light sm:flex-row sm:items-center sm:justify-between"
     >
       <div className="flex w-full items-center gap-3 sm:w-1/2">
-        <ResourceIcon className="h-5 w-5 shrink-0 text-brand-text-dark" />
+        <DynamicIcon
+          className="h-5 w-5 shrink-0 text-brand-text-dark"
+          name={type ? (type as IconName) : "grid-3x3"}
+        />
         <span className="truncate font-medium text-brand-text-dark">
           {ResourceName}
         </span>
