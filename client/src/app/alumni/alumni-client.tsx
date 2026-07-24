@@ -13,10 +13,10 @@ export default function AlumniClient() {
           id: item.id.toString(),
           name: item.full_name,
           degree: item.discipline,
-          chapter: item.chapter.abbrev,
+          chapter: item.chapters.abbrev,
           email: item.email,
           gradYear: item.grad_yr,
-          chapterColour: item.chapter.colour,
+          chapterColour: item.chapters.colour,
           imageURL: item.photo,
         }))
       : [];
