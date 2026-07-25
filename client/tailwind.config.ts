@@ -27,7 +27,7 @@ const config = {
           "system-ui",
           "serif",
         ],
-        ui: ["var(--font-roboto-slab)", "Roboto-Slab", "system-ui", "serif"],
+        ui: ["var(--font-roboto-slab)", "Roboto Slab", "system-ui", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",

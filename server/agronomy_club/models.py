@@ -52,34 +52,27 @@ class Position(models.TextChoices):
 
 class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    name = models.CharField(max_length=255, unique=True)
-    abbrev = models.CharField(max_length=255, unique=True)
-    # Store chapter logos in media/chapter_logos/ directory. When no logo is uploaded, default to chapter_logos/default.png.
-    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png')
-    location = models.CharField(max_length=255)
-    desc = models.TextField(max_length=5000)
+    name = models.CharField(max_length=100, unique=True)
+    abbrev = models.CharField(max_length=10, unique=True)
+    # Store chapter logos in media/chapter_logos/ directory.
+    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True)
+    location = models.CharField(max_length=100)
+    desc = models.TextField(max_length=150)
     email = models.EmailField(max_length=255, unique=True)
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
 
     def __str__(self):
         return str(self.name)
 
-    # Custom unique logo validation, ignoring the default path
+    # Custom unique logo validation, excluding empty string and null
     class Meta:
         constraints = [
             models.UniqueConstraint(
                 fields=['logo'],
-                condition=~models.Q(logo='chapter_logos/default.png'),
-                name='unique_logo_except_default'
+                condition=~models.Q(logo__isnull=True) & ~models.Q(logo=''),
+                name='unique_logo_except_null'
             )
         ]
-
-    # Make null or empty path to default path
-    def save(self, *args, **kwargs):
-        if not self.logo:
-            self.logo = 'chapter_logos/default.png'
-
-        return super().save(*args, **kwargs)
 
 
 class Event(models.Model):
@@ -135,7 +128,7 @@ class Users(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     full_name = models.CharField(max_length=100)
     grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
-    discipline = models.CharField(max_length=100)
+    discipline = models.CharField(max_length=30)
     email = models.EmailField(max_length=255, unique=True)
     global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
     photo = models.ImageField(null=True, blank=True, upload_to=create_photo_path)
