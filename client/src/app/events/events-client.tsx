@@ -7,13 +7,13 @@ export default function EventsClient() {
   const { data: events = [], isLoading, isError, error } = useEvents();
 
   if (isLoading) {
-    return <p>Loading all Events...</p>;
+    return <p className="mt-4 px-6">Loading all Events...</p>;
   }
 
   if (isError) {
     console.log(error);
     return (
-      <p>
+      <p className="mt-4 px-6">
         Error loading events. If refreshing doesn't work, please contact an
         administrator.
       </p>
@@ -38,7 +38,7 @@ export default function EventsClient() {
           />
         ))
       ) : (
-        <p>No Events currently listed.</p>
+        <p className="mt-4 px-6">No Events currently listed.</p>
       )}
     </div>
   );
