@@ -46,6 +46,7 @@ class AlumniSerializer(serializers.ModelSerializer):
 
 class EventListSerializer(serializers.ModelSerializer):
     chapterName = serializers.CharField(source="chapter.name")
+    chapterColour = serializers.CharField(source="chapter.colour")
 
     class Meta:
         model = Event
@@ -58,6 +59,7 @@ class EventListSerializer(serializers.ModelSerializer):
             "thumbnail",
             "link",
             "chapterName",
+            "chapterColour"
         ]
 
 
