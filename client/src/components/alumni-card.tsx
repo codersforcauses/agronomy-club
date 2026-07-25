@@ -74,7 +74,7 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
             {alumni.chapterAbbrev.length > 3 && (
               <Badge
                 variant="outline"
-                className="border-2 text-brand-text-dark"
+                className="border-2 border-brand-green-light text-brand-text-dark"
               >
                 +{alumni.chapterAbbrev.length - 3}
               </Badge>
