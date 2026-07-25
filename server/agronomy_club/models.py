@@ -128,7 +128,7 @@ class Users(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     full_name = models.CharField(max_length=100)
     grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
-    discipline = models.CharField(max_length=100)
+    discipline = models.CharField(max_length=30)
     email = models.EmailField(max_length=255, unique=True)
     global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
     photo = models.ImageField(null=True, blank=True, upload_to=create_photo_path)
