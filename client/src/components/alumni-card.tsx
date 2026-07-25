@@ -59,7 +59,7 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
             {alumni.degree}
           </Badge>
           <div className="flex flex-wrap gap-1.5">
-            {alumni.chapterAbbrev.map((chapter, index) => (
+            {alumni.chapterAbbrev.slice(0, 3).map((chapter, index) => (
               <Badge
                 key={chapter}
                 variant="outline"
@@ -71,6 +71,14 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
                 {chapter}
               </Badge>
             ))}
+            {alumni.chapterAbbrev.length > 3 && (
+              <Badge
+                variant="outline"
+                className="border-2 text-brand-text-dark"
+              >
+                +{alumni.chapterAbbrev.length - 3}
+              </Badge>
+            )}
           </div>
         </div>
       </CardContent>

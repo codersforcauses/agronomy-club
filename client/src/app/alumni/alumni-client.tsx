@@ -57,7 +57,7 @@ export default function AlumniClient() {
               <div className="mt-1 h-1 w-11 rounded-full bg-brand-green" />
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap items-start gap-4">
               {byYear[year].map((person) => (
                 <AlumniCard key={person.id} alumni={person} />
               ))}
