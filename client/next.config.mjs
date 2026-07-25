@@ -17,6 +17,7 @@ const nextConfig = {
         pathname: "/media/**",
       },
     ],
+    dangerouslyAllowLocalIP: process.env.NODE_ENV !== "production",
   },
   // dumb fix for windows docker
   webpack: isWindowsDevContainer()
