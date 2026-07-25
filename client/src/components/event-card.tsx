@@ -55,7 +55,7 @@ export default function EventCard({
         </div>
         <div className="flex w-full flex-col gap-2 align-bottom font-ui text-sm font-medium text-brand-brown">
           <div className="flex flex-row">
-            <MapPinned className="max-h-[24px] flex-initial" />{" "}
+            <MapPinned className="flex-initia max-h-[24px] min-w-5" />{" "}
             <p className="pl-2">{location}</p>
           </div>
           {!link?.trim() || (
