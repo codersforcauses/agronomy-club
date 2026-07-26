@@ -66,6 +66,21 @@ export default function ChapterClient() {
     .join("")
     .toUpperCase();
 
+  const committee = chapter.committee;
+
+  const execs = ["pres", "vpres", "sec", "treas"];
+
+  //sort committee in their expected order
+  for (let execInd = 0; execInd < 4; execInd++) {
+    for (let i = 0; i < committee.length; i++) {
+      if (committee[i].position === execs[execInd]) {
+        const temp = committee[i];
+        committee[i] = committee[execInd];
+        committee[execInd] = temp;
+      }
+    }
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[330px_1fr]">
       <div className="flex flex-col gap-4">
@@ -123,12 +138,12 @@ export default function ChapterClient() {
         <section>
           <SectionHeading colour={chapter.colour}>Committee</SectionHeading>
           <div className="flex flex-wrap gap-4">
-            {chapter.committee.map((member) => (
+            {committee.map((member) => (
               <CommitteeMemberCard
                 key={member.id}
                 name={member.full_name}
                 position={POSITION_LABELS[member.position]}
-                photo=""
+                photo={member.photo}
               />
             ))}
           </div>

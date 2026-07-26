@@ -24,6 +24,7 @@ export type ApiCommitteeMember = {
   full_name: string;
   email: string;
   position: "pres" | "vpres" | "sec" | "treas" | "mark" | "ocm";
+  photo: string | null;
 };
 export type ApiChapter = {
   id: number;

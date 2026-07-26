@@ -100,6 +100,7 @@ class ListedChapterSerializer(serializers.ModelSerializer):
 class CommitteeSerializer(serializers.ModelSerializer):
     full_name = serializers.CharField(source="user_id.full_name")
     email = serializers.CharField(source="user_id.email")
+    photo = serializers.SerializerMethodField()
 
     class Meta:
         model = ChapterMemberships
@@ -108,7 +109,22 @@ class CommitteeSerializer(serializers.ModelSerializer):
             "full_name",
             "email",
             "position",
+            "photo"
         ]
+
+    def get_photo(self, obj):
+        path = obj.user_id.photo
+        print(path)
+
+        if not path:
+            return None
+
+        request = self.context.get('request')
+
+        if request is not None:
+            return f"{request.build_absolute_uri(path).split('/api')[0]}/media/{path}"
+
+        return path
 
 
 class ChapterSerializer(serializers.ModelSerializer):
@@ -136,10 +152,10 @@ class ChapterSerializer(serializers.ModelSerializer):
         query_param = self.context['request'].query_params.get('committee')
         if query_param == 'exec':
             executives = obj.chapter_memberships.filter(position__in=["pres", "vpres", "sec", "treas"])
-            return CommitteeSerializer(executives, many=True).data
+            return CommitteeSerializer(executives, many=True, context=self.context).data
         if query_param == 'all':
             committee = obj.chapter_memberships.filter(position__in=["pres", "vpres", "sec", "treas", "mark", "ocm"])
-            return CommitteeSerializer(committee, many=True).data
+            return CommitteeSerializer(committee, many=True, context=self.context).data
 
         raise serializers.ValidationError("The provided URL param for committee is invalid.")
 
