@@ -21,7 +21,7 @@ export default function EventsClient() {
   }
 
   return (
-    <div className="flex flex-wrap">
+    <div className="mt-8 flex flex-wrap justify-center gap-4">
       {events.length ? (
         events.map((event) => (
           <EventCard
