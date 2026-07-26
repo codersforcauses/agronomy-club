@@ -43,9 +43,10 @@ export default function EventCard({
               month: "long",
               year: "numeric",
             })}{" "}
-            {new Date(date).toLocaleTimeString([], {
+            {new Date(date).toLocaleTimeString("en-AU", {
               hour: "numeric",
               minute: "2-digit",
+              hour12: true,
             })}
           </div>
         </div>
