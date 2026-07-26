@@ -60,7 +60,7 @@ export default function Navbar() {
 
           <div className="ml-4 flex items-center gap-3 border-l border-brand-green-light pl-4">
             <Link
-              href="/auth/signin"
+              href="/sign-in"
               className="hover:brand-surface whitespace-nowrap text-sm text-brand-surface transition-colors"
             >
               Sign in
@@ -105,7 +105,7 @@ export default function Navbar() {
 
               <div className="space-y-2 border-t border-brand-green-dark px-4 py-3">
                 <Link
-                  href="/auth/signin"
+                  href="/sign-in"
                   onClick={() => setIsDropdownOpen(false)}
                   className="block text-sm text-brand-surface transition-colors hover:text-brand-surface"
                 >
