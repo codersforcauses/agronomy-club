@@ -21,50 +21,48 @@ export default function ChaptersClient() {
     );
   }
 
-  return (
+  return chapters?.length > 0 ? (
     <div className="mt-12 grid items-start justify-items-center gap-10 sm:grid-cols-2 xl:grid-cols-3">
-      {chapters?.length > 0 ? (
-        chapters.map((chapter) => {
-          console.log(chapter.logo);
-          if (!chapter.logo) {
-            // Initials for the logo placeholder
-            const initials = chapter.name
-              .split(" ")
-              .map((word) => word[0])
-              .slice(0, 2)
-              .join("")
-              .toUpperCase();
+      {chapters.map((chapter) => {
+        console.log(chapter.logo);
+        if (!chapter.logo) {
+          // Initials for the logo placeholder
+          const initials = chapter.name
+            .split(" ")
+            .map((word) => word[0])
+            .slice(0, 2)
+            .join("")
+            .toUpperCase();
 
-            return (
-              <ChapterCard
-                key={chapter.id}
-                abbreviation={chapter.abbrev}
-                name={chapter.name}
-                location={chapter.location}
-                description={chapter.desc}
-                color={chapter.colour}
-                initials={initials}
-                onView={() => (location.href = `/chapters/${chapter.id}`)}
-              />
-            );
-          } else {
-            return (
-              <ChapterCard
-                key={chapter.id}
-                abbreviation={chapter.abbrev}
-                name={chapter.name}
-                location={chapter.location}
-                description={chapter.desc}
-                color={chapter.colour}
-                imageUrl={chapter.logo}
-                onView={() => (location.href = `/chapters/${chapter.id}`)}
-              />
-            );
-          }
-        })
-      ) : (
-        <p className="mt-12">No Chapters available for viewing.</p>
-      )}
+          return (
+            <ChapterCard
+              key={chapter.id}
+              abbreviation={chapter.abbrev}
+              name={chapter.name}
+              location={chapter.location}
+              description={chapter.desc}
+              color={chapter.colour}
+              initials={initials}
+              onView={() => (location.href = `/chapters/${chapter.id}`)}
+            />
+          );
+        } else {
+          return (
+            <ChapterCard
+              key={chapter.id}
+              abbreviation={chapter.abbrev}
+              name={chapter.name}
+              location={chapter.location}
+              description={chapter.desc}
+              color={chapter.colour}
+              imageUrl={chapter.logo}
+              onView={() => (location.href = `/chapters/${chapter.id}`)}
+            />
+          );
+        }
+      })}
     </div>
+  ) : (
+    <p className="mt-12">No Chapters available for viewing.</p>
   );
 }
