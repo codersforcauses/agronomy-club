@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
+
 export const metadata: Metadata = {
   title: "Sign Up | Agronomy Club",
   description: "Create an Agronomy Club member account.",
@@ -11,16 +13,19 @@ const inputStyles =
 
 const labelStyles = "block text-base/5 font-medium text-brand-text-dark";
 
+const graduationYears = [2025, 2026, 2027, 2028, 2029];
+
 export default function SignUpPage() {
   return (
     <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="flex flex-col items-center">
-        <p className="text-sm/5 font-semibold uppercase tracking-widest text-brand-green">
+        <p className="font-ui text-sm/5 font-semibold uppercase tracking-widest text-brand-green">
           Join the club
         </p>
 
         <h1 className="mt-2 text-center text-2xl/7 font-bold text-brand-text-dark sm:text-3xl/9">
           Create your Agronomy Club account
+          <span className="text-brand-yellow">.</span>
         </h1>
 
         <div className="mt-6 w-full max-w-4xl rounded-xl bg-white px-6 py-8 shadow-md shadow-brand-shadow sm:px-12">
@@ -68,10 +73,11 @@ export default function SignUpPage() {
                   <option value="" disabled>
                     Year
                   </option>
-                  <option value="2026">2026</option>
-                  <option value="2027">2027</option>
-                  <option value="2028">2028</option>
-                  <option value="2029">2029</option>
+                  {graduationYears.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -121,19 +127,19 @@ export default function SignUpPage() {
             </div>
 
             <div className="mx-auto mt-8 max-w-md">
-              <button
+              <Button
                 type="submit"
-                className="w-full rounded-lg bg-brand-green px-4 py-3 text-base font-medium text-brand-surface hover:bg-brand-green-dark focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-offset-2"
+                className="w-full rounded-lg bg-brand-green px-4 py-3 text-base font-medium text-brand-surface hover:bg-brand-yellow hover:text-brand-brown focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-offset-2"
               >
                 Create Account
-              </button>
+              </Button>
             </div>
 
-            <p className="mt-4 text-center text-sm text-brand-brown">
+            <p className="mt-4 text-center font-ui text-sm font-medium text-brand-text-light">
               Already part of the community?{" "}
               <Link
                 href="/sign-in"
-                className="font-medium text-brand-green underline hover:text-brand-green-dark"
+                className="font-ui font-bold text-brand-green underline hover:text-brand-yellow"
               >
                 Sign in here
               </Link>
