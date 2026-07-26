@@ -23,9 +23,9 @@ export type ApiCommitteeMember = {
   id: number;
   full_name: string;
   email: string;
-  position: "pres" | "vpres" | "sec" | "treas";
+  position: "pres" | "vpres" | "sec" | "treas" | "mark" | "ocm";
+  photo: string | null;
 };
-
 export type ApiChapter = {
   id: number;
   name: string;
