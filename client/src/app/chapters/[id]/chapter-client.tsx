@@ -66,20 +66,24 @@ export default function ChapterClient() {
     .join("")
     .toUpperCase();
 
-  const committee = chapter.committee;
-
   const execs = ["pres", "vpres", "sec", "treas"];
 
-  //sort committee in their expected order
-  for (let execInd = 0; execInd < 4; execInd++) {
-    for (let i = 0; i < committee.length; i++) {
-      if (committee[i].position === execs[execInd]) {
-        const temp = committee[i];
-        committee[i] = committee[execInd];
-        committee[execInd] = temp;
+  let curExecs: number[] = [-1, -1, -1, -1];
+
+  //checking for missing execs
+  for (const [index, comm] of chapter.committee.entries()) {
+    for (let i = 0; i < 4; i++) {
+      if (execs[i] === comm.position) {
+        curExecs[i] = index;
       }
     }
   }
+  //remove empty slots, but is still sorted in expected order
+  curExecs = curExecs.filter((entry) => entry !== -1);
+
+  const committee: ApiCommitteeMember[] = curExecs.map(
+    (exec) => chapter.committee[exec],
+  );
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[330px_1fr]">
