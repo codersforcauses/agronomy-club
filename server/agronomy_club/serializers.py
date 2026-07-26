@@ -132,8 +132,15 @@ class ChapterSerializer(serializers.ModelSerializer):
         ]
 
     def get_committee(self, obj):
-        executives = obj.chapter_memberships.filter(position__in=["pres", "vpres", "sec", "treas"])
-        return CommitteeSerializer(executives, many=True).data
+        query_param = self.context['request'].query_params.get('committee')
+        if query_param == 'exec':
+            executives = obj.chapter_memberships.filter(position__in=["pres", "vpres", "sec", "treas"])
+            return CommitteeSerializer(executives, many=True).data
+        if query_param == 'all':
+            committee = obj.chapter_memberships.filter(position__in=["pres", "vpres", "sec", "treas", "mark", "ocm"])
+            return CommitteeSerializer(committee, many=True).data
+
+        raise serializers.ValidationError("The provided URL param for committee is invalid.")
 
 
 class QuizSerializer(serializers.ModelSerializer):
