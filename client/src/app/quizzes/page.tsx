@@ -40,7 +40,7 @@ export default function QuizzesPage() {
               <Button
                 asChild
                 variant="default"
-                className="w-fit bg-brand-green px-8 py-6 text-lg font-semibold text-brand-surface hover:bg-brand-yellow"
+                className="w-fit bg-brand-green px-8 py-6 text-lg font-semibold text-brand-surface hover:bg-brand-yellow hover:text-brand-brown"
               >
                 <a href={quizMateUrl} target="_blank" rel="noopener noreferrer">
                   Open Quiz-Mate
