@@ -3,12 +3,19 @@ import { AxiosError } from "axios";
 
 import api from "@/lib/api";
 
+export type ApiChapter = {
+  abbrev: string;
+  colour: string;
+};
+
 export type ApiAlumni = {
   id: number;
   full_name: string;
   grad_yr: number;
   discipline: string;
   email: string;
+  photo: string | null;
+  chapters: ApiChapter[];
 };
 
 export const useAlumni = (

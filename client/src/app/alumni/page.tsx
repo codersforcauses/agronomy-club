@@ -1,31 +1,26 @@
 import type { Metadata } from "next";
 
+import AlumniClient from "./alumni-client";
+
 export const metadata: Metadata = {
   title: "Alumni Network | Agronomy Club",
-  description:
-    "Reconnect with Agronomy Club alumni mentors working across the agricultural value chain.",
+  description: "Reconnect with Agronomy Club Alumni.",
 };
 
 export default function AlumniPage() {
   return (
-    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-4xl font-bold">Alumni Network</h1>
-      <p className="mt-4 text-lg text-brand-text">
-        The Agronomy Club alumni network bridges current members with
-        professionals in agribusiness, research labs, sustainability
-        organizations, and government agencies. The directory will launch with
-        searchable profiles, mentorship pairings, and speaking opportunities.
-      </p>
+    <main className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+      <header className="mb-6">
+        <h1 className="text-3xl font-bold text-brand-text-dark">
+          Alumni Network
+        </h1>
+        {/* single-sentence description, as the issue asks */}
+        <p className="mt-2 text-brand-text">
+          Reconnect with graduates of the Agronomy Club community.
+        </p>
+      </header>
 
-      <div className="mt-10 rounded-xl border border-brand-green-light bg-brand-surface p-6 shadow-sm">
-        <h2 className="text-xl font-semibold">On The Roadmap</h2>
-        <ul className="mt-4 space-y-2 text-sm text-brand-text">
-          <li>
-            • Alumni spotlights featuring career pathways and field insights
-          </li>
-          <li>• Mentorship matchmaking aligned with member interests</li>
-        </ul>
-      </div>
-    </section>
+      <AlumniClient />
+    </main>
   );
 }

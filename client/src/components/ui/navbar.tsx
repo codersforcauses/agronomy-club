@@ -60,14 +60,14 @@ export default function Navbar() {
 
           <div className="ml-4 flex items-center gap-3 border-l border-brand-green-light pl-4">
             <Link
-              href="/auth/signin"
+              href="/sign-in"
               className="hover:brand-surface whitespace-nowrap text-sm text-brand-surface transition-colors"
             >
               Sign in
             </Link>
             <Link
-              href="/auth/signup"
-              className="whitespace-nowrap rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-surface"
+              href="/sign-up"
+              className="rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-yellow hover:text-brand-text"
             >
               Join the club
             </Link>
@@ -105,14 +105,14 @@ export default function Navbar() {
 
               <div className="space-y-2 border-t border-brand-green-dark px-4 py-3">
                 <Link
-                  href="/auth/signin"
+                  href="/sign-in"
                   onClick={() => setIsDropdownOpen(false)}
                   className="block text-sm text-brand-surface transition-colors hover:text-brand-surface"
                 >
                   Sign in
                 </Link>
                 <Link
-                  href="/auth/signup"
+                  href="/sign-up"
                   onClick={() => setIsDropdownOpen(false)}
                   className="block text-sm text-brand-surface transition-colors hover:text-brand-surface"
                 >

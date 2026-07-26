@@ -2,7 +2,6 @@ from django.db import models  # noqa
 from colorfield.fields import ColorField  # noqa
 import datetime  # noqa
 from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator  # noqa
-from django import forms
 
 # Model for chapters information such as logo, location, description and email. Chapter members should be stored in a seperate model.
 # This model uses django-colorfield to store the colour of the chapter as well as provide a color picker widget in admin panel.
@@ -34,36 +33,46 @@ def max_value_curr_year(value):
     return MaxValueValidator(current_year() + 12)(value)
 
 
+# Enums for Chapter Membersips model's role and position
+class Role(models.TextChoices):
+    MEMBER = 'member', 'Member'
+    ADMIN = 'admin', 'Admin'
+    OWNER = 'owner', 'Owner'
+
+
+class Position(models.TextChoices):
+    PRESIDENT = 'pres', 'President'
+    VICE_PRESIDENT = 'vpres', 'Vice President'
+    SECRETARY = 'sec', 'Secretary'
+    TREASURER = 'treas', 'Treasurer'
+    MARKETING_OFFICER = 'mark', 'Marketing Officer'
+    OCM = 'ocm', 'Ordinary Comittee Member'
+    __empty__ = 'Unspecified'
+
+
 class Chapters(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    name = models.CharField(max_length=255, unique=True)
-    abbrev = models.CharField(max_length=255, unique=True)
-    # Store chapter logos in media/chapter_logos/ directory. When no logo is uploaded, default to chapter_logos/default.png.
-    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True, default='chapter_logos/default.png')
-    location = models.CharField(max_length=255)
-    desc = models.TextField(max_length=5000)
+    name = models.CharField(max_length=100, unique=True)
+    abbrev = models.CharField(max_length=10, unique=True)
+    # Store chapter logos in media/chapter_logos/ directory.
+    logo = models.ImageField(upload_to='chapter_logos/', null=True, blank=True)
+    location = models.CharField(max_length=100)
+    desc = models.TextField(max_length=150)
     email = models.EmailField(max_length=255, unique=True)
     colour = ColorField(default=random_color, unique=True, editable=True)  # lambda function used to generate new random color
 
     def __str__(self):
         return str(self.name)
 
-    # Custom unique logo validation, ignoring the default path
+    # Custom unique logo validation, excluding empty string and null
     class Meta:
         constraints = [
             models.UniqueConstraint(
                 fields=['logo'],
-                condition=~models.Q(logo='chapter_logos/default.png'),
-                name='unique_logo_except_default'
+                condition=~models.Q(logo__isnull=True) & ~models.Q(logo=''),
+                name='unique_logo_except_null'
             )
         ]
-
-    # Make null or empty path to default path
-    def save(self, *args, **kwargs):
-        if not self.logo:
-            self.logo = 'chapter_logos/default.png'
-
-        return super().save(*args, **kwargs)
 
 
 class Event(models.Model):
@@ -74,6 +83,7 @@ class Event(models.Model):
     date = models.DateTimeField()
     thumbnail = models.ImageField(upload_to="event_thumbnails/", null=True, blank=True)
     chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="events")
+    link = models.URLField(max_length=255, blank=True)
 
     def __str__(self):
         return f"{self.title} - {self.chapter}"
@@ -112,12 +122,17 @@ class Resource(models.Model):
 
 
 class Users(models.Model):
+    # Create a path for stored photos
+    def create_photo_path(instance, filename):
+        return f'users/{instance.grad_yr}/{filename}'
+
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     full_name = models.CharField(max_length=100)
     grad_yr = models.PositiveIntegerField(validators=[MinValueValidator(1900), max_value_curr_year])
-    discipline = models.CharField(max_length=100)
+    discipline = models.CharField(max_length=30)
     email = models.EmailField(max_length=255, unique=True)
     global_role = models.CharField(max_length=100, choices=[('admin', 'Admin'), ('alumni', 'Alumni'), ('user', 'User')], default='user')
+    photo = models.ImageField(null=True, blank=True, upload_to=create_photo_path)
 
     def __str__(self):
         return f"{self.full_name} - {self.global_role}"
@@ -126,37 +141,38 @@ class Users(models.Model):
 class ChapterMemberships(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='user_memberships')
-    chapter_role = models.CharField(max_length=100, choices=[('member', 'Member'), ('admin', 'Admin'), ('owner', 'Owner')], default='member')
+    chapter_role = models.CharField(max_length=100, choices=Role, default=Role.MEMBER)
     chapter_id = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name='chapter_memberships')
-    position = models.CharField(max_length=100, choices=[('pres', 'President'), ('vpres', 'Vice President'),
-                                                         ('sec', 'Secretary'), ('treas', 'Treasurer'), ('mark', 'Marketing Officer'),
-                                                         ('ocm', 'Ordinary Committee Member')], default='pres', blank=True)
+    position = models.CharField(max_length=100, choices=Position, default=Position.__empty__, blank=True)
 
     def __str__(self):
         return f"{self.user_id.full_name} - {self.chapter_id.name} - {self.chapter_role}"
 
-    # runs after a change to an object is submitted on the dashboard, performing validation checks
-    # it has been overridden to include more validation for the different chapter roles
-    # admins and owners must have a valid position, whereas members cannot have a position
-    def clean(self):
-        super().clean()
-        if self.chapter_role not in ('admin', 'owner'):
-            if self.chapter_role != 'member':
-                raise forms.ValidationError("Invalid Chapter Role")
-            if self.position != '':
-                raise forms.ValidationError("Chapter Members cannot have a Committee Position. They must be an Admin or Owner to have one.")
-            self.position = ''
-        else:
-            if self.position not in ('pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'):
-                raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
-        super().clean()
-
-    # runs after clean() and immediately before the database is written to, in essence the 'last line of defense' for validation checks
-    # has been overridden to include sanitisation of the position field as a last check
-    def save(self, *args, **kwargs):
-        if self.chapter_role not in ('admin', 'owner'):
-            self.position = ''
-        else:
-            if self.position not in ('pres', 'vpres', 'sec', 'treas', 'mark', 'ocm'):
-                raise forms.ValidationError("Invalid Chapter Committee Position. A chapter Admin or Owner must have a valid Committee role.")
-        return super().save(*args, **kwargs)
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(chapter_role__in=Role),
+                name='valid_role'
+            ),
+            models.CheckConstraint(
+                condition=models.Q(position__in=Position) | models.Q(position=''),
+                name='valid_position'
+            ),
+            models.UniqueConstraint(
+                fields=['user_id', 'chapter_id'],
+                name='unique_user_chapter'
+            ),
+            models.UniqueConstraint(
+                fields=['chapter_id', 'position'],
+                condition=~models.Q(position__in=[Position.OCM, Position.MARKETING_OFFICER, '']),
+                name='unique_chapter_position'
+            ),
+            models.CheckConstraint(
+                condition=~models.Q(chapter_role=Role.MEMBER) | models.Q(position=''),
+                name='member_cant_have_position'
+            ),
+            models.CheckConstraint(
+                condition=models.Q(position__in=Position) | models.Q(chapter_role=Role.MEMBER),
+                name='owner_admin_must_have_position'
+            )
+        ]

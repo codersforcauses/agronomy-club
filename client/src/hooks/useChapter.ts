@@ -63,16 +63,23 @@ function normalizeChapterId(
  * const { data: chapter, isPending, error } = useChapter(id);
  * ```
  */
-export function useChapter(chapterId: string | number | string[] | undefined) {
+export function useChapter(
+  chapterId: string | number | string[] | undefined,
+  committee: "exec" | "all",
+) {
   const id = normalizeChapterId(chapterId);
 
   return useQuery<ApiChapter, AxiosError>({
-    queryKey: ["chapters", id],
+    queryKey: ["chapters", id, committee],
     queryFn: async () => {
       if (!id) {
         throw new Error("Chapter ID is required");
       }
-      const response = await api.get<ApiChapter>(`/chapters/${id}/`);
+      const response = await api.get<ApiChapter>(`/chapters/${id}/`, {
+        params: {
+          committee,
+        },
+      });
       return response.data;
     },
     enabled: !!id,

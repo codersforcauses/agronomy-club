@@ -39,13 +39,34 @@ class ResourceSerializer(serializers.ModelSerializer):
 
 
 class AlumniSerializer(serializers.ModelSerializer):
+    chapters = serializers.SerializerMethodField()
+
     class Meta:
         model = Users
-        exclude = ['global_role']
+        fields = [
+            'id',
+            'full_name',
+            'grad_yr',
+            'discipline',
+            'email',
+            'photo',
+            'chapters',
+        ]
+
+    def get_chapters(self, obj: Users):
+        chapter_data = []
+        for membership in obj.user_memberships.all():
+            chapter_data.append({
+                'abbrev': membership.chapter_id.abbrev,
+                'colour': membership.chapter_id.colour
+            })
+
+        return chapter_data
 
 
 class EventListSerializer(serializers.ModelSerializer):
     chapterName = serializers.CharField(source="chapter.name")
+    chapterColour = serializers.CharField(source="chapter.colour")
 
     class Meta:
         model = Event
@@ -56,7 +77,9 @@ class EventListSerializer(serializers.ModelSerializer):
             "location",
             "date",
             "thumbnail",
+            "link",
             "chapterName",
+            "chapterColour"
         ]
 
 
@@ -110,8 +133,15 @@ class ChapterSerializer(serializers.ModelSerializer):
         ]
 
     def get_committee(self, obj):
-        executives = obj.chapter_memberships.filter(position__in=["pres", "vpres", "sec", "treas"])
-        return CommitteeSerializer(executives, many=True).data
+        query_param = self.context['request'].query_params.get('committee')
+        if query_param == 'exec':
+            executives = obj.chapter_memberships.filter(position__in=["pres", "vpres", "sec", "treas"])
+            return CommitteeSerializer(executives, many=True).data
+        if query_param == 'all':
+            committee = obj.chapter_memberships.filter(position__in=["pres", "vpres", "sec", "treas", "mark", "ocm"])
+            return CommitteeSerializer(committee, many=True).data
+
+        raise serializers.ValidationError("The provided URL param for committee is invalid.")
 
 
 class QuizSerializer(serializers.ModelSerializer):
