@@ -66,7 +66,7 @@ export default function Navbar() {
               Sign in
             </Link>
             <Link
-              href="/auth/signup"
+              href="/sign-up"
               className="rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-yellow hover:text-brand-text"
             >
               Join the club
@@ -112,7 +112,7 @@ export default function Navbar() {
                   Sign in
                 </Link>
                 <Link
-                  href="/auth/signup"
+                  href="/sign-up"
                   onClick={() => setIsDropdownOpen(false)}
                   className="block text-sm text-brand-surface transition-colors hover:text-brand-surface"
                 >
