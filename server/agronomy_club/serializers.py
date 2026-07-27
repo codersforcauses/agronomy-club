@@ -114,7 +114,6 @@ class CommitteeSerializer(serializers.ModelSerializer):
 
     def get_photo(self, obj):
         path = obj.user_id.photo
-        print(path)
 
         if not path:
             return None

@@ -3,18 +3,14 @@ import type { Metadata } from "next";
 
 import { CommitteeMemberCard } from "@/components/committee-member-card";
 
+import AboutClient from "./about-client";
+
 export const metadata: Metadata = {
   title: "About | Agronomy Club",
   description:
     "Discover the purpose, values, and impact strategy guiding the Agronomy Club.",
 };
-const committeeMembers = [
-  { name: "Member 1", position: "President", photo: "" },
-  { name: "Member 2", position: "Vice-President", photo: "" },
-  { name: "Member 3", position: "Secretary", photo: "" },
-  { name: "Member 4", position: "Treasurer", photo: "" },
-  { name: "Member 5", position: "OCM", photo: "" },
-];
+
 export default function AboutPage() {
   return (
     <section className="mx-auto max-w-5xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
@@ -125,16 +121,7 @@ export default function AboutPage() {
             Meet the current committee supporting the club, its members, and
             student-led activities.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-4">
-            {committeeMembers.map((member) => (
-              <CommitteeMemberCard
-                key={member.name}
-                name={member.name}
-                position={member.position}
-                photo={member.photo}
-              />
-            ))}
-          </div>
+          <AboutClient />
         </div>
 
         <div className="flex flex-col items-center justify-between gap-6 rounded-xl bg-white p-6 shadow-md shadow-brand-shadow sm:p-8 md:flex-row">
