@@ -51,7 +51,7 @@ export default function Navbar() {
               className={`whitespace-nowrap rounded-md px-3 py-2 transition-colors duration-150 ${
                 isActive(item.href)
                   ? "bg-brand-yellow text-brand-brown"
-                  : "text-brand-surface hover:text-brand-green"
+                  : "text-brand-surface hover:text-brand-yellow"
               }`}
             >
               {item.name}
@@ -61,13 +61,13 @@ export default function Navbar() {
           <div className="ml-4 flex items-center gap-3 border-l border-brand-green-light pl-4">
             <Link
               href="/sign-in"
-              className="hover:brand-surface whitespace-nowrap text-sm text-brand-surface transition-colors"
+              className="whitespace-nowrap text-sm text-brand-surface transition-colors hover:text-brand-yellow"
             >
               Sign in
             </Link>
             <Link
               href="/sign-up"
-              className="rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-yellow hover:text-brand-text"
+              className="rounded-full bg-brand-surface px-4 py-1.5 text-sm font-semibold text-brand-green-dark transition-colors hover:bg-brand-yellow hover:text-brand-brown"
             >
               Join the club
             </Link>
