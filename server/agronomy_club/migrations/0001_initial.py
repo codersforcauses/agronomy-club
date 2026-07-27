@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Chapters",
+            name="Chapter",
             fields=[
                 (
                     "id",

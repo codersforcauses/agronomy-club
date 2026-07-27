@@ -11,16 +11,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RemoveConstraint(
-            model_name='chapters',
+            model_name='chapter',
             name='unique_logo_except_default',
         ),
         migrations.AlterField(
-            model_name='chapters',
+            model_name='chapter',
             name='logo',
             field=models.ImageField(blank=True, null=True, upload_to='chapter_logos/'),
         ),
         migrations.AddConstraint(
-            model_name='chapters',
+            model_name='chapter',
             constraint=models.UniqueConstraint(condition=models.Q(models.Q(('logo__isnull', True), _negated=True),
                                                                   models.Q(('logo', ''), _negated=True)), fields=('logo',),
                                                name='unique_logo_except_null'),

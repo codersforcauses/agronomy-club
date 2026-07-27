@@ -11,22 +11,22 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name="chapters",
+            model_name="chapter",
             name="abbrev",
             field=models.CharField(max_length=255, unique=True),
         ),
         migrations.AlterField(
-            model_name="chapters",
+            model_name="chapter",
             name="email",
             field=models.EmailField(max_length=255, unique=True),
         ),
         migrations.AlterField(
-            model_name="chapters",
+            model_name="chapter",
             name="name",
             field=models.CharField(max_length=255, unique=True),
         ),
         migrations.AddConstraint(
-            model_name="chapters",
+            model_name="chapter",
             constraint=models.UniqueConstraint(
                 condition=models.Q(
                     ("logo", "chapter_logos/default.png"), _negated=True

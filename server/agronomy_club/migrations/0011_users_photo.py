@@ -12,12 +12,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name="users",
+            model_name="user",
             name="photo",
             field=models.ImageField(
                 blank=True,
                 null=True,
-                upload_to=agronomy_club.models.Users.create_photo_path,
+                upload_to=agronomy_club.models.User.create_photo_path,
             ),
         ),
     ]

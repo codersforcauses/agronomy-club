@@ -15,7 +15,7 @@ from tempfile import mkdtemp
 from PIL import Image
 from shutil import rmtree
 
-from agronomy_club.models import Users, max_value_curr_year, Resource, ResourceTypeTag, Chapters, Event
+from agronomy_club.models import User, max_value_curr_year, Resource, ResourceTypeTag, Chapter, Event
 
 
 # Create a 1x1 pixel PNG
@@ -29,19 +29,19 @@ def make_test_image():
 @override_settings(MEDIA_ROOT=mkdtemp())
 class UserModelSmokeTests(TestCase):
     def tearDown(self):
-        Users.objects.all().delete()
+        User.objects.all().delete()
         rmtree(settings.MEDIA_ROOT, ignore_errors=True)
         super().tearDown()
 
     def test_can_create_and_read_user(self):
-        user = Users.objects.create(
+        user = User.objects.create(
             full_name="Ada Lovelace",
             grad_yr=2030,
             discipline="Agronomy",
             email="ada@example.com",
         )
 
-        saved_user = Users.objects.get(pk=user.pk)
+        saved_user = User.objects.get(pk=user.pk)
 
         self.assertEqual(saved_user.full_name, "Ada Lovelace")
         self.assertEqual(saved_user.email, "ada@example.com")
@@ -49,7 +49,7 @@ class UserModelSmokeTests(TestCase):
         self.assertEqual(str(saved_user), "Ada Lovelace - user")
 
     def test_rejects_duplicate_email(self):
-        Users.objects.create(
+        User.objects.create(
             full_name="Ada Lovelace",
             grad_yr=2030,
             discipline="Agronomy",
@@ -59,7 +59,7 @@ class UserModelSmokeTests(TestCase):
 
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
-                Users.objects.create(
+                User.objects.create(
                     full_name="Grace Hopper",
                     grad_yr=2031,
                     discipline="Soil Science",
@@ -68,7 +68,7 @@ class UserModelSmokeTests(TestCase):
                 )
 
     def test_rejects_invalid_graduation_year_on_clean(self):
-        user = Users(
+        user = User(
             full_name="Bad Year",
             grad_yr=1899,
             discipline="Agronomy",
@@ -80,7 +80,7 @@ class UserModelSmokeTests(TestCase):
             user.full_clean()
 
     def test_upload_photo(self):
-        user = Users.objects.create(
+        user = User.objects.create(
             full_name="Ada Lovelace",
             grad_yr=2030,
             discipline="Agronomy",
@@ -88,13 +88,13 @@ class UserModelSmokeTests(TestCase):
             photo=make_test_image()
         )
 
-        saved_user = Users.objects.get(pk=user.pk)
+        saved_user = User.objects.get(pk=user.pk)
         self.assertTrue(saved_user.photo, f'/users/{saved_user.grad_yr}/photo.png')
 
 
 class EventModelSmokeTests(TestCase):
     def setUp(self):
-        self.chapter = Chapters.objects.create(
+        self.chapter = Chapter.objects.create(
             name="Perth Chapter",
             abbrev="PER",
             location="Perth",
@@ -165,7 +165,7 @@ class ResourceModelSmokeTests(TestCase):
         self._existing_tag_ids = list(
             ResourceTypeTag.objects.values_list('pk', flat=True)
         )
-        self.chapter = Chapters.objects.create(
+        self.chapter = Chapter.objects.create(
             name='gamers',
             abbrev='game',
             location='Amphoreus',
@@ -175,7 +175,7 @@ class ResourceModelSmokeTests(TestCase):
 
     def tearDown(self):
         Resource.objects.all().delete()
-        Chapters.objects.all().delete()
+        Chapter.objects.all().delete()
         ResourceTypeTag.objects.exclude(pk__in=self._existing_tag_ids).delete()
         super().tearDown()
 
@@ -248,12 +248,12 @@ class ResourceModelSmokeTests(TestCase):
 @override_settings(MEDIA_ROOT=mkdtemp())
 class ChaptersModelSmokeTests(TestCase):
     def tearDown(self):
-        Chapters.objects.all().delete()
+        Chapter.objects.all().delete()
         rmtree(settings.MEDIA_ROOT, ignore_errors=True)
         super().tearDown()
 
     def test_upload_logo(self):
-        chapter = Chapters.objects.create(
+        chapter = Chapter.objects.create(
             name='gamers',
             abbrev='game',
             logo=make_test_image(),
@@ -262,12 +262,12 @@ class ChaptersModelSmokeTests(TestCase):
             email='gamers@agronomy.club',
         )
 
-        saved_chapter = Chapters.objects.get(pk=chapter.pk)
+        saved_chapter = Chapter.objects.get(pk=chapter.pk)
 
         self.assertEqual(saved_chapter.logo.name, 'chapter_logos/logo.png')
 
     def test_reject_duplicate_color(self):
-        Chapters.objects.create(
+        Chapter.objects.create(
             name='c1',
             abbrev='c1',
             location='l1',
@@ -278,7 +278,7 @@ class ChaptersModelSmokeTests(TestCase):
 
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
-                Chapters.objects.create(
+                Chapter.objects.create(
                     name='c2',
                     abbrev='c2',
                     location='l2',
@@ -288,7 +288,7 @@ class ChaptersModelSmokeTests(TestCase):
                 )
 
     def test_reject_duplicate_name(self):
-        Chapters.objects.create(
+        Chapter.objects.create(
             name='c1',
             abbrev='c1',
             location='l1',
@@ -298,7 +298,7 @@ class ChaptersModelSmokeTests(TestCase):
 
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
-                Chapters.objects.create(
+                Chapter.objects.create(
                     name='c1',
                     abbrev='c2',
                     location='l2',
@@ -307,7 +307,7 @@ class ChaptersModelSmokeTests(TestCase):
                 )
 
     def test_reject_duplicate_abbrev(self):
-        Chapters.objects.create(
+        Chapter.objects.create(
             name='c1',
             abbrev='c1',
             location='l1',
@@ -317,7 +317,7 @@ class ChaptersModelSmokeTests(TestCase):
 
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
-                Chapters.objects.create(
+                Chapter.objects.create(
                     name='c2',
                     abbrev='c1',
                     location='l2',
@@ -326,7 +326,7 @@ class ChaptersModelSmokeTests(TestCase):
                 )
 
     def test_reject_duplicate_email(self):
-        Chapters.objects.create(
+        Chapter.objects.create(
             name='c1',
             abbrev='c1',
             location='l1',
@@ -336,7 +336,7 @@ class ChaptersModelSmokeTests(TestCase):
 
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
-                Chapters.objects.create(
+                Chapter.objects.create(
                     name='c2',
                     abbrev='c2',
                     location='l2',
@@ -345,7 +345,7 @@ class ChaptersModelSmokeTests(TestCase):
                 )
 
     def test_reject_duplicate_logo_path(self):
-        Chapters.objects.create(
+        Chapter.objects.create(
             name='c1',
             abbrev='c1',
             logo='chapter_logos/logo.png',
@@ -356,7 +356,7 @@ class ChaptersModelSmokeTests(TestCase):
 
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
-                Chapters.objects.create(
+                Chapter.objects.create(
                     name='c2',
                     abbrev='c2',
                     logo='chapter_logos/logo.png',
@@ -371,7 +371,7 @@ class ResourceAPISmokeTests(APITestCase):
         self._existing_tag_ids = list(
             ResourceTypeTag.objects.values_list('pk', flat=True)
         )
-        self.chapter = Chapters.objects.create(
+        self.chapter = Chapter.objects.create(
             name='gamers',
             abbrev='game',
             location='Amphoreus',
@@ -418,7 +418,7 @@ class ResourceAPISmokeTests(APITestCase):
 
     def tearDown(self):
         Resource.objects.all().delete()
-        Chapters.objects.all().delete()
+        Chapter.objects.all().delete()
         ResourceTypeTag.objects.exclude(pk__in=self._existing_tag_ids).delete()
         super().tearDown()
 
@@ -475,7 +475,7 @@ class ResourceAPISmokeTests(APITestCase):
 
 class ChapterAPISmokeTests(APITestCase):
     def setUp(self):
-        self.chapter = Chapters.objects.create(
+        self.chapter = Chapter.objects.create(
             name='perth',
             abbrev='per',
             location='perth',
@@ -484,5 +484,5 @@ class ChapterAPISmokeTests(APITestCase):
         )
 
     def tearDown(self):
-        Chapters.objects.all().delete()
+        Chapter.objects.all().delete()
         super().tearDown()

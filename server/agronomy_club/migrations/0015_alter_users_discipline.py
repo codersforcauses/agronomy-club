@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name="users",
+            model_name="user",
             name="discipline",
             field=models.CharField(max_length=30),
         ),

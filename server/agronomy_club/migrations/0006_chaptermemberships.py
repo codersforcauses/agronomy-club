@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ChapterMemberships',
+            name='ChapterMembership',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, unique=True)),
                 ('chapter_role', models.CharField(choices=[('member', 'Member'), ('admin', 'Admin'), ('owner', 'Owner')],
@@ -23,9 +23,9 @@ class Migration(migrations.Migration):
                                                                    ('ocm', 'Ordinary Committee Member')],
                                               default='pres', max_length=100)),
                 ('chapter_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                                 related_name='chapter_memberships', to='agronomy_club.chapters')),
+                                                 related_name='chapter_memberships', to='agronomy_club.chapter')),
                 ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                              related_name='user_memberships', to='agronomy_club.users')),
+                                              related_name='user_memberships', to='agronomy_club.user')),
             ],
         ),
     ]

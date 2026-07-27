@@ -1,10 +1,10 @@
 from django.contrib import admin
 import unfold
-from agronomy_club.models import ChapterMemberships, Users, Quiz, Chapters, Resource, ResourceTypeTag, Event  # noqa
+from agronomy_club.models import ChapterMembership, User, Quiz, Chapter, Resource, ResourceTypeTag, Event  # noqa
 
 
 # Register your models here.
-@admin.register(Chapters)
+@admin.register(Chapter)
 class ChaptersAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'name', 'abbrev', 'location', 'email')
     search_fields = ('id', 'name', 'abbrev', 'location')
@@ -34,7 +34,7 @@ class ResourceTypeTagAdmin(unfold.admin.ModelAdmin):
 
 @admin.register(Resource)
 class ResourceAdmin(unfold.admin.ModelAdmin):
-    list_display = ('id', 'name', 'link', 'chapter', 'upload_date')
+    list_display = ('id', 'name', 'public', 'link', 'chapter', 'upload_date')
     search_fields = ('id', 'name', 'link')
     list_filter = ('type_tags', 'chapter')
 
@@ -46,14 +46,14 @@ class EventAdmin(unfold.admin.ModelAdmin):
     list_filter = ('chapter',)
 
 
-@admin.register(Users)
+@admin.register(User)
 class UsersAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'full_name', 'grad_yr', 'discipline', 'email', 'global_role')
     search_fields = ('id', 'full_name', 'discipline',)
     list_filter = ('grad_yr', 'global_role')
 
 
-@admin.register(ChapterMemberships)
+@admin.register(ChapterMembership)
 class ChapterMembershipsAdmin(unfold.admin.ModelAdmin):
     list_display = ('id', 'user_id', 'chapter_role', 'chapter_id', 'position')
     search_fields = ('id', 'user_id__full_name', 'chapter_id__name')
