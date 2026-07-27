@@ -34,7 +34,7 @@ class ResourceTypeTagAdmin(unfold.admin.ModelAdmin):
 
 @admin.register(Resource)
 class ResourceAdmin(unfold.admin.ModelAdmin):
-    list_display = ('id', 'name', 'link', 'chapter', 'upload_date')
+    list_display = ('id', 'name', 'public', 'link', 'chapter', 'upload_date')
     search_fields = ('id', 'name', 'link')
     list_filter = ('type_tags', 'chapter')
 

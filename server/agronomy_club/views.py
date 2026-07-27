@@ -36,7 +36,7 @@ class ResourceListAPIView(generics.ListAPIView):
     serializer_class = ResourceSerializer
 
     def get_queryset(self):
-        queryset = Resource.objects.all().order_by("-upload_date")
+        queryset = Resource.objects.filter(public=True).order_by("-upload_date")
         tags = self.request.GET.get("tags")
         if tags:
             tag_ids = [t for t in tags.split(",") if t.strip().isdigit()]

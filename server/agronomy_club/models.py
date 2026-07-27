@@ -91,7 +91,7 @@ class Event(models.Model):
 
 class Quiz(models.Model):
     name = models.CharField(max_length=100)
-    public = models.BooleanField()
+    public = models.BooleanField(default=True)
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
     quiz_data = models.FileField(upload_to='quiz_data/', blank=False, null=False, validators=[FileExtensionValidator(allowed_extensions=['json'])])
@@ -114,6 +114,7 @@ class Resource(models.Model):
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name="resources")
     name = models.CharField(max_length=100)
     link = models.URLField(max_length=255)
+    public = models.BooleanField(default=True)
     upload_date = models.DateTimeField(auto_now_add=True)
     type_tags = models.ManyToManyField(ResourceTypeTag, blank=True, related_name="resources")
 
