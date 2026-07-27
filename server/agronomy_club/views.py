@@ -1,6 +1,6 @@
 from rest_framework import generics
 from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer, ListedChapterSerializer  # noqa: E501
-from .models import Resource, ResourceTypeTag, Users, Event, Quiz, Chapters
+from .models import Resource, ResourceTypeTag, User, Event, Quiz, Chapter
 from rest_framework.decorators import api_view
 from django.http import HttpResponse, FileResponse
 
@@ -51,14 +51,14 @@ class IndividualChapterAPIView(generics.RetrieveAPIView):
     lookup_field = "id"
 
     def get_queryset(self):
-        return Chapters.objects.all()
+        return Chapter.objects.all()
 
 
 class AlumniListAPIView(generics.ListAPIView):
     serializer_class = AlumniSerializer
 
     def get_queryset(self):
-        return Users.objects.filter(global_role="alumni").prefetch_related("user_memberships__chapter_id").order_by("-grad_yr")
+        return User.objects.filter(global_role="alumni").prefetch_related("user_memberships__chapter_id").order_by("-grad_yr")
 
 
 class EventListAPIView(generics.ListAPIView):
@@ -87,4 +87,4 @@ class ChapterListAPIView(generics.ListAPIView):
     serializer_class = ListedChapterSerializer
 
     def get_queryset(self):
-        return Chapters.objects.all()
+        return Chapter.objects.all()

@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                     "chapter",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="agronomy_club.chapters",
+                        to="agronomy_club.chapter",
                     ),
                 ),
             ],

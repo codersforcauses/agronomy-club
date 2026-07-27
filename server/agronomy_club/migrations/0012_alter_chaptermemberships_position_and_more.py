@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name="chaptermemberships",
+            model_name="chaptermembership",
             name="position",
             field=models.CharField(
                 blank=True,
@@ -30,14 +30,14 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AddConstraint(
-            model_name="chaptermemberships",
+            model_name="chaptermembership",
             constraint=models.CheckConstraint(
                 condition=models.Q(("chapter_role__in", agronomy_club.models.Role)),
                 name="valid_role",
             ),
         ),
         migrations.AddConstraint(
-            model_name="chaptermemberships",
+            model_name="chaptermembership",
             constraint=models.CheckConstraint(
                 condition=models.Q(
                     ("position__in", agronomy_club.models.Position),
@@ -48,13 +48,13 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AddConstraint(
-            model_name="chaptermemberships",
+            model_name="chaptermembership",
             constraint=models.UniqueConstraint(
                 fields=("user_id", "chapter_id"), name="unique_user_chapter"
             ),
         ),
         migrations.AddConstraint(
-            model_name="chaptermemberships",
+            model_name="chaptermembership",
             constraint=models.UniqueConstraint(
                 condition=models.Q(
                     ("position__in", ["ocm", "mark", ""]), _negated=True
@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AddConstraint(
-            model_name="chaptermemberships",
+            model_name="chaptermembership",
             constraint=models.CheckConstraint(
                 condition=models.Q(
                     models.Q(("chapter_role", "member"), _negated=True),
@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AddConstraint(
-            model_name="chaptermemberships",
+            model_name="chaptermembership",
             constraint=models.CheckConstraint(
                 condition=models.Q(
                     ("position__in", agronomy_club.models.Position),

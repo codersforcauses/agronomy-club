@@ -11,22 +11,22 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='chapters',
+            model_name='chapter',
             name='abbrev',
             field=models.CharField(max_length=10, unique=True),
         ),
         migrations.AlterField(
-            model_name='chapters',
+            model_name='chapter',
             name='desc',
             field=models.TextField(max_length=150),
         ),
         migrations.AlterField(
-            model_name='chapters',
+            model_name='chapter',
             name='location',
             field=models.CharField(max_length=100),
         ),
         migrations.AlterField(
-            model_name='chapters',
+            model_name='chapter',
             name='name',
             field=models.CharField(max_length=100, unique=True),
         ),

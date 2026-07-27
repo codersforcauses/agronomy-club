@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Quiz, Resource, ResourceTypeTag, Event, Users, Chapters, ChapterMemberships
+from .models import Quiz, Resource, ResourceTypeTag, Event, User, Chapter, ChapterMembership
 
 
 class QuizDataSerializer(serializers.ModelSerializer):
@@ -42,7 +42,7 @@ class AlumniSerializer(serializers.ModelSerializer):
     chapters = serializers.SerializerMethodField()
 
     class Meta:
-        model = Users
+        model = User
         fields = [
             'id',
             'full_name',
@@ -53,7 +53,7 @@ class AlumniSerializer(serializers.ModelSerializer):
             'chapters',
         ]
 
-    def get_chapters(self, obj: Users):
+    def get_chapters(self, obj: User):
         chapter_data = []
         for membership in obj.user_memberships.all():
             chapter_data.append({
@@ -85,7 +85,7 @@ class EventListSerializer(serializers.ModelSerializer):
 
 class ListedChapterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Chapters
+        model = Chapter
         fields = [
             'id',
             'name',
@@ -103,7 +103,7 @@ class CommitteeSerializer(serializers.ModelSerializer):
     photo = serializers.SerializerMethodField()
 
     class Meta:
-        model = ChapterMemberships
+        model = ChapterMembership
         fields = [
             "id",
             "full_name",
@@ -133,7 +133,7 @@ class ChapterSerializer(serializers.ModelSerializer):
     committee = serializers.SerializerMethodField()
 
     class Meta:
-        model = Chapters
+        model = Chapter
         fields = [
             "id",
             "name",

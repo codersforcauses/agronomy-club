@@ -20,7 +20,7 @@ def random_color():
         new_color = generate_random_hex()
 
         # If color does not exist yet in database then return it, otherwise generate a new one
-        if not Chapters.objects.filter(colour=new_color).exists():
+        if not Chapter.objects.filter(colour=new_color).exists():
             return new_color
 
 
@@ -50,7 +50,7 @@ class Position(models.TextChoices):
     __empty__ = 'Unspecified'
 
 
-class Chapters(models.Model):
+class Chapter(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
     name = models.CharField(max_length=100, unique=True)
     abbrev = models.CharField(max_length=10, unique=True)
@@ -82,7 +82,7 @@ class Event(models.Model):
     location = models.CharField(max_length=255)
     date = models.DateTimeField()
     thumbnail = models.ImageField(upload_to="event_thumbnails/", null=True, blank=True)
-    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="events")
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name="events")
     link = models.URLField(max_length=255, blank=True)
 
     def __str__(self):
@@ -92,7 +92,7 @@ class Event(models.Model):
 class Quiz(models.Model):
     name = models.CharField(max_length=100)
     public = models.BooleanField()
-    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE)
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
     quiz_data = models.FileField(upload_to='quiz_data/', blank=False, null=False, validators=[FileExtensionValidator(allowed_extensions=['json'])])
 
@@ -111,7 +111,7 @@ class ResourceTypeTag(models.Model):
 
 class Resource(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    chapter = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name="resources")
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name="resources")
     name = models.CharField(max_length=100)
     link = models.URLField(max_length=255)
     upload_date = models.DateTimeField(auto_now_add=True)
@@ -121,7 +121,7 @@ class Resource(models.Model):
         return f"{self.name} - {self.chapter}"
 
 
-class Users(models.Model):
+class User(models.Model):
     # Create a path for stored photos
     def create_photo_path(instance, filename):
         return f'users/{instance.grad_yr}/{filename}'
@@ -138,11 +138,11 @@ class Users(models.Model):
         return f"{self.full_name} - {self.global_role}"
 
 
-class ChapterMemberships(models.Model):
+class ChapterMembership(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True, unique=True)
-    user_id = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='user_memberships')
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_memberships')
     chapter_role = models.CharField(max_length=100, choices=Role, default=Role.MEMBER)
-    chapter_id = models.ForeignKey(Chapters, on_delete=models.CASCADE, related_name='chapter_memberships')
+    chapter_id = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='chapter_memberships')
     position = models.CharField(max_length=100, choices=Position, default=Position.__empty__, blank=True)
 
     def __str__(self):
