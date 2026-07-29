@@ -3,6 +3,13 @@ import { AxiosError } from "axios";
 
 import api from "@/lib/api";
 
+type PaginatedResponse<T> = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+};
+
 export type ApiEventList = {
   id: number;
   title: string;
@@ -15,16 +22,18 @@ export type ApiEventList = {
   link: string | null;
 };
 
-export const useEvents = (
-  args?: Omit<
-    UseQueryOptions<ApiEventList[], AxiosError>,
-    "queryKey" | "queryFn"
-  >,
-) => {
-  return useQuery<ApiEventList[], AxiosError>({
-    ...args,
-    queryKey: ["events"],
-    queryFn: () => api.get<ApiEventList[]>("/events/").then((res) => res.data),
+export const useEvents = (page: number = 0, pageSize: number) => {
+  return useQuery<PaginatedResponse<ApiEventList>, AxiosError>({
+    queryKey: ["events", page, pageSize],
+    queryFn: () =>
+      api
+        .get<PaginatedResponse<ApiEventList>>("/events/", {
+          params: {
+            page,
+            pageSize,
+          },
+        })
+        .then((res) => res.data),
     retry: (failureCount, error) => {
       if (error?.response?.status === 404) {
         return false;

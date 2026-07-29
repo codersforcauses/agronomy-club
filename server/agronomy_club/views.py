@@ -2,6 +2,7 @@ from rest_framework import generics
 from .serializers import QuizSerializer, QuizDataSerializer, ResourceSerializer, ResourceTypeTagSerializer, EventListSerializer, AlumniSerializer, ChapterSerializer, ListedChapterSerializer  # noqa: E501
 from .models import Resource, ResourceTypeTag, User, Event, Quiz, Chapter
 from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
 from django.http import HttpResponse, FileResponse
 
 
@@ -9,6 +10,11 @@ from django.http import HttpResponse, FileResponse
 @api_view(["GET"])
 def ping(request):
     return HttpResponse("Pong!", status=200)
+
+class EventsPagination(PageNumberPagination):
+    page_size = 1
+    page_size_query_param = 'page_size'
+    max_page_size = 30
 
 
 class QuizDataAPIView(generics.RetrieveAPIView):
@@ -67,6 +73,7 @@ class EventListAPIView(generics.ListAPIView):
     Returns a list of events.
     """
     serializer_class = EventListSerializer
+    pagination_class = EventsPagination
 
     def get_queryset(self):
         return Event.objects.all().order_by("-date")
