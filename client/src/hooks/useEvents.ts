@@ -22,7 +22,7 @@ export type ApiEventList = {
   link: string | null;
 };
 
-export const useEvents = (page: number = 0, pageSize: number) => {
+export const useEvents = (page: number = 1, pageSize: number) => {
   return useQuery<PaginatedResponse<ApiEventList>, AxiosError>({
     queryKey: ["events", page, pageSize],
     queryFn: () =>

@@ -16,6 +16,11 @@ class EventsPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 30
 
+class ChaptersPagination(PageNumberPagination):
+    page_size = 15
+    page_size_query_param = 'page_size'
+    max_page_size = 30
+
 
 class QuizDataAPIView(generics.RetrieveAPIView):
     serializer_class = QuizDataSerializer
@@ -92,6 +97,7 @@ class QuizListAPIView(generics.ListAPIView):
 
 class ChapterListAPIView(generics.ListAPIView):
     serializer_class = ListedChapterSerializer
+    pagination_class = ChaptersPagination
 
     def get_queryset(self):
-        return Chapter.objects.all()
+        return Chapter.objects.order_by("abbrev")
