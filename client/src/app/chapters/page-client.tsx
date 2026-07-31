@@ -42,6 +42,11 @@ export default function ChaptersClient() {
   }
 
   if (isError) {
+    if (error.status === 404) {
+      // redirect to first page
+      setPage(1);
+      return;
+    }
     console.log(error);
 
     return (
