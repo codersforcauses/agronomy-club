@@ -20,7 +20,7 @@ export default function EventCard({
   link,
 }: ApiEventList) {
   return (
-    <Card className="relative mr-4 mt-4 h-full w-[364px] overflow-hidden rounded-xl border-0 pt-0 shadow-md shadow-brand-shadow">
+    <Card className="relative h-full w-[364px] overflow-hidden rounded-xl border-0 pt-0 shadow-md shadow-brand-shadow">
       <div className="h-3 w-full" style={{ backgroundColor: chapterColour }} />
       <CardContent className="flex flex-col gap-3 p-4">
         <div className="relative h-56 items-center justify-center">
