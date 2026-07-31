@@ -101,7 +101,9 @@ export default function EventsClient() {
         )}
       </div>
       <div className="flex justify-center gap-4 pt-16">
-        {pageCount === 2 ? (
+        {pageCount === 1 ? (
+          <></>
+        ) : pageCount === 2 ? (
           <>
             {pageButton(1)}
             {pageButton(2)}
