@@ -17,10 +17,7 @@ export default function ChaptersPage() {
           Chapters &amp; Field Alliances
         </h1>
       </header>
-
-      {/* TEMP TEST BLOCK CARD COMPONENT */}
       <ChaptersClient />
-      {/* END TEMP TEST BLOCK */}
     </section>
   );
 }

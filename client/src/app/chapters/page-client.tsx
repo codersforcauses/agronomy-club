@@ -84,7 +84,6 @@ export default function ChaptersClient() {
     <>
       <div className="mt-12 grid items-start justify-items-center gap-10 sm:grid-cols-2 xl:grid-cols-3">
         {chapters.map((chapter) => {
-          console.log(chapter.logo);
           if (!chapter.logo) {
             // Initials for the logo placeholder
             const initials = chapter.name
@@ -130,7 +129,7 @@ export default function ChaptersClient() {
             {pageButton(1)}
             {pageButton(2)}
           </>
-        ) : pageCount < 5 ? (
+        ) : pageCount < 4 ? (
           //render all pages if less than 5
           [
             ...Array(pageCount)

@@ -108,7 +108,7 @@ export default function EventsClient() {
             {pageButton(1)}
             {pageButton(2)}
           </>
-        ) : pageCount < 5 ? (
+        ) : pageCount < 4 ? (
           //render all pages if less than 5
           [
             ...Array(pageCount)
