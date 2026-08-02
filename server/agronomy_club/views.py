@@ -11,10 +11,12 @@ from django.http import HttpResponse, FileResponse
 def ping(request):
     return HttpResponse("Pong!", status=200)
 
+
 class EventsPagination(PageNumberPagination):
     page_size = 20
     page_size_query_param = 'page_size'
     max_page_size = 30
+
 
 class ChaptersPagination(PageNumberPagination):
     page_size = 15
