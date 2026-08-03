@@ -71,12 +71,11 @@ export default function ChaptersClient() {
   const pageCount = Math.ceil(response.count / pageSize);
 
   const pageButton = (pageNum: number) => (
-    <Link href={`/chapters?page=${pageNum}`}>
-      <button
-        className={`aspect-3/4 rounded-xl border-2 p-5 ${pageNum === page ? "bg-white text-brand-green" : "bg-brand-green text-white"} `}
-      >
-        {pageNum}
-      </button>
+    <Link
+      href={`/chapters?page=${pageNum}`}
+      className={`aspect-3/4 rounded-xl border-2 p-5 ${pageNum === page ? "bg-white text-brand-green" : "border-brand-green bg-brand-green text-white"} hover:text-brand-yellow`}
+    >
+      {pageNum}
     </Link>
   );
 
