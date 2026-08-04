@@ -1,0 +1,652 @@
+[
+  {
+    "model": "agronomy_club.event",
+    "pk": 1,
+    "fields": {
+      "title": "Wheatbelt Soil Health Field Day",
+      "description": "Hands-on field day covering soil testing, nutrient budgeting, and stubble management for grain growers.",
+      "location": "Merredin Research Station, WA",
+      "date": "2026-08-18T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 1,
+      "link": "https://agronomyclub.org/events/wheatbelt-soil-health"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 2,
+    "fields": {
+      "title": "Riverina Irrigation Efficiency Workshop",
+      "description": "A workshop on scheduling irrigation and reducing water loss in high-value cropping systems.",
+      "location": "Charles Sturt University, Wagga Wagga, NSW",
+      "date": "2026-09-02T10:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 2,
+      "link": "https://agronomyclub.org/events/riverina-irrigation"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 3,
+    "fields": {
+      "title": "Mallee Dryland Cropping Seminar",
+      "description": "Seminar exploring drought-tolerant crop varieties and moisture conservation techniques.",
+      "location": "Bendigo Agricultural Showgrounds, VIC",
+      "date": "2026-08-25T09:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 3,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 4,
+    "fields": {
+      "title": "Darling Downs Cotton Field Walk",
+      "description": "On-farm walk through irrigated cotton trials with a focus on pest management and yield forecasting.",
+      "location": "Kingsthorpe, QLD",
+      "date": "2026-10-05T08:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 4,
+      "link": "https://agronomyclub.org/events/darling-downs-cotton"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 5,
+    "fields": {
+      "title": "Barossa Viticulture Masterclass",
+      "description": "A masterclass on canopy management and vine nutrition presented by local viticulturists.",
+      "location": "Barossa Valley Wine Centre, SA",
+      "date": "2026-09-14T13:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 5,
+      "link": "https://agronomyclub.org/events/barossa-viticulture"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 6,
+    "fields": {
+      "title": "Top End Tropical Pasture Field Day",
+      "description": "Field demonstration of tropical pasture legumes and their role in improving grazing systems.",
+      "location": "Katherine Research Station, NT",
+      "date": "2026-08-30T08:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 7,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 7,
+    "fields": {
+      "title": "Gippsland Dairy Pasture Renovation Day",
+      "description": "Practical session on pasture renovation techniques to boost dairy farm productivity.",
+      "location": "Warragul Showgrounds, VIC",
+      "date": "2026-09-20T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 9,
+      "link": "https://agronomyclub.org/events/gippsland-pasture"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 8,
+    "fields": {
+      "title": "Ord Valley Chia Crop Trial Showcase",
+      "description": "Showcase of trial results for emerging tropical crops including chia and sandalwood intercropping.",
+      "location": "Kununurra Agricultural Precinct, WA",
+      "date": "2026-10-12T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 10,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 9,
+    "fields": {
+      "title": "Central West Orchard Management Workshop",
+      "description": "Workshop covering pruning strategies, pest monitoring, and frost protection for orchard crops.",
+      "location": "Orange Agricultural Institute, NSW",
+      "date": "2026-08-22T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 12,
+      "link": "https://agronomyclub.org/events/central-west-orchards"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 10,
+    "fields": {
+      "title": "Wimmera Grain Storage Field Day",
+      "description": "Field day on grain storage hygiene, aeration systems, and reducing post-harvest losses.",
+      "location": "Horsham Research Farm, VIC",
+      "date": "2026-09-05T09:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 15,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 11,
+    "fields": {
+      "title": "Hunter Valley Soil Microbiology Talk",
+      "description": "Guest lecture on vineyard soil microbiology and its impact on grape quality.",
+      "location": "Pokolbin Community Hall, NSW",
+      "date": "2026-09-28T18:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 16,
+      "link": "https://agronomyclub.org/events/hunter-valley-soil"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 12,
+    "fields": {
+      "title": "Clare Valley Cover Cropping Field Day",
+      "description": "Demonstration of cover crop species for inter-row vineyard management and erosion control.",
+      "location": "Clare Showgrounds, SA",
+      "date": "2026-08-29T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 18,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 13,
+    "fields": {
+      "title": "Kimberley Rangeland Management Forum",
+      "description": "Forum discussing grazing pressure, rangeland monitoring, and pastoral lease sustainability.",
+      "location": "Broome Civic Centre, WA",
+      "date": "2026-10-08T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 20,
+      "link": "https://agronomyclub.org/events/kimberley-rangeland"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 14,
+    "fields": {
+      "title": "New England Wool and Pasture Field Day",
+      "description": "Combined field day on pasture improvement strategies and wool quality outcomes.",
+      "location": "Armidale Showgrounds, NSW",
+      "date": "2026-09-11T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 22,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 15,
+    "fields": {
+      "title": "Margaret River Vineyard Sustainability Day",
+      "description": "Sustainability day focused on organic inputs, canopy health, and vineyard water use efficiency.",
+      "location": "Margaret River Community Centre, WA",
+      "date": "2026-09-19T10:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 25,
+      "link": "https://agronomyclub.org/events/margaret-river-sustainability"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 16,
+    "fields": {
+      "title": "Sunraysia Citrus Nutrition Seminar",
+      "description": "Seminar on citrus tree nutrition programs and diagnosing common nutrient deficiencies.",
+      "location": "Mildura Arts Centre, VIC",
+      "date": "2026-08-27T13:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 27,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 17,
+    "fields": {
+      "title": "Pilbara Arid Rangeland Rehabilitation Tour",
+      "description": "Site tour of rangeland rehabilitation trials following historic grazing and mining disturbance.",
+      "location": "Karratha Pastoral Precinct, WA",
+      "date": "2026-10-15T08:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 30,
+      "link": "https://agronomyclub.org/events/pilbara-rangeland"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 18,
+    "fields": {
+      "title": "Wide Bay Macadamia Field Walk",
+      "description": "Field walk through mature macadamia orchards focusing on canopy nutrition and harvest timing.",
+      "location": "Maryborough Showgrounds, QLD",
+      "date": "2026-09-24T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 34,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 19,
+    "fields": {
+      "title": "Grampians Grain and Wool Field Day",
+      "description": "Annual field day pairing grain agronomy updates with wool production best practices.",
+      "location": "Ararat Showgrounds, VIC",
+      "date": "2026-08-16T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 40,
+      "link": "https://agronomyclub.org/events/grampians-field-day"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 20,
+    "fields": {
+      "title": "Macquarie Mixed Farming Conference",
+      "description": "Conference bringing together mixed farming producers to discuss crop rotation and livestock integration.",
+      "location": "Dubbo Regional Theatre, NSW",
+      "date": "2026-10-01T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 47,
+      "link": "https://agronomyclub.org/events/macquarie-conference"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 21,
+    "fields": {
+      "title": "Tasman Cool-Climate Cropping Field Day",
+      "description": "Field day exploring cool-climate grain varieties and pasture rotation strategies for northern Tasmania.",
+      "location": "Launceston Showgrounds, TAS",
+      "date": "2026-08-19T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 6,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 22,
+    "fields": {
+      "title": "Liverpool Plains Precision Agriculture Demo",
+      "description": "Demonstration of variable rate technology and soil mapping for black soil cotton systems.",
+      "location": "Quirindi Showgrounds, NSW",
+      "date": "2026-09-08T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 8,
+      "link": "https://agronomyclub.org/events/liverpool-plains-precision-ag"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 23,
+    "fields": {
+      "title": "Fleurieu Coastal Horticulture Open Day",
+      "description": "Open day showcasing coastal horticulture trials and vineyard soil conservation practices.",
+      "location": "McLaren Vale Visitor Centre, SA",
+      "date": "2026-09-26T10:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 11,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 24,
+    "fields": {
+      "title": "Atherton Tablelands Coffee and Avocado Workshop",
+      "description": "Workshop on tropical tree crop nutrition, covering coffee and avocado orchard management.",
+      "location": "Atherton Showgrounds, QLD",
+      "date": "2026-08-21T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 13,
+      "link": "https://agronomyclub.org/events/atherton-coffee-avocado"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 25,
+    "fields": {
+      "title": "South West Dairy Pasture Field Walk",
+      "description": "Field walk demonstrating rotational grazing and pasture species selection for dairy farms.",
+      "location": "Bunbury Regional Farm, WA",
+      "date": "2026-09-16T08:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 14,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 26,
+    "fields": {
+      "title": "Fitzroy Beef and Sorghum Field Day",
+      "description": "Field day covering sorghum forage systems and their integration into beef cattle grazing.",
+      "location": "Rockhampton Showgrounds, QLD",
+      "date": "2026-10-03T08:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 17,
+      "link": "https://agronomyclub.org/events/fitzroy-beef-sorghum"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 27,
+    "fields": {
+      "title": "Huon Valley Apple Orchard Field Day",
+      "description": "Field day on pruning, pest monitoring, and frost management for apple orchards.",
+      "location": "Huonville Community Hall, TAS",
+      "date": "2026-08-24T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 19,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 28,
+    "fields": {
+      "title": "Goulburn Valley Stone Fruit Nutrition Seminar",
+      "description": "Seminar on nutrient programs and irrigation scheduling for stone fruit and dairy pasture systems.",
+      "location": "Shepparton Showgrounds, VIC",
+      "date": "2026-09-10T13:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 21,
+      "link": "https://agronomyclub.org/events/goulburn-valley-stone-fruit"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 29,
+    "fields": {
+      "title": "Eyre Peninsula Soil Conservation Forum",
+      "description": "Forum on low-rainfall cropping strategies and coastal wind erosion control measures.",
+      "location": "Port Lincoln Civic Hall, SA",
+      "date": "2026-08-31T09:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 23,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 30,
+    "fields": {
+      "title": "Capricorn Coast Macadamia Field Walk",
+      "description": "Field walk through macadamia orchards focusing on subtropical horticulture and irrigation.",
+      "location": "Yeppoon Showgrounds, QLD",
+      "date": "2026-09-22T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 24,
+      "link": "https://agronomyclub.org/events/capricorn-coast-macadamia"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 31,
+    "fields": {
+      "title": "Snowy Mountains Alpine Grazing Seminar",
+      "description": "Seminar covering cold-tolerant pasture species and grazing management at high altitude.",
+      "location": "Cooma Showgrounds, NSW",
+      "date": "2026-10-06T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 26,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 32,
+    "fields": {
+      "title": "Burnett Sugarcane Nutrient Management Day",
+      "description": "Field day on precision nutrient application for sugarcane and irrigated horticulture crops.",
+      "location": "Bundaberg Research Facility, QLD",
+      "date": "2026-08-28T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 28,
+      "link": "https://agronomyclub.org/events/burnett-sugarcane"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 33,
+    "fields": {
+      "title": "Derwent Valley Hop Cultivation Workshop",
+      "description": "Workshop exploring trellising, irrigation, and pest control for hop cultivation systems.",
+      "location": "New Norfolk Community Centre, TAS",
+      "date": "2026-09-17T10:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 29,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 34,
+    "fields": {
+      "title": "Riverland Citrus and Almond Field Day",
+      "description": "Field day on irrigation efficiency and nutrient scheduling for citrus and almond orchards.",
+      "location": "Renmark Showgrounds, SA",
+      "date": "2026-09-04T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 31,
+      "link": "https://agronomyclub.org/events/riverland-citrus-almond"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 35,
+    "fields": {
+      "title": "Lockyer Valley Vegetable Cropping Expo",
+      "description": "Expo highlighting salad crop rotation, pest management, and soil fertility for vegetable growers.",
+      "location": "Gatton Showgrounds, QLD",
+      "date": "2026-10-09T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 32,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 36,
+    "fields": {
+      "title": "Central Highlands Cotton and Grain Field Day",
+      "description": "Field day covering irrigated cotton agronomy and grain rotation planning in Central Queensland.",
+      "location": "Emerald Showgrounds, QLD",
+      "date": "2026-08-20T08:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 33,
+      "link": "https://agronomyclub.org/events/central-highlands-cotton"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 37,
+    "fields": {
+      "title": "Goldfields Arid Rangeland Restoration Tour",
+      "description": "Site tour of rangeland restoration trials and pastoral lease management in the WA goldfields.",
+      "location": "Kalgoorlie Pastoral Centre, WA",
+      "date": "2026-10-13T08:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 35,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 38,
+    "fields": {
+      "title": "Peel Coastal Horticulture Field Day",
+      "description": "Field day on dairy pasture renovation and coastal horticultural crop diversification.",
+      "location": "Mandurah Showgrounds, WA",
+      "date": "2026-09-13T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 36,
+      "link": "https://agronomyclub.org/events/peel-horticulture"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 39,
+    "fields": {
+      "title": "Northern Rivers Subtropical Dairy Forum",
+      "description": "Forum on subtropical pasture systems and macadamia intercropping for mixed farm operations.",
+      "location": "Lismore Showgrounds, NSW",
+      "date": "2026-08-23T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 37,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 40,
+    "fields": {
+      "title": "Central Coast Market Garden Workshop",
+      "description": "Workshop on intensive horticulture practices and soil fertility management for market gardens.",
+      "location": "Gosford Community Hall, NSW",
+      "date": "2026-09-29T10:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 38,
+      "link": "https://agronomyclub.org/events/central-coast-market-garden"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 41,
+    "fields": {
+      "title": "Otway Dairy Pasture Field Day",
+      "description": "Field day on pasture species trials and rotational grazing for the temperate south west.",
+      "location": "Colac Showgrounds, VIC",
+      "date": "2026-08-26T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 39,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 42,
+    "fields": {
+      "title": "Yorke Peninsula Legume Cropping Field Day",
+      "description": "Field day covering legume rotation benefits and nitrogen fixation in broadacre grain systems.",
+      "location": "Maitland Showgrounds, SA",
+      "date": "2026-09-07T09:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 41,
+      "link": "https://agronomyclub.org/events/yorke-peninsula-legumes"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 43,
+    "fields": {
+      "title": "Limestone Coast Viticulture and Forestry Day",
+      "description": "Field day exploring volcanic soil management for viticulture, forestry, and dairy operations.",
+      "location": "Mount Gambier Showgrounds, SA",
+      "date": "2026-10-11T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 42,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 44,
+    "fields": {
+      "title": "Granite Belt Stone Fruit and Viticulture Field Day",
+      "description": "Field day on frost mitigation and canopy management for stone fruit and cool-climate vineyards.",
+      "location": "Stanthorpe Showgrounds, QLD",
+      "date": "2026-08-17T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 43,
+      "link": "https://agronomyclub.org/events/granite-belt-field-day"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 45,
+    "fields": {
+      "title": "Isaac Grain and Cattle Grazing Seminar",
+      "description": "Seminar on integrating grain cropping with cattle grazing in the Bowen Basin.",
+      "location": "Moranbah Community Centre, QLD",
+      "date": "2026-09-23T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 44,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 46,
+    "fields": {
+      "title": "Barwon Wool and Grain Field Day",
+      "description": "Field day covering pasture-cropping rotations and wool quality outcomes near Geelong.",
+      "location": "Geelong Showgrounds, VIC",
+      "date": "2026-08-15T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 45,
+      "link": "https://agronomyclub.org/events/barwon-wool-grain"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 47,
+    "fields": {
+      "title": "Loddon Rice and Dairy Irrigation Day",
+      "description": "Field day on irrigated rice growing and dairy pasture water use efficiency near Kerang.",
+      "location": "Kerang Showgrounds, VIC",
+      "date": "2026-09-30T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 46,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 48,
+    "fields": {
+      "title": "Clarence Valley Sugarcane and Cattle Field Day",
+      "description": "Field day on sugarcane ratoon management and beef cattle pasture integration on the NSW north coast.",
+      "location": "Grafton Showgrounds, NSW",
+      "date": "2026-10-14T08:30:00+00:00",
+      "thumbnail": "",
+      "chapter": 48,
+      "link": "https://agronomyclub.org/events/clarence-valley-sugarcane"
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 49,
+    "fields": {
+      "title": "Ovens Murray Hops and Viticulture Field Day",
+      "description": "Field day on hop trellising systems and cool-climate viticulture practices in north east Victoria.",
+      "location": "Wangaratta Showgrounds, VIC",
+      "date": "2026-09-18T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 49,
+      "link": ""
+    }
+  },
+  {
+    "model": "agronomy_club.event",
+    "pk": 50,
+    "fields": {
+      "title": "Esperance Grain and Canola Field Day",
+      "description": "Field day showcasing canola variety trials and grain cropping strategies along WA's south coast.",
+      "location": "Esperance Showgrounds, WA",
+      "date": "2026-08-13T09:00:00+00:00",
+      "thumbnail": "",
+      "chapter": 50,
+      "link": "https://agronomyclub.org/events/esperance-grain-canola"
+    }
+  }
+]

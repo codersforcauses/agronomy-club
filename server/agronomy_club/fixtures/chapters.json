@@ -1,0 +1,652 @@
+[
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 1,
+    "fields": {
+      "name": "Wheatbelt Chapter",
+      "abbrev": "WHEAT",
+      "logo": "",
+      "location": "Perth, WA",
+      "desc": "The founding chapter, supporting grain growers and students across the WA wheatbelt.",
+      "email": "wheatbelt@agronomyclub.org",
+      "colour": "#e63946"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 2,
+    "fields": {
+      "name": "Riverina Chapter",
+      "abbrev": "RVRNA",
+      "logo": "",
+      "location": "Wagga Wagga, NSW",
+      "desc": "Serving irrigated cropping and viticulture students throughout the Riverina region.",
+      "email": "riverina@agronomyclub.org",
+      "colour": "#457b9d"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 3,
+    "fields": {
+      "name": "Mallee Chapter",
+      "abbrev": "MALLEE",
+      "logo": "",
+      "location": "Bendigo, VIC",
+      "desc": "A growing chapter focused on dryland farming systems and soil health research.",
+      "email": "mallee@agronomyclub.org",
+      "colour": "#2a9d8f"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 4,
+    "fields": {
+      "name": "Darling Downs Chapter",
+      "abbrev": "DDOWNS",
+      "logo": "",
+      "location": "Toowoomba, QLD",
+      "desc": "Connecting students across Queensland's premier grain and cotton growing region.",
+      "email": "darlingdowns@agronomyclub.org",
+      "colour": "#f4a261"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 5,
+    "fields": {
+      "name": "Barossa Chapter",
+      "abbrev": "BAROSA",
+      "logo": "",
+      "location": "Adelaide, SA",
+      "desc": "The newest chapter, bringing fresh energy to viticulture and horticulture studies in SA.",
+      "email": "barossa@agronomyclub.org",
+      "colour": "#6d597a"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 6,
+    "fields": {
+      "name": "Tasman Chapter",
+      "abbrev": "TASMAN",
+      "logo": "",
+      "location": "Launceston, TAS",
+      "desc": "Focused on pasture management and cool-climate cropping across northern Tasmania.",
+      "email": "tasman@agronomyclub.org",
+      "colour": "#f4d35e"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 7,
+    "fields": {
+      "name": "Top End Chapter",
+      "abbrev": "TOPEND",
+      "logo": "",
+      "location": "Darwin, NT",
+      "desc": "Supporting tropical agronomy research and mango, sorghum, and hay production studies.",
+      "email": "topend@agronomyclub.org",
+      "colour": "#3a5a40"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 8,
+    "fields": {
+      "name": "Liverpool Plains Chapter",
+      "abbrev": "LPLAIN",
+      "logo": "",
+      "location": "Tamworth, NSW",
+      "desc": "Dedicated to black soil cropping systems, cotton, and precision agriculture research.",
+      "email": "liverpoolplains@agronomyclub.org",
+      "colour": "#bc6c25"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 9,
+    "fields": {
+      "name": "Gippsland Chapter",
+      "abbrev": "GIPPS",
+      "logo": "",
+      "location": "Traralgon, VIC",
+      "desc": "Focused on dairy pasture agronomy and sustainable grazing systems in eastern Victoria.",
+      "email": "gippsland@agronomyclub.org",
+      "colour": "#7b2cbf"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 10,
+    "fields": {
+      "name": "Ord Valley Chapter",
+      "abbrev": "ORDVAL",
+      "logo": "",
+      "location": "Kununurra, WA",
+      "desc": "Exploring irrigated tropical cropping, chia, and sandalwood production in the Ord Valley.",
+      "email": "ordvalley@agronomyclub.org",
+      "colour": "#ff8fab"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 11,
+    "fields": {
+      "name": "Fleurieu Chapter",
+      "abbrev": "FLEUR",
+      "logo": "",
+      "location": "McLaren Vale, SA",
+      "desc": "Specialising in viticulture agronomy and coastal horticulture on the Fleurieu Peninsula.",
+      "email": "fleurieu@agronomyclub.org",
+      "colour": "#d62828"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 12,
+    "fields": {
+      "name": "Central West Chapter",
+      "abbrev": "CENWEST",
+      "logo": "",
+      "location": "Orange, NSW",
+      "desc": "Bringing together students studying orchard management and mixed cropping systems.",
+      "email": "centralwest@agronomyclub.org",
+      "colour": "#003049"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 13,
+    "fields": {
+      "name": "Atherton Tablelands Chapter",
+      "abbrev": "ATHERTN",
+      "logo": "",
+      "location": "Atherton, QLD",
+      "desc": "Researching tropical dairy pastures, coffee, and avocado agronomy on the Tablelands.",
+      "email": "athertontablelands@agronomyclub.org",
+      "colour": "#f77f00"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 14,
+    "fields": {
+      "name": "South West Chapter",
+      "abbrev": "SWEST",
+      "logo": "",
+      "location": "Bunbury, WA",
+      "desc": "Covering dairy pasture systems and viticulture agronomy in WA's South West region.",
+      "email": "southwest@agronomyclub.org",
+      "colour": "#fcbf49"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 15,
+    "fields": {
+      "name": "Wimmera Chapter",
+      "abbrev": "WIMMERA",
+      "logo": "",
+      "location": "Horsham, VIC",
+      "desc": "A chapter dedicated to broadacre grain research and dryland cropping trials.",
+      "email": "wimmera@agronomyclub.org",
+      "colour": "#eae2b7"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 16,
+    "fields": {
+      "name": "Hunter Valley Chapter",
+      "abbrev": "HUNTER",
+      "logo": "",
+      "location": "Cessnock, NSW",
+      "desc": "Focused on viticulture agronomy, soil science, and vineyard sustainability practices.",
+      "email": "huntervalley@agronomyclub.org",
+      "colour": "#06d6a0"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 17,
+    "fields": {
+      "name": "Fitzroy Chapter",
+      "abbrev": "FITZROY",
+      "logo": "",
+      "location": "Rockhampton, QLD",
+      "desc": "Supporting beef cattle pasture agronomy and sorghum research in Central Queensland.",
+      "email": "fitzroy@agronomyclub.org",
+      "colour": "#118ab2"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 18,
+    "fields": {
+      "name": "Clare Valley Chapter",
+      "abbrev": "CLARE",
+      "logo": "",
+      "location": "Clare, SA",
+      "desc": "Investigating cool-climate viticulture and Mediterranean cropping systems.",
+      "email": "clarevalley@agronomyclub.org",
+      "colour": "#ef476f"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 19,
+    "fields": {
+      "name": "Huon Valley Chapter",
+      "abbrev": "HUON",
+      "logo": "",
+      "location": "Huonville, TAS",
+      "desc": "Dedicated to apple orchard agronomy and cool-climate horticulture research.",
+      "email": "huonvalley@agronomyclub.org",
+      "colour": "#073b4c"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 20,
+    "fields": {
+      "name": "Kimberley Chapter",
+      "abbrev": "KIMBRLY",
+      "logo": "",
+      "location": "Broome, WA",
+      "desc": "Exploring pastoral rangeland management and cattle station agronomy in the Kimberley.",
+      "email": "kimberley@agronomyclub.org",
+      "colour": "#ffd166"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 21,
+    "fields": {
+      "name": "Goulburn Valley Chapter",
+      "abbrev": "GOULBRN",
+      "logo": "",
+      "location": "Shepparton, VIC",
+      "desc": "Focused on stone fruit orchards, dairy pastures, and irrigation agronomy.",
+      "email": "goulburnvalley@agronomyclub.org",
+      "colour": "#8338ec"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 22,
+    "fields": {
+      "name": "New England Chapter",
+      "abbrev": "NEWENG",
+      "logo": "",
+      "location": "Armidale, NSW",
+      "desc": "Supporting wool production, pasture improvement, and high-altitude cropping research.",
+      "email": "newengland@agronomyclub.org",
+      "colour": "#3a86ff"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 23,
+    "fields": {
+      "name": "Eyre Peninsula Chapter",
+      "abbrev": "EYRE",
+      "logo": "",
+      "location": "Port Lincoln, SA",
+      "desc": "Researching low-rainfall grain cropping and coastal soil conservation techniques.",
+      "email": "eyrepeninsula@agronomyclub.org",
+      "colour": "#fb5607"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 24,
+    "fields": {
+      "name": "Capricorn Coast Chapter",
+      "abbrev": "CAPRICN",
+      "logo": "",
+      "location": "Yeppoon, QLD",
+      "desc": "Specialising in macadamia orchards and subtropical horticultural agronomy.",
+      "email": "capricorncoast@agronomyclub.org",
+      "colour": "#ff006e"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 25,
+    "fields": {
+      "name": "Margaret River Chapter",
+      "abbrev": "MARGRVR",
+      "logo": "",
+      "location": "Margaret River, WA",
+      "desc": "Focused on premium viticulture and vineyard soil management studies.",
+      "email": "margaretriver@agronomyclub.org",
+      "colour": "#06a77d"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 26,
+    "fields": {
+      "name": "Snowy Mountains Chapter",
+      "abbrev": "SNOWY",
+      "logo": "",
+      "location": "Cooma, NSW",
+      "desc": "Covering alpine grazing systems and cold-tolerant pasture species research.",
+      "email": "snowymountains@agronomyclub.org",
+      "colour": "#d90429"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 27,
+    "fields": {
+      "name": "Sunraysia Chapter",
+      "abbrev": "SUNRAY",
+      "logo": "",
+      "location": "Mildura, VIC",
+      "desc": "Dedicated to citrus and table grape agronomy along the Murray River irrigation belt.",
+      "email": "sunraysia@agronomyclub.org",
+      "colour": "#4361ee"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 28,
+    "fields": {
+      "name": "Burnett Chapter",
+      "abbrev": "BURNETT",
+      "logo": "",
+      "location": "Bundaberg, QLD",
+      "desc": "Focused on sugarcane agronomy and irrigated horticulture in the Burnett region.",
+      "email": "burnett@agronomyclub.org",
+      "colour": "#4cc9f0"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 29,
+    "fields": {
+      "name": "Derwent Valley Chapter",
+      "abbrev": "DERWENT",
+      "logo": "",
+      "location": "New Norfolk, TAS",
+      "desc": "Researching hop cultivation agronomy and cool-climate specialty crops.",
+      "email": "derwentvalley@agronomyclub.org",
+      "colour": "#b5179e"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 30,
+    "fields": {
+      "name": "Pilbara Chapter",
+      "abbrev": "PILBARA",
+      "logo": "",
+      "location": "Karratha, WA",
+      "desc": "Exploring arid-zone pastoral agronomy and rangeland rehabilitation studies.",
+      "email": "pilbara@agronomyclub.org",
+      "colour": "#52b788"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 31,
+    "fields": {
+      "name": "Riverland Chapter",
+      "abbrev": "REVLAND",
+      "logo": "",
+      "location": "Renmark, SA",
+      "desc": "Focused on citrus and almond orchard agronomy along the Murray River irrigation area.",
+      "email": "riverland@agronomyclub.org",
+      "colour": "#ffbe0b"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 32,
+    "fields": {
+      "name": "Lockyer Valley Chapter",
+      "abbrev": "LOCKYER",
+      "logo": "",
+      "location": "Gatton, QLD",
+      "desc": "Specialising in vegetable and salad crop agronomy in Queensland's food bowl.",
+      "email": "lockyervalley@agronomyclub.org",
+      "colour": "#fb8500"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 33,
+    "fields": {
+      "name": "Central Highlands Chapter",
+      "abbrev": "CHIGHLD",
+      "logo": "",
+      "location": "Emerald, QLD",
+      "desc": "Researching irrigated cotton and grain cropping systems in Central Queensland.",
+      "email": "centralhighlands@agronomyclub.org",
+      "colour": "#219ebc"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 34,
+    "fields": {
+      "name": "Wide Bay Chapter",
+      "abbrev": "WIDEBAY",
+      "logo": "",
+      "location": "Maryborough, QLD",
+      "desc": "Covering macadamia and sugarcane agronomy along the Wide Bay coastline.",
+      "email": "widebay@agronomyclub.org",
+      "colour": "#8ecae6"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 35,
+    "fields": {
+      "name": "Goldfields Chapter",
+      "abbrev": "GOLDFLD",
+      "logo": "",
+      "location": "Kalgoorlie, WA",
+      "desc": "Studying arid rangeland restoration and pastoral agronomy in the WA goldfields.",
+      "email": "goldfields@agronomyclub.org",
+      "colour": "#023047"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 36,
+    "fields": {
+      "name": "Peel Chapter",
+      "abbrev": "PEEL",
+      "logo": "",
+      "location": "Mandurah, WA",
+      "desc": "Focused on dairy pasture management and coastal horticultural agronomy.",
+      "email": "peel@agronomyclub.org",
+      "colour": "#390099"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 37,
+    "fields": {
+      "name": "Northern Rivers Chapter",
+      "abbrev": "NRIVERS",
+      "logo": "",
+      "location": "Lismore, NSW",
+      "desc": "Dedicated to macadamia, sugarcane, and subtropical dairy pasture research.",
+      "email": "northernrivers@agronomyclub.org",
+      "colour": "#9e0059"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 38,
+    "fields": {
+      "name": "Central Coast Chapter",
+      "abbrev": "CCOAST",
+      "logo": "",
+      "location": "Gosford, NSW",
+      "desc": "Exploring intensive horticulture and market garden agronomy techniques.",
+      "email": "centralcoast@agronomyclub.org",
+      "colour": "#ff0054"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 39,
+    "fields": {
+      "name": "Otway Chapter",
+      "abbrev": "OTWAY",
+      "logo": "",
+      "location": "Colac, VIC",
+      "desc": "Focused on dairy pasture management in Victoria's temperate south west.",
+      "email": "otway@agronomyclub.org",
+      "colour": "#ffbc42"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 40,
+    "fields": {
+      "name": "Grampians Chapter",
+      "abbrev": "GRAMPNS",
+      "logo": "",
+      "location": "Ararat, VIC",
+      "desc": "Supporting grain cropping and wool production agronomy research.",
+      "email": "grampians@agronomyclub.org",
+      "colour": "#d81159"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 41,
+    "fields": {
+      "name": "Yorke Peninsula Chapter",
+      "abbrev": "YORKEPN",
+      "logo": "",
+      "location": "Maitland, SA",
+      "desc": "Focused on broadacre grain and legume cropping systems research.",
+      "email": "yorkepeninsula@agronomyclub.org",
+      "colour": "#8f2d56"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 42,
+    "fields": {
+      "name": "Limestone Coast Chapter",
+      "abbrev": "LIMESTN",
+      "logo": "",
+      "location": "Mount Gambier, SA",
+      "desc": "Studying viticulture, forestry, and dairy agronomy on volcanic soils.",
+      "email": "limestonecoast@agronomyclub.org",
+      "colour": "#218380"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 43,
+    "fields": {
+      "name": "Granite Belt Chapter",
+      "abbrev": "GRANITE",
+      "logo": "",
+      "location": "Stanthorpe, QLD",
+      "desc": "Focused on stone fruit orchards and cool-climate viticulture research.",
+      "email": "granitebelt@agronomyclub.org",
+      "colour": "#73d2de"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 44,
+    "fields": {
+      "name": "Isaac Chapter",
+      "abbrev": "ISAAC",
+      "logo": "",
+      "location": "Moranbah, QLD",
+      "desc": "Covering grain cropping and cattle grazing agronomy in the Bowen Basin.",
+      "email": "isaac@agronomyclub.org",
+      "colour": "#6a4c93"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 45,
+    "fields": {
+      "name": "Barwon Chapter",
+      "abbrev": "BARWON",
+      "logo": "",
+      "location": "Geelong, VIC",
+      "desc": "Researching wool, grain, and coastal dairy pasture agronomy.",
+      "email": "barwon@agronomyclub.org",
+      "colour": "#1982c4"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 46,
+    "fields": {
+      "name": "Loddon Chapter",
+      "abbrev": "LODDON",
+      "logo": "",
+      "location": "Kerang, VIC",
+      "desc": "Focused on irrigated dairy pasture and rice growing agronomy.",
+      "email": "loddon@agronomyclub.org",
+      "colour": "#ff595e"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 47,
+    "fields": {
+      "name": "Macquarie Chapter",
+      "abbrev": "MACQRIE",
+      "logo": "",
+      "location": "Dubbo, NSW",
+      "desc": "Supporting mixed farming and broadacre grain cropping systems research.",
+      "email": "macquarie@agronomyclub.org",
+      "colour": "#ffca3a"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 48,
+    "fields": {
+      "name": "Clarence Valley Chapter",
+      "abbrev": "CLARNCE",
+      "logo": "",
+      "location": "Grafton, NSW",
+      "desc": "Focused on sugarcane and beef cattle pasture agronomy on the NSW north coast.",
+      "email": "clarencevalley@agronomyclub.org",
+      "colour": "#c5d86d"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 49,
+    "fields": {
+      "name": "Ovens Murray Chapter",
+      "abbrev": "OVENSMY",
+      "logo": "",
+      "location": "Wangaratta, VIC",
+      "desc": "Researching hops and cool-climate viticulture agronomy in north east Victoria.",
+      "email": "ovensmurray@agronomyclub.org",
+      "colour": "#a663cc"
+    }
+  },
+  {
+    "model": "agronomy_club.chapter",
+    "pk": 50,
+    "fields": {
+      "name": "Esperance Chapter",
+      "abbrev": "ESPERNC",
+      "logo": "",
+      "location": "Esperance, WA",
+      "desc": "Studying grain and canola cropping systems along WA's south coast.",
+      "email": "esperance@agronomyclub.org",
+      "colour": "#4ea8de"
+    }
+  }
+]

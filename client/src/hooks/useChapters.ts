@@ -3,6 +3,13 @@ import { AxiosError } from "axios";
 
 import api from "@/lib/api";
 
+type PaginatedResponse<T> = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+};
+
 export type ApiChapterList = {
   id: number;
   name: string;
@@ -13,17 +20,18 @@ export type ApiChapterList = {
   colour: string;
 };
 
-export const useChapters = (
-  args?: Omit<
-    UseQueryOptions<ApiChapterList[], AxiosError>,
-    "queryKey" | "queryFn"
-  >,
-) => {
-  return useQuery<ApiChapterList[], AxiosError>({
-    ...args,
-    queryKey: ["chapters"],
+export const useChapters = (page: number = 1, pageSize: number) => {
+  return useQuery<PaginatedResponse<ApiChapterList>, AxiosError>({
+    queryKey: ["chapters", page, pageSize],
     queryFn: () =>
-      api.get<ApiChapterList[]>("/chapters/").then((res) => res.data),
+      api
+        .get<PaginatedResponse<ApiChapterList>>("/chapters/", {
+          params: {
+            page,
+            pageSize,
+          },
+        })
+        .then((res) => res.data),
     retry: (failureCount, error) => {
       if (error?.response?.status === 404) {
         return false;
