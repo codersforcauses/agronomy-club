@@ -87,27 +87,35 @@ export function Footer() {
         </div>
         <div className="border-t border-brand-surface/30 pt-4">
           <div className="flex flex-col gap-6 text-sm/6 md:flex-row md:items-center md:justify-between">
-            <p className="text-brand-surface">
-              © 2026 Agronomy Club. Cultivating Excellence.
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-4">
+              <p className="text-brand-surface">
+                © 2026 Agronomy Club. Cultivating Excellence.
+              </p>
+              <div className="hidden h-4 w-px bg-brand-surface sm:block" />
+              <Link
+                href="/privacy-policy"
+                className="text-sm/6 text-brand-surface hover:text-brand-yellow"
+              >
+                Privacy Policy
+              </Link>
+              <div className="hidden h-4 w-px bg-brand-surface sm:block" />
+              <Link
+                href="/terms-of-service"
+                className="text-sm/6 text-brand-surface hover:text-brand-yellow"
+              >
+                Terms of Service
+              </Link>
+            </div>
+            <p>
+              Website by
+              <a
+                href="https://codersforcauses.org/"
+                className="whitespace-nowrap font-plex-mono font-semibold"
+              >
+                {" "}
+                ./Coders for Causes
+              </a>
             </p>
-            <ul className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-              <li>
-                <Link
-                  href="/privacy-policy"
-                  className="text-sm/6 text-brand-surface hover:text-brand-yellow"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/terms-of-service"
-                  className="text-sm/6 text-brand-surface hover:text-brand-yellow"
-                >
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
           </div>
         </div>
       </div>

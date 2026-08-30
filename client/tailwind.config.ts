@@ -21,6 +21,7 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+        "plex-mono": ["IBM Plex Mono", "monospace"],
         content: [
           "var(--font-merriweather)",
           "Merriweather",
