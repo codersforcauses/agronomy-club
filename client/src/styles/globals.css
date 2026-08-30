@@ -101,6 +101,6 @@
   }
 
   a:hover {
-    @apply text-brand-yellow;
+    @apply text-brand-green;
   }
 }

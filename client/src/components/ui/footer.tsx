@@ -110,7 +110,7 @@ export function Footer() {
               Website by
               <a
                 href="https://codersforcauses.org/"
-                className="whitespace-nowrap font-plex-mono font-semibold"
+                className="whitespace-nowrap font-plex-mono font-semibold hover:text-brand-yellow"
               >
                 {" "}
                 ./Coders for Causes
