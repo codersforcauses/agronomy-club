@@ -76,6 +76,7 @@ export default function Home() {
                 src="/PlantPhotoAgronomy.jpeg"
                 alt="Agronomy Plants"
                 fill
+                sizes="(max-width: 360px) 100vw, (max-width: 767px) 360px, (max-width: 1023px) 410px, (max-width: 1279px) 440px, 510px"
                 className="object-cover"
                 priority
               />

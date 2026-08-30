@@ -32,6 +32,7 @@ export function AlumniCard({ alumni }: { alumni: Alumni }) {
             alt={`${alumni.name}'s profile picture`}
             fill
             className="object-cover"
+            sizes="220px"
           />
         ) : (
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-green font-semibold text-white">
